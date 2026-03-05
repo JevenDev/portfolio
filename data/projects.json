@@ -374,5 +374,42 @@
         "gallery": [
             {"label": "Created using Adobe Photoshop", "url": "assets/images/misc/artwork/change-poster.png"}
         ]
+    },
+    {
+        "id": "artwork-027",
+        "type": "artwork",
+        "title": "'PERFECTIONIST' - Single Cover Art",
+        "year": "February 2026",
+        "tags": ["Design", "Digital Art", "Photoshop Composite"],
+        "thumb": "assets/images/misc/artwork/perfectionist-cover.png",
+        "gallery": [
+            {"label": "Created using Adobe Photoshop", "url": "assets/images/misc/artwork/perfectionist-cover.png"},
+            {"label": " ", "url": "assets/images/misc/artwork/perfectionist-alt-cover-1.png"},
+            {"label": "Alternate covers, Created using Photoshop", "url": "assets/images/misc/artwork/perfectionist-alt-cover-2.png"}
+        ]
+    },
+    {
+        "id": "artwork-028",
+        "type": "artwork",
+        "title": "'flow state' - Single Cover Art",
+        "year": "February 2026",
+        "tags": ["Design", "Digital Art", "Photoshop Composite"],
+        "thumb": "assets/images/misc/artwork/flow-state-cover.png",
+        "gallery": [
+            {"label": "Created using Adobe Photoshop", "url": "assets/images/misc/artwork/flow-state-cover.png"},
+            {"label": " ", "url": "assets/images/misc/artwork/flow-state-alt-cover-1.png"},
+            {"label": "Alternate covers, Created using Photoshop", "url": "assets/images/misc/artwork/flow-state-alt-cover-2.png"}
+        ]
+    },
+    {
+        "id": "artwork-029",
+        "type": "artwork",
+        "title": "'if i wanna' - Single Cover Art",
+        "year": "March 2026",
+        "tags": ["Design", "Digital Art", "Photoshop Composite"],
+        "thumb": "assets/images/misc/artwork/if-i-wanna-cover.png",
+        "gallery": [
+            {"label": "Created using Adobe Photoshop", "url": "assets/images/misc/artwork/if-i-wanna-cover.png"}
+        ]
     }
 ]
