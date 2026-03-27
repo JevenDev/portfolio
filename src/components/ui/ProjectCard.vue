@@ -10,7 +10,7 @@
         <img
           :src="project.thumb"
           :alt="project.title"
-          class="aspect-[4/3] w-full object-cover transition duration-500 group-hover:scale-[1.02]"
+          class="aspect-square w-full object-cover transition duration-500 group-hover:scale-[1.02]"
           decoding="async"
           fetchpriority="low"
           loading="lazy"
