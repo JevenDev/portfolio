@@ -1,5 +1,5 @@
 <template>
-  <article class="project-card group flex h-full flex-col border border-line bg-paper transition duration-300 hover:border-ink/30 hover:shadow-card">
+  <article class="project-card group frame-block flex h-full flex-col transition duration-300 hover:border-ink/30">
     <button
       type="button"
       class="focus-ring block text-left"
@@ -10,7 +10,7 @@
         <img
           :src="project.thumb"
           :alt="project.title"
-          class="aspect-square w-full object-cover transition duration-500 group-hover:scale-[1.02]"
+          class="aspect-[5/4] w-full object-cover transition duration-500 group-hover:scale-[1.02]"
           decoding="async"
           fetchpriority="low"
           loading="lazy"
@@ -25,7 +25,7 @@
           <span>{{ project.type === 'artwork' ? 'Artwork' : 'Project' }}</span>
         </div>
 
-        <h3 class="font-display text-xl font-semibold leading-tight tracking-[-0.02em] text-ink">
+        <h3 class="font-display text-2xl font-semibold leading-tight tracking-[-0.03em] text-ink">
           {{ project.title }}
         </h3>
 

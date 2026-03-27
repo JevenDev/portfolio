@@ -1,8 +1,14 @@
 <template>
-  <div class="fixed inset-x-0 top-0 z-40 hidden h-10 border-b border-line bg-paper/95 backdrop-blur md:block">
-    <div class="section-wrap flex h-full items-center justify-center">
-      <p class="text-xs font-semibold uppercase leading-none tracking-[0.16em] text-muted">
-        JVN // {{ activeSkill }}
+  <div class="fixed inset-x-0 top-0 z-40 hidden h-8 border-b border-line/90 bg-paper/95 backdrop-blur md:block">
+    <div class="section-wrap flex h-full items-center justify-between">
+      <p class="text-[10px] font-semibold uppercase leading-none tracking-[0.16em] text-muted">
+        Graphic Designer + Producer
+      </p>
+      <p class="max-w-[34rem] truncate text-[10px] font-semibold uppercase leading-none tracking-[0.16em] text-muted">
+        {{ activeSkill }}
+      </p>
+      <p class="text-[10px] font-semibold uppercase leading-none tracking-[0.16em] text-muted">
+        Brampton, ON
       </p>
     </div>
   </div>
@@ -26,7 +32,7 @@ const currentIndex = ref(0);
 let intervalId;
 
 const activeSkill = computed(() => {
-  if (!props.skills.length) return 'Graphic Designer & Producer';
+  if (!props.skills.length) return 'Creative Direction';
   return props.skills[currentIndex.value % props.skills.length];
 });
 

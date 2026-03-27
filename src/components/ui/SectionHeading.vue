@@ -1,15 +1,15 @@
 <template>
-  <div ref="root" class="mb-12 space-y-4" data-reveal>
-    <p v-if="eyebrow" class="text-xs font-semibold uppercase tracking-[0.22em] text-muted">
+  <div ref="root" class="space-y-4" data-reveal>
+    <p v-if="eyebrow" class="eyebrow-label">
       {{ eyebrow }}
     </p>
     <h2
       ref="titleRef"
-      class="max-w-4xl pb-1 font-display text-4xl font-semibold leading-[1.12] tracking-[-0.03em] text-ink md:text-6xl"
+      class="max-w-5xl pb-1 font-display text-[clamp(2.2rem,6.2vw,5.25rem)] font-semibold leading-[1.06] tracking-[-0.04em] text-ink"
     >
       {{ title }}
     </h2>
-    <p v-if="description" class="max-w-2xl text-base leading-relaxed text-muted md:text-lg">
+    <p v-if="description" class="editorial-lead">
       {{ description }}
     </p>
   </div>

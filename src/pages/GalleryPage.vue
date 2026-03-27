@@ -1,5 +1,5 @@
 <template>
-  <main class="pt-16 md:pt-[6.5rem]">
+  <main class="pt-14 md:pt-[5.5rem]">
     <WorkGallerySection
       :projects="visibleProjects"
       :active-tags="activeTags"

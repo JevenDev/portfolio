@@ -1,20 +1,20 @@
 <template>
-  <header class="fixed inset-x-0 top-0 z-40 border-b border-line bg-paper/95 backdrop-blur md:top-9">
-    <div class="section-wrap flex h-[4.25rem] items-center justify-between md:h-[4.5rem]">
+  <header class="fixed inset-x-0 top-0 z-40 border-b border-line/90 bg-paper/95 backdrop-blur md:top-8">
+    <div class="section-wrap flex h-14 items-center justify-between md:h-[3.75rem]">
       <button
         type="button"
-        class="focus-ring font-display text-base font-semibold uppercase leading-none tracking-[0.14em] text-ink"
+        class="focus-ring font-display text-sm font-semibold uppercase leading-none tracking-[0.14em] text-ink"
         @click="onNavigate('hero')"
       >
         JVN Graphics
       </button>
 
-      <nav aria-label="Primary" class="hidden items-center gap-7 md:flex">
+      <nav aria-label="Primary" class="hidden items-center gap-6 lg:flex">
         <button
           v-for="item in navItems"
           :key="item.id"
           type="button"
-          class="focus-ring border-b border-transparent pb-1 text-xs font-semibold uppercase leading-none tracking-[0.16em] transition"
+          class="focus-ring border-b border-transparent pb-[0.2rem] text-[11px] font-semibold uppercase leading-none tracking-[0.16em] transition"
           :class="activeSection === item.id ? 'border-ink text-ink' : 'text-muted hover:text-ink'"
           @click="onNavigate(item.id)"
         >
@@ -25,7 +25,7 @@
       <div class="flex items-center gap-3">
         <button
           type="button"
-          class="focus-ring hidden border border-ink px-3 py-2 text-xs font-semibold uppercase leading-none tracking-[0.16em] text-ink transition hover:bg-ink hover:text-paper md:inline-flex"
+          class="focus-ring hidden text-[11px] font-semibold uppercase tracking-[0.16em] text-muted transition hover:text-ink md:inline-flex"
           @click="onNavigate('contact')"
         >
           Contact
@@ -33,23 +33,23 @@
 
         <button
           type="button"
-          class="focus-ring inline-flex h-9 w-9 items-center justify-center border border-line text-ink md:hidden"
+          class="focus-ring inline-flex h-8 w-8 items-center justify-center border border-line text-ink lg:hidden"
           :aria-expanded="String(menuOpen)"
           aria-label="Toggle navigation"
           @click="menuOpen = !menuOpen"
         >
-          <span class="text-lg leading-none">{{ menuOpen ? 'x' : '+' }}</span>
+          <span class="text-base leading-none">{{ menuOpen ? 'x' : '+' }}</span>
         </button>
       </div>
     </div>
 
     <transition name="menu">
-      <nav v-if="menuOpen" class="border-t border-line bg-paper p-5 md:hidden">
-        <ul class="space-y-3">
+      <nav v-if="menuOpen" class="border-t border-line bg-paper px-5 py-4 lg:hidden">
+        <ul class="space-y-2">
           <li v-for="item in navItems" :key="`mobile-${item.id}`">
             <button
               type="button"
-              class="focus-ring w-full border border-line px-4 py-3 text-left text-xs font-semibold uppercase leading-none tracking-[0.16em] text-ink"
+              class="focus-ring w-full border border-line px-4 py-2.5 text-left text-xs font-semibold uppercase leading-none tracking-[0.16em] text-ink"
               @click="onNavigate(item.id)"
             >
               {{ item.label }}
@@ -58,7 +58,7 @@
           <li>
             <button
               type="button"
-              class="focus-ring w-full border border-ink px-4 py-3 text-left text-xs font-semibold uppercase leading-none tracking-[0.16em] text-ink"
+              class="focus-ring w-full border border-ink px-4 py-2.5 text-left text-xs font-semibold uppercase leading-none tracking-[0.16em] text-ink"
               @click="onNavigate('contact')"
             >
               Contact
@@ -84,11 +84,10 @@ const emit = defineEmits(['navigate']);
 const menuOpen = ref(false);
 
 const navItems = [
-  { id: 'projects', label: 'Top Projects' },
   { id: 'work', label: 'Selected Work' },
+  { id: 'projects', label: 'Featured Projects' },
   { id: 'gallery', label: 'Full Gallery' },
-  { id: 'music', label: 'Production' },
-  { id: 'artists', label: 'Artists' },
+  { id: 'artists', label: 'Collaborators' },
   { id: 'about', label: 'About' }
 ];
 

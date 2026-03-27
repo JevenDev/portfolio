@@ -35,11 +35,27 @@
 
 @layer components {
   .section-shell {
-    @apply border-b border-line py-20 md:py-28;
+    @apply border-b border-line py-20 md:py-32;
   }
 
   .section-wrap {
     @apply mx-auto w-full max-w-7xl px-5 md:px-8;
+  }
+
+  .section-wrap-wide {
+    @apply mx-auto w-full max-w-[96rem] px-5 md:px-8;
+  }
+
+  .frame-block {
+    @apply border border-line bg-paper;
+  }
+
+  .eyebrow-label {
+    @apply text-[11px] font-semibold uppercase tracking-[0.2em] text-muted;
+  }
+
+  .editorial-lead {
+    @apply max-w-2xl text-base leading-relaxed text-muted md:text-lg;
   }
 
   .focus-ring {

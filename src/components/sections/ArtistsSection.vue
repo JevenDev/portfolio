@@ -1,10 +1,10 @@
 <template>
   <section id="artists" class="section-shell">
-    <div ref="root" class="section-wrap">
+    <div ref="root" class="section-wrap space-y-8">
       <SectionHeading
         eyebrow="Collaborators"
-        title="Artists I've Worked With"
-        description="Creative partners across engineering, production, and visual direction work."
+        title="Clients I've Worked With"
+        description="Creative partners across production, engineering, and visual direction."
       />
 
       <div class="grid gap-5 md:grid-cols-2 xl:grid-cols-3">

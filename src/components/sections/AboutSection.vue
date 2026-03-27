@@ -1,33 +1,46 @@
 <template>
   <section id="about" class="section-shell">
-    <div ref="root" class="section-wrap grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(280px,340px)] lg:items-start lg:gap-10">
-      <div>
-        <SectionHeading eyebrow="About" title="Designer First, Producer Integrated" :description="headline" />
+    <div ref="root" class="section-wrap space-y-10">
+      <div class="grid gap-8 border-b border-line pb-10 md:grid-cols-[minmax(0,1fr)_minmax(240px,320px)] md:items-end">
+        <div class="space-y-5">
+          <p class="eyebrow-label" data-reveal>Positioning</p>
+          <h2 class="max-w-5xl font-display text-4xl font-semibold leading-[1.04] tracking-[-0.04em] text-ink md:text-7xl">
+            Designer First.
+            <br />
+            Producer Integrated.
+          </h2>
+          <p class="editorial-lead" data-reveal>{{ headline }}</p>
+        </div>
 
-        <div class="max-w-3xl space-y-5 text-base leading-relaxed text-ink/90 md:text-lg" data-reveal>
-          <p v-for="(paragraph, index) in paragraphs" :key="`about-paragraph-${index}`">{{ paragraph }}</p>
+        <div class="frame-block bg-shell p-5 md:p-6" data-reveal>
+          <p class="eyebrow-label">Based In</p>
+          <p class="mt-2 font-display text-2xl font-semibold tracking-[-0.02em] text-ink">{{ location }}</p>
+          <p class="mt-3 text-sm leading-relaxed text-muted">
+            Visual direction and audio production for artists, releases, and digital experiences.
+          </p>
         </div>
       </div>
 
-      <aside class="w-full max-w-[360px] justify-self-end space-y-5 border border-line bg-shell p-5 md:p-6" data-reveal>
-        <div>
-          <p class="text-xs font-semibold uppercase tracking-[0.16em] text-muted">Location</p>
-          <p class="mt-1 text-lg font-semibold text-ink">{{ location }}</p>
+      <div class="grid gap-8 md:grid-cols-[minmax(0,1fr)_minmax(260px,360px)] md:gap-10">
+        <div class="max-w-3xl space-y-5 text-base leading-relaxed text-ink/90 md:text-lg" data-reveal>
+          <p v-for="(paragraph, index) in paragraphs" :key="`about-paragraph-${index}`">{{ paragraph }}</p>
         </div>
 
-        <div>
-          <p class="text-xs font-semibold uppercase tracking-[0.16em] text-muted">Capabilities</p>
-          <ul class="mt-3 flex flex-wrap gap-2">
-            <li
-              v-for="skill in skills"
-              :key="skill"
-              class="rounded-full border border-line bg-paper px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.1em] text-ink/90"
-            >
-              {{ skill }}
-            </li>
-          </ul>
-        </div>
-      </aside>
+        <aside class="space-y-5" data-reveal>
+          <div class="frame-block p-5 md:p-6">
+            <p class="eyebrow-label">Capabilities</p>
+            <ul class="mt-4 flex flex-wrap gap-2">
+              <li
+                v-for="skill in skills"
+                :key="skill"
+                class="rounded-full border border-line bg-paper px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.1em] text-ink/90"
+              >
+                {{ skill }}
+              </li>
+            </ul>
+          </div>
+        </aside>
+      </div>
     </div>
   </section>
 </template>
@@ -35,7 +48,6 @@
 <script setup>
 import { computed, ref } from 'vue';
 import { useScrollReveal } from '../../composables/useScrollReveal';
-import SectionHeading from '../ui/SectionHeading.vue';
 
 const props = defineProps({
   body: {
