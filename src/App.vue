@@ -1,66 +1,49 @@
 <template>
   <div class="bg-paper">
     <TopTicker :skills="config.skills" :interval-ms="config.tickerIntervalMs" />
-    <SiteHeader :active-section="activeSection" @navigate="scrollToSection" />
+    <SiteHeader :active-section="activeSection" @navigate="handleNavigation" />
 
-    <main ref="mainRef" class="pt-16 md:pt-[6.5rem]">
-      <HeroSection
-        :name="'Jeven Randhawa'"
-        :tagline="config.tagline"
-        :location="config.location"
-        @navigate="scrollToSection"
-      />
-
-      <SelectedWorkSection :projects="featuredProjects" @navigate="scrollToSection" @open="openProject" />
-
-      <WorkGallerySection
+    <RouterView v-slot="{ Component }">
+      <component
+        :is="Component"
+        :artists="artists"
+        :config="config"
+        :featured-projects="featuredProjects"
+        :music-projects="musicProjects"
+        :top-projects="topProjects"
         :projects="filteredSortedProjects"
         :active-tags="activeTags"
         :visible-tags="visibleFilterTags"
         :sort-by="sortBy"
+        @navigate="handleNavigation"
+        @open-project="openProject"
+        @open-artist="openArtist"
         @toggle-tag="toggleTag"
         @update-sort="sortBy = $event"
-        @open="openProject"
       />
+    </RouterView>
 
-      <MusicSection :projects="musicProjects" @open="openProject" />
-
-      <ArtistsSection :artists="artists" @open="openArtist" />
-
-      <AboutSection
-        :headline="config.aboutHeadline"
-        :body="config.aboutBody"
-        :location="config.location"
-        :skills="config.skills"
-      />
-
-      <ContactSection :email="config.email" :socials="config.socials" />
-    </main>
-
-    <SiteFooter />
+    <SiteFooter :socials="config.socials" />
 
     <DetailModal :open="Boolean(modalItem)" :item="modalItem" :mode="modalMode" @close="closeModal" />
 
-    <BackToTop :visible="showBackToTop" @to-top="scrollToSection('hero')" />
+    <BackToTop :visible="showBackToTop" @to-top="handleBackToTop" />
   </div>
 </template>
 
 <script setup>
-import { nextTick, onMounted, onUnmounted, ref } from 'vue';
-import AboutSection from './components/sections/AboutSection.vue';
-import ArtistsSection from './components/sections/ArtistsSection.vue';
-import ContactSection from './components/sections/ContactSection.vue';
-import HeroSection from './components/sections/HeroSection.vue';
-import MusicSection from './components/sections/MusicSection.vue';
-import SelectedWorkSection from './components/sections/SelectedWorkSection.vue';
-import WorkGallerySection from './components/sections/WorkGallerySection.vue';
+import { nextTick, onMounted, onUnmounted, ref, watch } from 'vue';
+import { RouterView, useRoute, useRouter } from 'vue-router';
 import SiteFooter from './components/layout/SiteFooter.vue';
 import SiteHeader from './components/layout/SiteHeader.vue';
 import TopTicker from './components/layout/TopTicker.vue';
 import BackToTop from './components/ui/BackToTop.vue';
 import DetailModal from './components/ui/DetailModal.vue';
 import { usePortfolioData } from './composables/usePortfolioData';
-import { ScrollTrigger, gsap } from './utils/gsap';
+import { gsap } from './utils/gsap';
+
+const route = useRoute();
+const router = useRouter();
 
 const {
   activeTags,
@@ -72,26 +55,32 @@ const {
   projects,
   sortBy,
   toggleTag,
+  topProjects,
   visibleFilterTags
 } = usePortfolioData();
 
-const mainRef = ref(null);
-const activeSection = ref('hero');
+const activeSection = ref(route.path === '/gallery' ? 'gallery' : 'hero');
 const showBackToTop = ref(false);
 const modalItem = ref(null);
 const modalMode = ref('project');
+let galleryPrefetchPromise = null;
+let idlePrefetchId = null;
 
-let ctx;
+let sectionObserver;
 
 function getHeaderOffset() {
-  return window.innerWidth >= 768 ? 104 : 74;
+  return window.innerWidth >= 768 ? 116 : 74;
+}
+
+function prefetchGalleryRoute() {
+  if (!galleryPrefetchPromise) {
+    galleryPrefetchPromise = import('./pages/GalleryPage.vue');
+  }
+
+  return galleryPrefetchPromise;
 }
 
 function scrollToSection(sectionId) {
-  if (modalItem.value) {
-    closeModal();
-  }
-
   const target = document.getElementById(sectionId);
   if (!target) return;
 
@@ -105,7 +94,7 @@ function scrollToSection(sectionId) {
   }
 
   gsap.to(window, {
-    duration: 0.9,
+    duration: 0.85,
     ease: 'power3.out',
     scrollTo: {
       autoKill: true,
@@ -115,85 +104,191 @@ function scrollToSection(sectionId) {
   });
 }
 
-function openProject(project) {
+function scrollPageTop() {
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (reducedMotion) {
+    window.scrollTo({ top: 0, behavior: 'auto' });
+    return;
+  }
+
+  gsap.to(window, {
+    duration: 0.75,
+    ease: 'power3.out',
+    scrollTo: {
+      autoKill: true,
+      y: 0
+    }
+  });
+}
+
+async function handleNavigation(target) {
+  if (target === 'gallery') {
+    await prefetchGalleryRoute();
+
+    if (route.path !== '/gallery') {
+      await router.push('/gallery');
+    }
+    activeSection.value = 'gallery';
+    scrollPageTop();
+    return;
+  }
+
+  if (target === 'hero' && route.path === '/gallery') {
+    await router.push('/');
+    return;
+  }
+
+  if (route.path !== '/') {
+    await router.push({ path: '/', hash: `#${target}` });
+    return;
+  }
+
+  if (route.hash !== `#${target}`) {
+    await router.replace({ path: '/', hash: `#${target}` });
+  }
+
+  activeSection.value = target;
+  scrollToSection(target);
+}
+
+async function openProject(project, options = { updateHash: true }) {
   modalItem.value = project;
   modalMode.value = 'project';
-  history.replaceState(null, '', `#project=${encodeURIComponent(project.id)}`);
+
+  if (options.updateHash) {
+    await router.replace({ path: route.path, hash: `#project=${encodeURIComponent(project.id)}` });
+  }
 }
 
-function openArtist(artist) {
+async function openArtist(artist) {
   modalItem.value = artist;
   modalMode.value = 'artist';
-  if (window.location.hash.startsWith('#project=')) {
-    history.replaceState(null, '', `${window.location.pathname}${window.location.search}`);
+
+  if (route.hash.startsWith('#project=')) {
+    await router.replace({ path: route.path, hash: '' });
   }
 }
 
-function closeModal() {
+async function closeModal() {
   modalItem.value = null;
 
-  if (window.location.hash.startsWith('#project=')) {
-    history.replaceState(null, '', `${window.location.pathname}${window.location.search}`);
+  if (route.hash.startsWith('#project=')) {
+    await router.replace({ path: route.path, hash: '' });
   }
 }
 
-function setupScrollState() {
-  ctx = gsap.context(() => {
-    const sections = gsap.utils.toArray('main section[id]');
+function setupSectionObserver() {
+  sectionObserver?.disconnect();
 
-    sections.forEach((section) => {
-      ScrollTrigger.create({
-        trigger: section,
-        start: 'top 45%',
-        end: 'bottom 45%',
-        onToggle: (trigger) => {
-          if (trigger.isActive) {
-            activeSection.value = section.id;
-          }
+  if (route.path !== '/') {
+    activeSection.value = 'gallery';
+    return;
+  }
+
+  const sections = Array.from(document.querySelectorAll('main section[id]'));
+  if (!sections.length) return;
+
+  sectionObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          activeSection.value = entry.target.id;
         }
       });
-    });
+    },
+    {
+      rootMargin: '-35% 0px -50% 0px',
+      threshold: [0.2, 0.5, 0.8]
+    }
+  );
 
-    ScrollTrigger.create({
-      trigger: 'main',
-      start: 'top -35%',
-      onUpdate: (trigger) => {
-        showBackToTop.value = trigger.progress > 0.05;
-      }
-    });
-  }, mainRef);
+  sections.forEach((section) => sectionObserver.observe(section));
 }
 
-function handleInitialHash() {
-  const hash = window.location.hash;
+function onScroll() {
+  showBackToTop.value = window.scrollY > 420;
+}
 
-  if (!hash) return;
-
-  const projectMatch = hash.match(/^#project=(.+)$/);
-  if (projectMatch) {
-    const projectId = decodeURIComponent(projectMatch[1]);
-    const matched = projects.value.find((project) => project.id === projectId);
-    if (matched) {
-      scrollToSection('work');
-      openProject(matched);
+async function syncFromRoute() {
+  if (!route.hash) {
+    if (route.path === '/gallery') {
+      activeSection.value = 'gallery';
     }
     return;
   }
 
-  const section = hash.replace('#', '');
-  if (section) {
-    scrollToSection(section);
+  if (route.hash.startsWith('#project=')) {
+    const projectId = decodeURIComponent(route.hash.replace('#project=', ''));
+    const matchedProject = projects.value.find((project) => project.id === projectId);
+
+    if (matchedProject) {
+      await openProject(matchedProject, { updateHash: false });
+    }
+    return;
+  }
+
+  if (route.path !== '/') return;
+
+  const sectionId = route.hash.replace('#', '');
+  if (sectionId) {
+    activeSection.value = sectionId;
+    scrollToSection(sectionId);
   }
 }
 
+async function handleBackToTop() {
+  if (route.path === '/gallery') {
+    scrollPageTop();
+    return;
+  }
+
+  await handleNavigation('hero');
+}
+
+watch(
+  () => route.fullPath,
+  async () => {
+    await nextTick();
+    setupSectionObserver();
+    await syncFromRoute();
+  }
+);
+
 onMounted(async () => {
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  if (route.path === '/') {
+    if ('requestIdleCallback' in window) {
+      idlePrefetchId = window.requestIdleCallback(
+        () => {
+          prefetchGalleryRoute();
+        },
+        { timeout: 1500 }
+      );
+    } else {
+      idlePrefetchId = window.setTimeout(() => {
+        prefetchGalleryRoute();
+      }, 300);
+    }
+  }
+
   await nextTick();
-  setupScrollState();
-  handleInitialHash();
+  setupSectionObserver();
+  await syncFromRoute();
 });
 
 onUnmounted(() => {
-  ctx?.revert();
-  ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+  window.removeEventListener('scroll', onScroll);
+  sectionObserver?.disconnect();
+
+  if (idlePrefetchId !== null) {
+    if ('cancelIdleCallback' in window) {
+      window.cancelIdleCallback(idlePrefetchId);
+    } else {
+      window.clearTimeout(idlePrefetchId);
+    }
+  }
 });
 </script>

@@ -8,7 +8,7 @@
 
         <h1
           ref="titleRef"
-          class="max-w-4xl font-display text-5xl font-semibold leading-[0.97] tracking-[-0.04em] text-ink sm:text-6xl lg:text-8xl"
+          class="max-w-4xl pb-2 font-display text-5xl font-semibold leading-[1.03] tracking-[-0.04em] text-ink sm:text-6xl lg:text-8xl"
         >
           {{ name }}
         </h1>

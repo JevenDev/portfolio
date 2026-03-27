@@ -27,6 +27,10 @@
   ::selection {
     @apply bg-ink text-paper;
   }
+
+  .split-line {
+    padding-bottom: 0.1em;
+  }
 }
 
 @layer components {

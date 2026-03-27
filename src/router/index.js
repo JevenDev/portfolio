@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import GalleryPage from '../pages/GalleryPage.vue';
-import HomePage from '../pages/HomePage.vue';
+
+const HomePage = () => import('../pages/HomePage.vue');
+const GalleryPage = () => import('../pages/GalleryPage.vue');
 
 const router = createRouter({
   history: createWebHistory(),

@@ -80,13 +80,28 @@
 
             <section v-if="galleryItems.length" class="mt-8 space-y-6">
               <h4 class="font-display text-xl font-semibold text-ink">Gallery</h4>
-              <div class="grid gap-6 md:grid-cols-2">
+              <div class="grid grid-cols-1 gap-6">
                 <figure
                   v-for="(media, index) in galleryItems"
                   :key="`${item.id}-gallery-${index}`"
-                  class="space-y-2"
+                  class="mx-auto w-full max-w-4xl space-y-2"
                 >
-                  <img :src="media.url" :alt="media.label || item.title" class="w-full border border-line" loading="lazy" />
+                  <video
+                    v-if="media.type === 'video'"
+                    :src="media.url"
+                    class="mx-auto w-full border border-line"
+                    controls
+                    playsinline
+                    preload="metadata"
+                  />
+                  <img
+                    v-else
+                    :src="media.url"
+                    :alt="media.label || item.title"
+                    class="mx-auto w-full border border-line"
+                    decoding="async"
+                    loading="lazy"
+                  />
                   <figcaption v-if="media.label" class="text-sm text-muted">{{ media.label }}</figcaption>
                 </figure>
               </div>
@@ -170,15 +185,26 @@ const galleryItems = computed(() => {
 
   return props.item.gallery.map((item) => {
     if (typeof item === 'string') {
-      return { label: '', url: item };
+      return {
+        label: '',
+        type: getMediaType(item),
+        url: item
+      };
     }
 
     return {
       label: item.label?.trim() || '',
+      type: getMediaType(item.url),
       url: item.url
     };
   });
 });
+
+function getMediaType(url = '') {
+  const normalizedUrl = String(url).toLowerCase().split('?')[0];
+  const videoExt = ['.mp4', '.webm', '.mov', '.m4v'];
+  return videoExt.some((ext) => normalizedUrl.endsWith(ext)) ? 'video' : 'image';
+}
 
 function onKeydown(event) {
   if (event.key === 'Escape' && props.open) {

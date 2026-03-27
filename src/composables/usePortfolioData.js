@@ -21,6 +21,12 @@ export function usePortfolioData() {
   const artists = computed(() => artistsData.map(normalizeArtist));
 
   const featuredProjects = computed(() => getFeaturedProjects(projects.value, config.value.homeShowcase));
+  const topProjects = computed(() =>
+    sortProjects(
+      projects.value.filter((project) => project.type === 'project'),
+      'newest'
+    ).slice(0, 3)
+  );
   const musicProjects = computed(() => projects.value.filter(hasMusicRole).slice(0, 6));
 
   const filteredSortedProjects = computed(() => {
@@ -51,6 +57,7 @@ export function usePortfolioData() {
     musicProjects,
     projects,
     sortBy,
+    topProjects,
     toggleTag,
     visibleFilterTags: PRIMARY_FILTER_TAGS
   };

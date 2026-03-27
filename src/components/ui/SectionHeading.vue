@@ -5,7 +5,7 @@
     </p>
     <h2
       ref="titleRef"
-      class="max-w-4xl font-display text-4xl font-semibold leading-[1.05] tracking-[-0.03em] text-ink md:text-6xl"
+      class="max-w-4xl pb-1 font-display text-4xl font-semibold leading-[1.12] tracking-[-0.03em] text-ink md:text-6xl"
     >
       {{ title }}
     </h2>

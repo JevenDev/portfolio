@@ -1,7 +1,7 @@
 <template>
-  <div class="fixed inset-x-0 top-0 z-40 hidden h-9 border-b border-line bg-paper/95 backdrop-blur md:block">
+  <div class="fixed inset-x-0 top-0 z-40 hidden h-10 border-b border-line bg-paper/95 backdrop-blur md:block">
     <div class="section-wrap flex h-full items-center justify-center">
-      <p class="text-xs font-semibold uppercase tracking-[0.16em] text-muted">
+      <p class="text-xs font-semibold uppercase leading-none tracking-[0.16em] text-muted">
         JVN // {{ activeSkill }}
       </p>
     </div>

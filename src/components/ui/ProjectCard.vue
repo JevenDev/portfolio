@@ -1,5 +1,5 @@
 <template>
-  <article class="group flex h-full flex-col border border-line bg-paper transition duration-300 hover:border-ink/30 hover:shadow-card">
+  <article class="project-card group flex h-full flex-col border border-line bg-paper transition duration-300 hover:border-ink/30 hover:shadow-card">
     <button
       type="button"
       class="focus-ring block text-left"
@@ -11,7 +11,10 @@
           :src="project.thumb"
           :alt="project.title"
           class="aspect-[4/3] w-full object-cover transition duration-500 group-hover:scale-[1.02]"
+          decoding="async"
+          fetchpriority="low"
           loading="lazy"
+          draggable="false"
         />
       </figure>
 
@@ -52,3 +55,10 @@ defineProps({
 
 defineEmits(['open']);
 </script>
+
+<style scoped>
+.project-card {
+  content-visibility: auto;
+  contain-intrinsic-size: 420px;
+}
+</style>

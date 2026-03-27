@@ -1,6 +1,6 @@
 <template>
   <section id="about" class="section-shell">
-    <div ref="root" class="section-wrap grid gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-start">
+    <div ref="root" class="section-wrap grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(280px,340px)] lg:items-start lg:gap-10">
       <div>
         <SectionHeading eyebrow="About" title="Designer First, Producer Integrated" :description="headline" />
 
@@ -9,7 +9,7 @@
         </div>
       </div>
 
-      <aside class="space-y-6 border border-line bg-shell p-6" data-reveal>
+      <aside class="w-full max-w-[340px] justify-self-end space-y-5 border border-line bg-shell p-5 md:p-6" data-reveal>
         <div>
           <p class="text-xs font-semibold uppercase tracking-[0.16em] text-muted">Location</p>
           <p class="mt-1 text-lg font-semibold text-ink">{{ location }}</p>

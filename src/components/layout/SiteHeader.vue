@@ -1,9 +1,9 @@
 <template>
   <header class="fixed inset-x-0 top-0 z-40 border-b border-line bg-paper/95 backdrop-blur md:top-9">
-    <div class="section-wrap flex h-16 items-center justify-between md:h-[4.25rem]">
+    <div class="section-wrap flex h-[4.25rem] items-center justify-between md:h-[4.5rem]">
       <button
         type="button"
-        class="focus-ring font-display text-base font-semibold uppercase tracking-[0.14em] text-ink"
+        class="focus-ring font-display text-base font-semibold uppercase leading-none tracking-[0.14em] text-ink"
         @click="onNavigate('hero')"
       >
         JVN Graphics
@@ -14,7 +14,7 @@
           v-for="item in navItems"
           :key="item.id"
           type="button"
-          class="focus-ring border-b border-transparent pb-1 text-xs font-semibold uppercase tracking-[0.16em] transition"
+          class="focus-ring border-b border-transparent pb-1 text-xs font-semibold uppercase leading-none tracking-[0.16em] transition"
           :class="activeSection === item.id ? 'border-ink text-ink' : 'text-muted hover:text-ink'"
           @click="onNavigate(item.id)"
         >
@@ -25,7 +25,7 @@
       <div class="flex items-center gap-3">
         <button
           type="button"
-          class="focus-ring hidden border border-ink px-3 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-ink transition hover:bg-ink hover:text-paper md:inline-flex"
+          class="focus-ring hidden border border-ink px-3 py-2 text-xs font-semibold uppercase leading-none tracking-[0.16em] text-ink transition hover:bg-ink hover:text-paper md:inline-flex"
           @click="onNavigate('contact')"
         >
           Contact
@@ -38,7 +38,7 @@
           aria-label="Toggle navigation"
           @click="menuOpen = !menuOpen"
         >
-          <span class="text-lg leading-none">{{ menuOpen ? '×' : '+' }}</span>
+          <span class="text-lg leading-none">{{ menuOpen ? 'x' : '+' }}</span>
         </button>
       </div>
     </div>
@@ -49,7 +49,7 @@
           <li v-for="item in navItems" :key="`mobile-${item.id}`">
             <button
               type="button"
-              class="focus-ring w-full border border-line px-4 py-3 text-left text-xs font-semibold uppercase tracking-[0.16em] text-ink"
+              class="focus-ring w-full border border-line px-4 py-3 text-left text-xs font-semibold uppercase leading-none tracking-[0.16em] text-ink"
               @click="onNavigate(item.id)"
             >
               {{ item.label }}
@@ -58,7 +58,7 @@
           <li>
             <button
               type="button"
-              class="focus-ring w-full border border-ink px-4 py-3 text-left text-xs font-semibold uppercase tracking-[0.16em] text-ink"
+              class="focus-ring w-full border border-ink px-4 py-3 text-left text-xs font-semibold uppercase leading-none tracking-[0.16em] text-ink"
               @click="onNavigate('contact')"
             >
               Contact
@@ -84,6 +84,7 @@ const emit = defineEmits(['navigate']);
 const menuOpen = ref(false);
 
 const navItems = [
+  { id: 'projects', label: 'Top Projects' },
   { id: 'work', label: 'Selected Work' },
   { id: 'gallery', label: 'Full Gallery' },
   { id: 'music', label: 'Production' },
