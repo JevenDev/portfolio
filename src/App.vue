@@ -1,5 +1,7 @@
 <template>
   <div class="bg-paper">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
     <TopTicker :skills="config.skills" :interval-ms="config.tickerIntervalMs" />
     <SiteHeader :active-section="activeSection" @navigate="handleNavigation" />
 
@@ -70,6 +72,7 @@ const modalMode = ref('project');
 let galleryPrefetchPromise = null;
 let idlePrefetchId = null;
 let scrollSmoother = null;
+let resizeRaf = null;
 
 let sectionObserver;
 
@@ -89,18 +92,47 @@ function prefersReducedMotion() {
   return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 }
 
+function shouldUseScrollSmoother() {
+  if (prefersReducedMotion()) return false;
+  if (window.matchMedia('(pointer: coarse)').matches) return false;
+  return window.innerWidth >= 768;
+}
+
 function initScrollSmoother() {
   scrollSmoother?.kill();
   scrollSmoother = null;
 
-  if (prefersReducedMotion()) return;
+  if (!shouldUseScrollSmoother()) return;
 
   scrollSmoother = ScrollSmoother.create({
     content: '#smooth-content',
     effects: true,
-    smooth: 0.82,
+    smooth: 0.58,
     smoothTouch: 0,
     wrapper: '#smooth-wrapper'
+  });
+}
+
+function onResize() {
+  if (resizeRaf !== null) {
+    window.cancelAnimationFrame(resizeRaf);
+  }
+
+  resizeRaf = window.requestAnimationFrame(() => {
+    const current = ScrollSmoother.get();
+
+    if (shouldUseScrollSmoother()) {
+      if (!current) {
+        initScrollSmoother();
+      } else {
+        current.refresh();
+      }
+    } else if (current) {
+      current.kill();
+      scrollSmoother = null;
+    }
+
+    onScroll();
   });
 }
 
@@ -311,6 +343,7 @@ watch(
 onMounted(async () => {
   initScrollSmoother();
   window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onResize, { passive: true });
   onScroll();
 
   if (route.path === '/') {
@@ -337,9 +370,14 @@ onMounted(async () => {
 
 onUnmounted(() => {
   window.removeEventListener('scroll', onScroll);
+  window.removeEventListener('resize', onResize);
   sectionObserver?.disconnect();
   scrollSmoother?.kill();
   scrollSmoother = null;
+
+  if (resizeRaf !== null) {
+    window.cancelAnimationFrame(resizeRaf);
+  }
 
   if (idlePrefetchId !== null) {
     if ('cancelIdleCallback' in window) {

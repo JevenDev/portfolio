@@ -3,6 +3,7 @@
     <transition name="fade">
       <div
         v-if="open && item"
+        ref="modalRef"
         class="fixed inset-0 z-50 overflow-y-auto overscroll-contain bg-white/90 px-4 py-8 backdrop-blur-sm"
         role="dialog"
         aria-modal="true"
@@ -13,8 +14,9 @@
       >
         <div class="mx-auto w-full max-w-5xl border border-ink/20 bg-paper p-6 shadow-card md:p-10">
           <button
+            ref="closeButtonRef"
             type="button"
-            class="focus-ring mb-5 inline-flex items-center border border-line px-3 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-muted transition hover:border-ink/30 hover:text-ink"
+            class="focus-ring tap-target mb-5 inline-flex items-center border border-line px-3 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-muted transition hover:border-ink/30 hover:text-ink"
             @click="emit('close')"
           >
             Close
@@ -152,7 +154,7 @@
 </template>
 
 <script setup>
-import { computed, onMounted, onUnmounted, watch } from 'vue';
+import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue';
 
 const props = defineProps({
   item: {
@@ -170,6 +172,9 @@ const props = defineProps({
 });
 
 const emit = defineEmits(['close']);
+const modalRef = ref(null);
+const closeButtonRef = ref(null);
+const previousFocusedElement = ref(null);
 
 const titleId = computed(() => (props.mode === 'artist' ? 'artist-modal-title' : 'project-modal-title'));
 
@@ -211,14 +216,52 @@ function getMediaType(url = '') {
 function onKeydown(event) {
   if (event.key === 'Escape' && props.open) {
     emit('close');
+    return;
   }
+
+  if (event.key !== 'Tab' || !props.open) return;
+
+  const focusable = getFocusableElements();
+  if (!focusable.length) return;
+
+  const first = focusable[0];
+  const last = focusable[focusable.length - 1];
+
+  if (event.shiftKey && document.activeElement === first) {
+    event.preventDefault();
+    last.focus();
+  } else if (!event.shiftKey && document.activeElement === last) {
+    event.preventDefault();
+    first.focus();
+  }
+}
+
+function getFocusableElements() {
+  if (!modalRef.value) return [];
+
+  return Array.from(
+    modalRef.value.querySelectorAll(
+      'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
+    )
+  );
 }
 
 watch(
   () => props.open,
-  (isOpen) => {
+  async (isOpen) => {
     document.documentElement.style.overflow = isOpen ? 'hidden' : '';
     document.body.style.overflow = isOpen ? 'hidden' : '';
+
+    if (isOpen) {
+      previousFocusedElement.value = document.activeElement;
+      await nextTick();
+      closeButtonRef.value?.focus();
+      return;
+    }
+
+    if (previousFocusedElement.value && typeof previousFocusedElement.value.focus === 'function') {
+      previousFocusedElement.value.focus();
+    }
   },
   { immediate: true }
 );

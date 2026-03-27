@@ -17,7 +17,7 @@
 
           <a
             :href="`mailto:${email}`"
-            class="focus-ring inline-flex items-center justify-center border border-ink bg-ink px-6 py-3 text-xs font-semibold uppercase tracking-[0.16em] text-paper transition hover:bg-paper hover:text-ink"
+            class="focus-ring tap-target inline-flex h-11 items-center justify-center border border-ink bg-ink px-6 text-xs font-semibold uppercase leading-none tracking-[0.16em] text-paper transition hover:bg-paper hover:text-ink"
             data-reveal
           >
             Email Me Directly
@@ -36,7 +36,8 @@
                   :href="social.url"
                   target="_blank"
                   rel="noreferrer"
-                  class="focus-ring inline-flex border border-line px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-ink transition hover:border-ink/40"
+                  :aria-label="`${social.label} (opens in a new tab)`"
+                  class="focus-ring tap-target inline-flex h-11 items-center justify-center border border-line px-4 text-xs font-semibold uppercase leading-none tracking-[0.14em] text-ink transition hover:border-ink/40"
                 >
                   {{ social.label }}
                 </a>

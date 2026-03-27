@@ -47,7 +47,7 @@
             :aria-label="`Open details for ${heroProject.title}`"
             @click="emit('open-project', heroProject)"
           >
-            <figure class="overflow-hidden border border-line bg-shell" data-speed="0.96">
+            <figure class="overflow-hidden border border-line bg-shell" data-speed="0.985">
               <img
                 :src="heroProject.thumb"
                 :alt="heroProject.title"
@@ -58,7 +58,7 @@
             </figure>
           </button>
 
-          <div class="grid gap-4 px-2 pb-2 md:grid-cols-[1fr_auto] md:items-end md:gap-8 md:px-3">
+          <div class="grid gap-4 px-2 pb-2 md:grid-cols-[1fr_auto] md:items-start md:gap-8 md:px-3">
             <div data-reveal>
               <p class="eyebrow-label">Featured Right Now</p>
               <p class="mt-2 font-display text-2xl font-semibold tracking-[-0.03em] text-ink md:text-4xl">
@@ -70,8 +70,9 @@
             </div>
 
             <div class="space-y-2 md:text-right" data-reveal>
-              <p class="text-xs font-semibold uppercase tracking-[0.16em] text-muted">{{ location }}</p>
-              <p v-if="heroProject?.year" class="text-xs font-semibold uppercase tracking-[0.16em] text-muted">
+              <p class="eyebrow-label">Location</p>
+              <p class="text-sm font-semibold tracking-[-0.01em] text-muted">{{ location }}</p>
+              <p v-if="heroProject?.year" class="text-sm font-semibold tracking-[-0.01em] text-muted">
                 {{ heroProject.year }}
               </p>
               <button

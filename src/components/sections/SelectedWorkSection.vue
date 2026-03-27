@@ -29,7 +29,8 @@
                 :src="featuredProject.thumb"
                 :alt="featuredProject.title"
                 class="aspect-[4/3] h-full w-full object-cover transition duration-500 group-hover:scale-[1.02]"
-                data-speed="0.97"
+                data-speed="0.99"
+                fetchpriority="low"
                 loading="lazy"
                 decoding="async"
               />
@@ -83,7 +84,8 @@
                 :src="project.thumb"
                 :alt="project.title"
                 class="aspect-[5/4] w-full border-b border-line object-cover transition duration-500 group-hover:scale-[1.015]"
-                data-speed="0.99"
+                data-speed="0.995"
+                fetchpriority="low"
                 loading="lazy"
                 decoding="async"
               />
@@ -154,4 +156,3 @@ useScrollReveal(root);
 const featuredProject = computed(() => props.projects[0] || null);
 const secondaryProjects = computed(() => props.projects.slice(1));
 </script>
-

@@ -3,7 +3,7 @@
     <button
       v-if="visible"
       type="button"
-      class="focus-ring fixed bottom-5 right-5 z-30 border border-line bg-paper px-3 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-ink shadow-card"
+      class="focus-ring tap-target fixed bottom-5 right-5 z-30 border border-line bg-paper px-3 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-ink shadow-card"
       @click="$emit('to-top')"
     >
       Top

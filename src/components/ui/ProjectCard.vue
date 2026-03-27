@@ -8,7 +8,7 @@
     >
       <figure class="overflow-hidden border-b border-line bg-shell">
         <img
-          :src="project.thumb"
+          :src="project.thumbCard || project.thumb"
           :alt="project.title"
           class="aspect-[5/4] w-full object-cover transition duration-500 group-hover:scale-[1.02]"
           decoding="async"

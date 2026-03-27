@@ -1,5 +1,5 @@
 <template>
-  <main class="pt-14 md:pt-[5.5rem]">
+  <main id="main-content" tabindex="-1" class="pt-14 md:pt-[5.5rem] focus-visible:outline-none">
     <HeroSection
       :name="'Jeven Randhawa'"
       :tagline="config.tagline"

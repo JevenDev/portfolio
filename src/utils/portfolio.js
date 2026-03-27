@@ -20,6 +20,24 @@ export function normalizeAssetPath(path) {
   return path.startsWith('/') ? path : `/${path}`;
 }
 
+function buildCardThumbPath(path) {
+  if (!path || typeof path !== 'string') return '';
+
+  const normalized = path.startsWith('/') ? path.slice(1) : path;
+  if (!normalized.startsWith('assets/images/')) {
+    return normalizeAssetPath(path);
+  }
+
+  const extMatch = normalized.match(/\.(jpg|jpeg|png|webp)$/i);
+  if (!extMatch) {
+    return normalizeAssetPath(path);
+  }
+
+  const withoutPrefix = normalized.replace(/^assets\/images\//, '');
+  const withoutExt = withoutPrefix.replace(/\.(jpg|jpeg|png|webp)$/i, '');
+  return normalizeAssetPath(`assets/images/thumbs/${withoutExt}-thumb.webp`);
+}
+
 export function parseMonthYear(input) {
   if (!input || typeof input !== 'string') return new Date(0);
 
@@ -68,6 +86,7 @@ export function filterProjects(projects, activeTags = []) {
 export function normalizeProject(project) {
   return {
     ...project,
+    thumbCard: buildCardThumbPath(project.thumb),
     thumb: normalizeAssetPath(project.thumb),
     gallery: (project.gallery || []).map((item) => {
       if (typeof item === 'string') return normalizeAssetPath(item);

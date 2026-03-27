@@ -15,7 +15,8 @@
             :href="social.url"
             target="_blank"
             rel="noreferrer"
-            class="focus-ring inline-flex border border-line px-3 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-ink transition hover:border-ink/40"
+            :aria-label="`${social.label} (opens in a new tab)`"
+            class="focus-ring tap-target inline-flex h-11 items-center justify-center border border-line px-4 text-xs font-semibold uppercase leading-none tracking-[0.14em] text-ink transition hover:border-ink/40"
           >
             {{ social.label }}
           </a>
