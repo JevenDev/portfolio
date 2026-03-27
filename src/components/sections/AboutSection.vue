@@ -9,7 +9,7 @@
         </div>
       </div>
 
-      <aside class="w-full max-w-[340px] justify-self-end space-y-5 border border-line bg-shell p-5 md:p-6" data-reveal>
+      <aside class="w-full max-w-[360px] justify-self-end space-y-5 border border-line bg-shell p-5 md:p-6" data-reveal>
         <div>
           <p class="text-xs font-semibold uppercase tracking-[0.16em] text-muted">Location</p>
           <p class="mt-1 text-lg font-semibold text-ink">{{ location }}</p>
@@ -17,8 +17,14 @@
 
         <div>
           <p class="text-xs font-semibold uppercase tracking-[0.16em] text-muted">Capabilities</p>
-          <ul class="mt-3 space-y-2 text-sm text-ink/90">
-            <li v-for="skill in skills" :key="skill">{{ skill }}</li>
+          <ul class="mt-3 flex flex-wrap gap-2">
+            <li
+              v-for="skill in skills"
+              :key="skill"
+              class="rounded-full border border-line bg-paper px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.1em] text-ink/90"
+            >
+              {{ skill }}
+            </li>
           </ul>
         </div>
       </aside>
