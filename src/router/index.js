@@ -4,7 +4,7 @@ const HomePage = () => import('../pages/HomePage.vue');
 const GalleryPage = () => import('../pages/GalleryPage.vue');
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
