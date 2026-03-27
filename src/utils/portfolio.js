@@ -15,9 +15,16 @@ const MONTHS = {
 
 export const PRIMARY_FILTER_TAGS = ['Design', 'Music Production'];
 
+function joinWithBase(path = '') {
+  const base = import.meta.env.BASE_URL || '/';
+  const normalizedBase = base.endsWith('/') ? base : `${base}/`;
+  const normalizedPath = String(path).replace(/^\/+/, '');
+  return `${normalizedBase}${normalizedPath}`;
+}
+
 export function normalizeAssetPath(path) {
   if (!path || typeof path !== 'string') return '';
-  return path.startsWith('/') ? path : `/${path}`;
+  return joinWithBase(path);
 }
 
 function buildCardThumbPath(path) {
