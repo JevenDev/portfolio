@@ -1,0 +1,105 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  html,
+  body,
+  #app {
+    min-height: 100%;
+  }
+
+  html {
+    font-family: 'Manrope', system-ui, sans-serif;
+    scrollbar-color: #b0b0b0 #f6f6f5;
+    scrollbar-width: thin;
+  }
+
+  body {
+    @apply bg-paper text-ink antialiased;
+    text-rendering: optimizeLegibility;
+    -webkit-tap-highlight-color: rgba(15, 15, 15, 0.12);
+  }
+
+  ::selection {
+    @apply bg-ink text-paper;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #f6f6f5;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #b0b0b0;
+    border: 2px solid #f6f6f5;
+    border-radius: 9999px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #909090;
+  }
+
+  .split-line {
+    padding-bottom: 0.1em;
+  }
+
+  img,
+  video {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+@layer components {
+  .section-shell {
+    @apply border-b border-line py-20 md:py-32;
+  }
+
+  .section-wrap {
+    @apply mx-auto w-full max-w-7xl px-5 md:px-8;
+  }
+
+  .section-wrap-wide {
+    @apply mx-auto w-full max-w-[96rem] px-5 md:px-8;
+  }
+
+  .frame-block {
+    @apply border border-line bg-paper;
+  }
+
+  .eyebrow-label {
+    @apply text-xs font-semibold uppercase tracking-[0.2em] text-muted;
+  }
+
+  .editorial-lead {
+    @apply max-w-2xl text-base leading-relaxed text-muted md:text-lg;
+  }
+
+  .focus-ring {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2;
+  }
+
+  .hover-lift {
+    @apply transition-transform duration-300 hover:-translate-y-1;
+  }
+
+  .tap-target {
+    @apply min-h-11;
+  }
+
+  .skip-link {
+    @apply fixed left-3 top-3 z-[70] -translate-y-20 border border-ink bg-paper px-3 py-2 text-sm font-semibold text-ink transition focus:translate-y-0;
+  }
+}
+

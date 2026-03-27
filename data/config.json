@@ -1,6 +1,6 @@
 {
-    "siteName": "JVN Digital",
-    "tagline": "Graphic Designer & Producer | @jvngraphics",
+    "siteName": "JVN Graphics",
+    "tagline": "Graphic Designer & Producer | @jvngraphics / @prodbyjvn",
     "location": "Brampton ON, Canada",
     "email": "jevenrandhawa@gmail.com",
     "aboutHeadline": "Blending High-Impact Visuals with Production-Ready Sound.",
@@ -9,6 +9,13 @@
         "Brand Identity & Logo Design",
         "Album & Single Cover Art",
         "Minimalist UI/UX",
+        "Web Design",
+        "HTML5",
+        "Javascript",
+        "Vue",
+        "Vite",
+        "Tailwind",
+        "Java",
         "Mixing & Mastering (FL Studio)",
         "Beat Production (FL Studio)",
         "Adobe Creative Suite",
@@ -20,13 +27,17 @@
     ],
     "homeShowcase": [
         "artwork-001",
-        "project-004", 
+        "project-004",
         "project-002"
     ],
     "tickerIntervalMs": 4000,
     "tickerMode": "fade",
     "pauseOnHover": true,
     "socials": [
+        {
+            "label": "LinkedIn",
+            "url": "https://www.linkedin.com/in/jevenrandhawa"
+        },
         {
             "label": "Instagram (Art & Design)",
             "url": "https://instagram.com/jvngraphics"
@@ -37,7 +48,7 @@
         },
         {
             "label": "Linktree",
-            "url": "https://linktr.ee/jvngraphics"
+            "url": "https://linktr.ee/jevenrandhawa"
         },
         {
             "label": "SoundCloud",
