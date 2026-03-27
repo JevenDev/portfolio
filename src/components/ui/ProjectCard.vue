@@ -19,7 +19,7 @@
       </figure>
 
       <div class="space-y-3 p-5">
-        <div class="flex flex-wrap items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-muted">
+        <div class="flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-muted">
           <span>{{ project.year }}</span>
           <span class="text-line">/</span>
           <span>{{ project.type === 'artwork' ? 'Artwork' : 'Project' }}</span>
@@ -29,13 +29,13 @@
           {{ project.title }}
         </h3>
 
-        <p v-if="project.role" class="text-sm font-medium text-muted">{{ project.role }}</p>
+        <p v-if="project.role" class="text-base font-medium text-muted">{{ project.role }}</p>
 
         <ul class="flex flex-wrap gap-2">
           <li
             v-for="tag in project.tags?.slice(0, 4)"
             :key="`${project.id}-${tag}`"
-            class="rounded-full border border-line px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-muted"
+            class="rounded-full border border-line px-2.5 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-muted"
           >
             {{ tag }}
           </li>
@@ -62,3 +62,4 @@ defineEmits(['open']);
   contain-intrinsic-size: 420px;
 }
 </style>
+

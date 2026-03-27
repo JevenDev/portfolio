@@ -10,7 +10,7 @@
       <div class="grid gap-5 lg:grid-cols-2">
         <article class="frame-block p-5 md:p-6" data-reveal>
           <p class="eyebrow-label">Graphic Design Direction</p>
-          <p class="mt-3 max-w-xl text-sm leading-relaxed text-muted">
+          <p class="mt-3 max-w-xl text-base leading-relaxed text-muted">
             Identity, cover art, and visual storytelling developed to support each project release and artist narrative.
           </p>
           <div class="mt-5 space-y-3">
@@ -21,7 +21,7 @@
               class="focus-ring block w-full border border-line p-4 text-left transition hover:border-ink/40"
               @click="emit('open', project)"
             >
-              <p class="text-[11px] font-semibold uppercase tracking-[0.16em] text-muted">{{ project.year }}</p>
+              <p class="text-xs font-semibold uppercase tracking-[0.16em] text-muted">{{ project.year }}</p>
               <h3 class="mt-1 font-display text-xl font-semibold tracking-[-0.02em] text-ink">{{ project.title }}</h3>
             </button>
           </div>
@@ -47,7 +47,7 @@
               <h3 class="font-display text-3xl font-semibold leading-[1.08] tracking-[-0.03em] text-ink md:text-4xl">
                 {{ featuredMusicProject.title }}
               </h3>
-              <p class="text-sm text-muted">{{ featuredMusicProject.role || 'Production + Engineering' }}</p>
+              <p class="text-base text-muted">{{ featuredMusicProject.role || 'Production + Engineering' }}</p>
             </div>
           </button>
         </article>
@@ -61,9 +61,9 @@
           class="focus-ring group border border-line bg-paper p-4 text-left transition hover:border-ink/30"
           @click="emit('open', project)"
         >
-          <p class="text-[11px] font-semibold uppercase tracking-[0.15em] text-muted">{{ project.year }}</p>
+          <p class="text-xs font-semibold uppercase tracking-[0.15em] text-muted">{{ project.year }}</p>
           <h4 class="mt-2 font-display text-2xl font-semibold tracking-[-0.02em] text-ink">{{ project.title }}</h4>
-          <p v-if="project.role" class="mt-2 text-sm text-muted">{{ project.role }}</p>
+          <p v-if="project.role" class="mt-2 text-base text-muted">{{ project.role }}</p>
         </button>
       </div>
     </div>
@@ -94,3 +94,4 @@ useScrollReveal(root);
 const featuredMusicProject = computed(() => props.projects[0] || null);
 const secondaryMusicProjects = computed(() => props.projects.slice(1, 7));
 </script>
+

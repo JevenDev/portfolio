@@ -3,11 +3,13 @@
     <transition name="fade">
       <div
         v-if="open && item"
-        class="fixed inset-0 z-50 overflow-y-auto bg-white/90 px-4 py-8 backdrop-blur-sm"
+        class="fixed inset-0 z-50 overflow-y-auto overscroll-contain bg-white/90 px-4 py-8 backdrop-blur-sm"
         role="dialog"
         aria-modal="true"
         :aria-labelledby="titleId"
         @click.self="emit('close')"
+        @wheel.stop
+        @touchmove.stop
       >
         <div class="mx-auto w-full max-w-5xl border border-ink/20 bg-paper p-6 shadow-card md:p-10">
           <button
@@ -30,14 +32,14 @@
                 <h3 :id="titleId" class="font-display text-3xl font-semibold tracking-[-0.02em] text-ink">
                   {{ item.name }}
                 </h3>
-                <p class="text-sm font-medium uppercase tracking-[0.14em] text-muted">{{ item.role }}</p>
-                <p class="text-sm text-muted">{{ item.yearRange }}</p>
+                <p class="text-base font-medium uppercase tracking-[0.14em] text-muted">{{ item.role }}</p>
+                <p class="text-base text-muted">{{ item.yearRange }}</p>
               </div>
             </header>
 
             <section v-if="item.notableWorks?.length" class="space-y-4">
               <h4 class="font-display text-xl font-semibold text-ink">Notable Works</h4>
-              <ul class="space-y-2 text-sm leading-relaxed text-ink/90 md:text-base">
+              <ul class="space-y-2 text-base leading-relaxed text-ink/90">
                 <li v-for="(work, index) in item.notableWorks" :key="`${item.name}-work-${index}`">{{ work }}</li>
               </ul>
             </section>
@@ -50,7 +52,7 @@
                     :href="link.url"
                     target="_blank"
                     rel="noreferrer"
-                    class="focus-ring text-sm font-semibold uppercase tracking-[0.14em] text-ink underline decoration-line underline-offset-4 transition hover:decoration-ink"
+                    class="focus-ring text-base font-semibold uppercase tracking-[0.14em] text-ink underline decoration-line underline-offset-4 transition hover:decoration-ink"
                   >
                     {{ link.label }}
                   </a>
@@ -65,7 +67,7 @@
                 {{ item.title }}
               </h3>
 
-              <div class="flex flex-wrap items-center gap-3 text-xs font-semibold uppercase tracking-[0.14em] text-muted md:text-sm">
+              <div class="flex flex-wrap items-center gap-3 text-sm font-semibold uppercase tracking-[0.14em] text-muted md:text-base">
                 <span>{{ item.year }}</span>
                 <span class="text-line">/</span>
                 <span v-if="item.role">{{ item.role }}</span>
@@ -102,14 +104,14 @@
                     decoding="async"
                     loading="lazy"
                   />
-                  <figcaption v-if="media.label" class="text-sm text-muted">{{ media.label }}</figcaption>
+                  <figcaption v-if="media.label" class="text-base text-muted">{{ media.label }}</figcaption>
                 </figure>
               </div>
             </section>
 
             <section v-if="item.audio?.src" class="mt-8 space-y-4 border-t border-line pt-6">
               <h4 class="font-display text-xl font-semibold text-ink">Audio</h4>
-              <p class="text-sm text-muted">{{ item.audio.title }}</p>
+              <p class="text-base text-muted">{{ item.audio.title }}</p>
               <audio :src="item.audio.src" controls class="w-full" preload="none">
                 Your browser does not support embedded audio.
               </audio>
@@ -123,7 +125,7 @@
                     :href="link.url"
                     target="_blank"
                     rel="noreferrer"
-                    class="focus-ring text-sm font-semibold uppercase tracking-[0.14em] text-ink underline decoration-line underline-offset-4 transition hover:decoration-ink"
+                    class="focus-ring text-base font-semibold uppercase tracking-[0.14em] text-ink underline decoration-line underline-offset-4 transition hover:decoration-ink"
                   >
                     {{ link.label }}
                   </a>
@@ -215,6 +217,7 @@ function onKeydown(event) {
 watch(
   () => props.open,
   (isOpen) => {
+    document.documentElement.style.overflow = isOpen ? 'hidden' : '';
     document.body.style.overflow = isOpen ? 'hidden' : '';
   },
   { immediate: true }
@@ -226,6 +229,7 @@ onMounted(() => {
 
 onUnmounted(() => {
   document.removeEventListener('keydown', onKeydown);
+  document.documentElement.style.overflow = '';
   document.body.style.overflow = '';
 });
 </script>

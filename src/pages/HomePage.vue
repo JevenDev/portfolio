@@ -84,7 +84,7 @@ function findById(id) {
 }
 
 const selectedWorks = computed(() => {
-  const preferredIds = ['artwork-001', 'project-004', 'artwork-025', 'artwork-003'];
+  const preferredIds = ['artwork-001', 'artwork-029', 'artwork-025', 'artwork-003'];
   const selected = preferredIds.map(findById).filter(Boolean);
 
   if (selected.length >= 4) return selected.slice(0, 4);

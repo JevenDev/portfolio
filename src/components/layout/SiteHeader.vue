@@ -14,7 +14,7 @@
           v-for="item in navItems"
           :key="item.id"
           type="button"
-          class="focus-ring border-b border-transparent pb-[0.2rem] text-[11px] font-semibold uppercase leading-none tracking-[0.16em] transition"
+          class="focus-ring border-b border-transparent pb-[0.2rem] text-xs font-semibold uppercase leading-none tracking-[0.16em] transition"
           :class="activeSection === item.id ? 'border-ink text-ink' : 'text-muted hover:text-ink'"
           @click="onNavigate(item.id)"
         >
@@ -25,7 +25,7 @@
       <div class="flex items-center gap-3">
         <button
           type="button"
-          class="focus-ring hidden text-[11px] font-semibold uppercase tracking-[0.16em] text-muted transition hover:text-ink md:inline-flex"
+          class="focus-ring hidden text-xs font-semibold uppercase tracking-[0.16em] text-muted transition hover:text-ink md:inline-flex"
           @click="onNavigate('contact')"
         >
           Contact
@@ -108,3 +108,4 @@ function onNavigate(sectionId) {
   opacity: 0;
 }
 </style>
+

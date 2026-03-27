@@ -17,13 +17,13 @@
           />
           <div class="space-y-2">
             <h3 class="font-display text-2xl font-semibold tracking-[-0.03em] text-ink">{{ artist.name }}</h3>
-            <p class="text-[11px] font-semibold uppercase tracking-[0.16em] text-muted">{{ artist.yearRange }}</p>
+            <p class="text-xs font-semibold uppercase tracking-[0.16em] text-muted">{{ artist.yearRange }}</p>
           </div>
         </div>
 
-        <p class="text-sm leading-relaxed text-ink/90">{{ artist.role }}</p>
+        <p class="text-base leading-relaxed text-ink/90">{{ artist.role }}</p>
 
-        <p class="text-[11px] font-semibold uppercase tracking-[0.16em] text-muted">
+        <p class="text-xs font-semibold uppercase tracking-[0.16em] text-muted">
           {{ artist.notableWorks?.length || 0 }} notable credits
         </p>
       </div>
@@ -41,3 +41,4 @@ defineProps({
 
 defineEmits(['open']);
 </script>
+

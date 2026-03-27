@@ -15,31 +15,29 @@
         <div class="frame-block bg-shell p-5 md:p-6" data-reveal>
           <p class="eyebrow-label">Based In</p>
           <p class="mt-2 font-display text-2xl font-semibold tracking-[-0.02em] text-ink">{{ location }}</p>
-          <p class="mt-3 text-sm leading-relaxed text-muted">
+          <p class="mt-3 text-base leading-relaxed text-muted">
             Visual direction and audio production for artists, releases, and digital experiences.
           </p>
         </div>
       </div>
 
-      <div class="grid gap-8 md:grid-cols-[minmax(0,1fr)_minmax(260px,360px)] md:gap-10">
+      <div class="space-y-8">
         <div class="max-w-3xl space-y-5 text-base leading-relaxed text-ink/90 md:text-lg" data-reveal>
           <p v-for="(paragraph, index) in paragraphs" :key="`about-paragraph-${index}`">{{ paragraph }}</p>
         </div>
 
-        <aside class="space-y-5" data-reveal>
-          <div class="frame-block p-5 md:p-6">
-            <p class="eyebrow-label">Capabilities</p>
-            <ul class="mt-4 flex flex-wrap gap-2">
-              <li
-                v-for="skill in skills"
-                :key="skill"
-                class="rounded-full border border-line bg-paper px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.1em] text-ink/90"
-              >
-                {{ skill }}
-              </li>
-            </ul>
-          </div>
-        </aside>
+        <div class="frame-block p-5 md:p-6" data-reveal>
+          <p class="eyebrow-label">Capabilities</p>
+          <ul class="mt-4 flex flex-wrap gap-2">
+            <li
+              v-for="skill in skills"
+              :key="skill"
+              class="rounded-full border border-line bg-paper px-2.5 py-1 text-xs font-semibold uppercase tracking-[0.1em] text-ink/90"
+            >
+              {{ skill }}
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </section>
@@ -78,3 +76,4 @@ const paragraphs = computed(() =>
 const root = ref(null);
 useScrollReveal(root);
 </script>
+

@@ -11,7 +11,7 @@
         <div class="flex flex-wrap items-center gap-2">
           <button
             type="button"
-            class="focus-ring rounded-full border px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] transition"
+            class="focus-ring rounded-full border px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.14em] transition"
             :class="activeTags.length === 0 ? 'border-ink bg-ink text-paper' : 'border-line text-ink hover:border-ink/40'"
             @click="emit('toggle-tag', 'all')"
           >
@@ -22,7 +22,7 @@
             v-for="tag in visibleTags"
             :key="tag"
             type="button"
-            class="focus-ring rounded-full border px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] transition"
+            class="focus-ring rounded-full border px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.14em] transition"
             :class="activeTags.includes(tag) ? 'border-ink bg-ink text-paper' : 'border-line text-ink hover:border-ink/40'"
             @click="emit('toggle-tag', tag)"
           >
@@ -36,7 +36,7 @@
           </label>
           <select
             id="sort-by"
-            class="focus-ring w-full border border-line bg-paper px-3 py-2 text-sm text-ink"
+            class="focus-ring w-full border border-line bg-paper px-3 py-2 text-base text-ink"
             :value="sortBy"
             @change="emit('update-sort', $event.target.value)"
           >
@@ -63,7 +63,7 @@
         class="flex flex-wrap items-center justify-between gap-3 border-t border-line pt-4"
         data-reveal
       >
-        <p class="text-sm text-muted">Showing {{ showingCount }} of {{ totalCount }} works</p>
+        <p class="text-base text-muted">Showing {{ showingCount }} of {{ totalCount }} works</p>
       </div>
 
       <div
@@ -71,7 +71,7 @@
         ref="autoLoadSentinel"
         class="flex flex-wrap items-center justify-between gap-3 border-t border-line pt-4"
       >
-        <p class="text-sm text-muted">
+        <p class="text-base text-muted">
           {{ isLoadPending ? 'Loading more works...' : 'Scroll down to auto-load more works.' }}
         </p>
         <button
@@ -83,7 +83,7 @@
         </button>
       </div>
 
-      <p v-else class="border border-dashed border-line p-6 text-center text-sm text-muted" data-reveal>
+      <p v-else class="border border-dashed border-line p-6 text-center text-base text-muted" data-reveal>
         No projects match the current filter selection.
       </p>
     </div>
@@ -237,3 +237,4 @@ onUnmounted(() => {
   }
 });
 </script>
+

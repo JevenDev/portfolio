@@ -7,14 +7,14 @@
         <button
           v-if="showViewAllButton"
           type="button"
-          class="focus-ring h-fit border border-line px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-ink transition hover:border-ink/40"
+          class="focus-ring h-fit border border-line px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-ink transition hover:border-ink/40"
           @click="emit('navigate', 'gallery')"
         >
           {{ ctaLabel }}
         </button>
       </div>
 
-      <p v-if="introText" class="text-sm text-muted" data-reveal>{{ introText }}</p>
+      <p v-if="introText" class="text-base text-muted" data-reveal>{{ introText }}</p>
 
       <div v-if="featuredProject" class="space-y-6">
         <article class="frame-block overflow-hidden" data-reveal>
@@ -29,6 +29,7 @@
                 :src="featuredProject.thumb"
                 :alt="featuredProject.title"
                 class="aspect-[4/3] h-full w-full object-cover transition duration-500 group-hover:scale-[1.02]"
+                data-speed="0.97"
                 loading="lazy"
                 decoding="async"
               />
@@ -40,14 +41,14 @@
                 <h3 class="font-display text-3xl font-semibold leading-[1.05] tracking-[-0.03em] text-ink md:text-5xl">
                   {{ featuredProject.title }}
                 </h3>
-                <p class="text-sm leading-relaxed text-muted">
-                  {{ featuredProject.role || 'Graphic Design & Production' }}
+                <p class="text-base leading-relaxed text-muted">
+                  {{ featuredProject.role || 'Graphic Design Piece' }}
                 </p>
                 <ul class="flex flex-wrap gap-2">
                   <li
                     v-for="tag in featuredProject.tags?.slice(0, 4)"
                     :key="`${featuredProject.id}-${tag}`"
-                    class="rounded-full border border-line px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-muted"
+                    class="rounded-full border border-line px-2.5 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-muted"
                   >
                     {{ tag }}
                   </li>
@@ -56,7 +57,7 @@
 
               <button
                 type="button"
-                class="focus-ring w-fit border border-line px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-ink transition hover:border-ink/40"
+                class="focus-ring w-fit border border-line px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-ink transition hover:border-ink/40"
                 @click="emit('open', featuredProject)"
               >
                 View Project
@@ -82,22 +83,23 @@
                 :src="project.thumb"
                 :alt="project.title"
                 class="aspect-[5/4] w-full border-b border-line object-cover transition duration-500 group-hover:scale-[1.015]"
+                data-speed="0.99"
                 loading="lazy"
                 decoding="async"
               />
               <div class="space-y-3 p-5">
-                <p class="text-[11px] font-semibold uppercase tracking-[0.15em] text-muted">{{ project.year }}</p>
+                <p class="text-xs font-semibold uppercase tracking-[0.15em] text-muted">{{ project.year }}</p>
                 <h4 class="font-display text-2xl font-semibold leading-[1.12] tracking-[-0.02em] text-ink">
                   {{ project.title }}
                 </h4>
-                <p class="text-sm text-muted">{{ project.role || 'Creative Direction' }}</p>
+                <p class="text-base text-muted">{{ project.role || 'Graphic Design Piece' }}</p>
               </div>
             </button>
           </article>
         </div>
       </div>
 
-      <p v-else class="border border-dashed border-line p-6 text-center text-sm text-muted" data-reveal>
+      <p v-else class="border border-dashed border-line p-6 text-center text-base text-muted" data-reveal>
         No work has been curated for this section yet.
       </p>
     </div>
@@ -152,3 +154,4 @@ useScrollReveal(root);
 const featuredProject = computed(() => props.projects[0] || null);
 const secondaryProjects = computed(() => props.projects.slice(1));
 </script>
+

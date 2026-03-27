@@ -3,27 +3,31 @@
     <TopTicker :skills="config.skills" :interval-ms="config.tickerIntervalMs" />
     <SiteHeader :active-section="activeSection" @navigate="handleNavigation" />
 
-    <RouterView v-slot="{ Component }">
-      <component
-        :is="Component"
-        :artists="artists"
-        :config="config"
-        :featured-projects="featuredProjects"
-        :music-projects="musicProjects"
-        :top-projects="topProjects"
-        :projects="filteredSortedProjects"
-        :active-tags="activeTags"
-        :visible-tags="visibleFilterTags"
-        :sort-by="sortBy"
-        @navigate="handleNavigation"
-        @open-project="openProject"
-        @open-artist="openArtist"
-        @toggle-tag="toggleTag"
-        @update-sort="sortBy = $event"
-      />
-    </RouterView>
+    <div id="smooth-wrapper" class="min-h-screen">
+      <div id="smooth-content">
+        <RouterView v-slot="{ Component }">
+          <component
+            :is="Component"
+            :artists="artists"
+            :config="config"
+            :featured-projects="featuredProjects"
+            :music-projects="musicProjects"
+            :top-projects="topProjects"
+            :projects="filteredSortedProjects"
+            :active-tags="activeTags"
+            :visible-tags="visibleFilterTags"
+            :sort-by="sortBy"
+            @navigate="handleNavigation"
+            @open-project="openProject"
+            @open-artist="openArtist"
+            @toggle-tag="toggleTag"
+            @update-sort="sortBy = $event"
+          />
+        </RouterView>
 
-    <SiteFooter :socials="config.socials" />
+        <SiteFooter :socials="config.socials" />
+      </div>
+    </div>
 
     <DetailModal :open="Boolean(modalItem)" :item="modalItem" :mode="modalMode" @close="closeModal" />
 
@@ -40,7 +44,7 @@ import TopTicker from './components/layout/TopTicker.vue';
 import BackToTop from './components/ui/BackToTop.vue';
 import DetailModal from './components/ui/DetailModal.vue';
 import { usePortfolioData } from './composables/usePortfolioData';
-import { gsap } from './utils/gsap';
+import { gsap, ScrollSmoother, ScrollTrigger } from './utils/gsap';
 
 const route = useRoute();
 const router = useRouter();
@@ -65,6 +69,7 @@ const modalItem = ref(null);
 const modalMode = ref('project');
 let galleryPrefetchPromise = null;
 let idlePrefetchId = null;
+let scrollSmoother = null;
 
 let sectionObserver;
 
@@ -80,16 +85,48 @@ function prefetchGalleryRoute() {
   return galleryPrefetchPromise;
 }
 
+function prefersReducedMotion() {
+  return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
+
+function initScrollSmoother() {
+  scrollSmoother?.kill();
+  scrollSmoother = null;
+
+  if (prefersReducedMotion()) return;
+
+  scrollSmoother = ScrollSmoother.create({
+    content: '#smooth-content',
+    effects: true,
+    smooth: 0.82,
+    smoothTouch: 0,
+    wrapper: '#smooth-wrapper'
+  });
+}
+
+function getCurrentScrollTop() {
+  const smoother = ScrollSmoother.get();
+  if (smoother) return smoother.scrollTop();
+  return window.scrollY;
+}
+
 function scrollToSection(sectionId) {
   const target = document.getElementById(sectionId);
   if (!target) return;
 
   const offsetY = getHeaderOffset();
-  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const reducedMotion = prefersReducedMotion();
+  const targetTop = target.getBoundingClientRect().top + getCurrentScrollTop() - offsetY;
 
   if (reducedMotion) {
     const top = target.getBoundingClientRect().top + window.scrollY - offsetY;
     window.scrollTo({ top, behavior: 'auto' });
+    return;
+  }
+
+  const smoother = ScrollSmoother.get();
+  if (smoother) {
+    smoother.scrollTo(targetTop, true);
     return;
   }
 
@@ -105,10 +142,16 @@ function scrollToSection(sectionId) {
 }
 
 function scrollPageTop() {
-  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const reducedMotion = prefersReducedMotion();
 
   if (reducedMotion) {
     window.scrollTo({ top: 0, behavior: 'auto' });
+    return;
+  }
+
+  const smoother = ScrollSmoother.get();
+  if (smoother) {
+    smoother.scrollTo(0, true);
     return;
   }
 
@@ -207,7 +250,7 @@ function setupSectionObserver() {
 }
 
 function onScroll() {
-  showBackToTop.value = window.scrollY > 420;
+  showBackToTop.value = getCurrentScrollTop() > 420;
 }
 
 async function syncFromRoute() {
@@ -250,12 +293,23 @@ watch(
   () => route.fullPath,
   async () => {
     await nextTick();
+    scrollSmoother?.refresh();
+    ScrollTrigger.refresh();
     setupSectionObserver();
     await syncFromRoute();
   }
 );
 
+watch(
+  () => Boolean(modalItem.value),
+  (isOpen) => {
+    const smoother = ScrollSmoother.get();
+    smoother?.paused(isOpen);
+  }
+);
+
 onMounted(async () => {
+  initScrollSmoother();
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
@@ -275,6 +329,8 @@ onMounted(async () => {
   }
 
   await nextTick();
+  scrollSmoother?.refresh();
+  ScrollTrigger.refresh();
   setupSectionObserver();
   await syncFromRoute();
 });
@@ -282,6 +338,8 @@ onMounted(async () => {
 onUnmounted(() => {
   window.removeEventListener('scroll', onScroll);
   sectionObserver?.disconnect();
+  scrollSmoother?.kill();
+  scrollSmoother = null;
 
   if (idlePrefetchId !== null) {
     if ('cancelIdleCallback' in window) {

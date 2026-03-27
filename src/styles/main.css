@@ -17,6 +17,8 @@
 
   html {
     font-family: 'Manrope', system-ui, sans-serif;
+    scrollbar-color: #b0b0b0 #f6f6f5;
+    scrollbar-width: thin;
   }
 
   body {
@@ -26,6 +28,25 @@
 
   ::selection {
     @apply bg-ink text-paper;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #f6f6f5;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #b0b0b0;
+    border: 2px solid #f6f6f5;
+    border-radius: 9999px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #909090;
   }
 
   .split-line {
@@ -51,7 +72,7 @@
   }
 
   .eyebrow-label {
-    @apply text-[11px] font-semibold uppercase tracking-[0.2em] text-muted;
+    @apply text-xs font-semibold uppercase tracking-[0.2em] text-muted;
   }
 
   .editorial-lead {
@@ -66,3 +87,4 @@
     @apply transition-transform duration-300 hover:-translate-y-1;
   }
 }
+
