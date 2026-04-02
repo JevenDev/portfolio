@@ -9,6 +9,7 @@ import {
   PRIMARY_FILTER_TAGS,
   filterProjects,
   getFeaturedProjects,
+  hasProjectType,
   hasMusicRole,
   normalizeArtist,
   normalizeProject,
@@ -27,7 +28,7 @@ export function usePortfolioData() {
   const featuredProjects = computed(() => getFeaturedProjects(projects.value, config.value.homeShowcase));
   const topProjects = computed(() =>
     sortProjects(
-      projects.value.filter((project) => project.type === 'project'),
+      projects.value.filter((project) => hasProjectType(project, 'project')),
       'newest'
     ).slice(0, 3)
   );

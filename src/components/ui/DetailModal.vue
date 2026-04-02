@@ -155,6 +155,7 @@
 
 <script setup>
 import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue';
+import { hasProjectType } from '../../utils/portfolio';
 
 const props = defineProps({
   item: {
@@ -189,8 +190,16 @@ const descriptionLines = computed(() => {
 
 const projectTypeLabel = computed(() => {
   if (!props.item) return 'Project';
+  const labels = [];
+
+  if (hasProjectType(props.item, 'project')) labels.push('Project');
+  if (hasProjectType(props.item, 'position')) labels.push('Position');
+  if (hasProjectType(props.item, 'post')) labels.push('Post');
+  if (hasProjectType(props.item, 'artwork')) labels.push('Artwork');
+
+  if (labels.length > 1) return labels.join(' / ');
   if (props.item.modalTypeLabel) return props.item.modalTypeLabel;
-  return props.item.type === 'artwork' ? 'Artwork' : 'Project';
+  return labels.length ? labels.join(' / ') : 'Project';
 });
 
 const galleryItems = computed(() => {

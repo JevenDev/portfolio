@@ -88,6 +88,16 @@ export function sortProjects(projects, sortBy) {
   return sorted;
 }
 
+export function hasProjectType(project, targetType) {
+  if (!project || !targetType) return false;
+
+  if (Array.isArray(project.type)) {
+    return project.type.includes(targetType);
+  }
+
+  return project.type === targetType;
+}
+
 export function filterProjects(projects, activeTags = []) {
   if (!Array.isArray(activeTags) || activeTags.length === 0) return projects;
 
@@ -95,15 +105,16 @@ export function filterProjects(projects, activeTags = []) {
   const contentTags = activeTags.filter((tag) => !categoryTags.includes(tag));
 
   return projects.filter((project) => {
+    const isProject = hasProjectType(project, 'project');
     const isPosition =
-      project.type === 'position' ||
+      hasProjectType(project, 'position') ||
       project.cardTypeLabel === 'Position' ||
       project.modalTypeLabel === 'Position';
     const matchesCategory =
       categoryTags.length === 0 ||
       categoryTags.some((tag) => {
         if (tag === 'Positions') return isPosition;
-        if (tag === 'Projects') return project.type === 'project' && !isPosition;
+        if (tag === 'Projects') return isProject;
         return false;
       });
 
