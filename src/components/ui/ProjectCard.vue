@@ -22,7 +22,7 @@
         <div class="flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-muted">
           <span>{{ project.year }}</span>
           <span class="text-line">/</span>
-          <span>{{ project.type === 'artwork' ? 'Artwork' : 'Project' }}</span>
+          <span>{{ project.cardTypeLabel || (project.type === 'artwork' ? 'Artwork' : 'Project') }}</span>
         </div>
 
         <h3 class="font-display text-2xl font-semibold leading-tight tracking-[-0.03em] text-ink">

@@ -13,7 +13,7 @@ const MONTHS = {
   december: 11
 };
 
-export const PRIMARY_FILTER_TAGS = ['Design', 'Music Production'];
+export const PRIMARY_FILTER_TAGS = ['Projects', 'Positions', 'Design', 'Music Production', 'Motion / Editing'];
 
 function joinWithBase(path = '') {
   const base = import.meta.env.BASE_URL || '/';
@@ -24,6 +24,8 @@ function joinWithBase(path = '') {
 
 export function normalizeAssetPath(path) {
   if (!path || typeof path !== 'string') return '';
+  if (/^(?:[a-z]+:)?\/\//i.test(path)) return path;
+  if (/^(?:data:|mailto:|tel:|#)/i.test(path)) return path;
   return joinWithBase(path);
 }
 
@@ -48,9 +50,10 @@ function buildThumbPath(path) {
 export function parseMonthYear(input) {
   if (!input || typeof input !== 'string') return new Date(0);
 
-  const match = input.trim().match(/^(\w+)\s+(\d{4})$/);
+  const normalizedInput = input.trim();
+  const match = normalizedInput.match(/^(\w+)\s+(\d{4})(?:\b|[\s-].*)$/);
   if (!match) {
-    const fallback = new Date(input);
+    const fallback = new Date(normalizedInput);
     return Number.isNaN(fallback.getTime()) ? new Date(0) : fallback;
   }
 
@@ -87,7 +90,24 @@ export function sortProjects(projects, sortBy) {
 
 export function filterProjects(projects, activeTags = []) {
   if (!Array.isArray(activeTags) || activeTags.length === 0) return projects;
-  return projects.filter((project) => activeTags.every((tag) => project.tags?.includes(tag)));
+
+  const categoryTags = activeTags.filter((tag) => tag === 'Projects' || tag === 'Positions');
+  const contentTags = activeTags.filter((tag) => !categoryTags.includes(tag));
+
+  return projects.filter((project) => {
+    const isPosition = project.cardTypeLabel === 'Position' || project.modalTypeLabel === 'Position';
+    const matchesCategory =
+      categoryTags.length === 0 ||
+      categoryTags.some((tag) => {
+        if (tag === 'Positions') return isPosition;
+        if (tag === 'Projects') return project.type === 'project' && !isPosition;
+        return false;
+      });
+
+    const matchesTags = contentTags.every((tag) => project.tags?.includes(tag));
+
+    return matchesCategory && matchesTags;
+  });
 }
 
 export function normalizeProject(project) {
