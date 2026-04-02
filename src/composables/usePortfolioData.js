@@ -1,6 +1,9 @@
 import { computed, ref } from 'vue';
 import artistsData from '../../data/artists.json';
+import artworksData from '../../data/artworks.json';
 import configData from '../../data/config.json';
+import postsData from '../../data/posts.json';
+import positionsData from '../../data/positions.json';
 import projectsData from '../../data/projects.json';
 import {
   PRIMARY_FILTER_TAGS,
@@ -15,9 +18,10 @@ import {
 export function usePortfolioData() {
   const activeTags = ref([]);
   const sortBy = ref('newest');
+  const allPortfolioItems = [...postsData, ...projectsData, ...positionsData, ...artworksData];
 
   const config = computed(() => configData);
-  const projects = computed(() => projectsData.map(normalizeProject));
+  const projects = computed(() => allPortfolioItems.map(normalizeProject));
   const artists = computed(() => artistsData.map(normalizeArtist));
 
   const featuredProjects = computed(() => getFeaturedProjects(projects.value, config.value.homeShowcase));

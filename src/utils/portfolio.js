@@ -95,7 +95,10 @@ export function filterProjects(projects, activeTags = []) {
   const contentTags = activeTags.filter((tag) => !categoryTags.includes(tag));
 
   return projects.filter((project) => {
-    const isPosition = project.cardTypeLabel === 'Position' || project.modalTypeLabel === 'Position';
+    const isPosition =
+      project.type === 'position' ||
+      project.cardTypeLabel === 'Position' ||
+      project.modalTypeLabel === 'Position';
     const matchesCategory =
       categoryTags.length === 0 ||
       categoryTags.some((tag) => {

@@ -1,610 +1,182 @@
 [
-    {
-        "id": "project-013",
-        "type": "project",
-        "title": "Beat Preview - February 2026",
-        "year": "March 2026",
-        "role": "Edit & Production",
-        "tags": ["Music Production", "Motion / Editing", "Design"],
-        "cardTypeLabel": "Post",
-        "modalTypeLabel": "Post",
-        "thumb": "assets/images/posts/beat-preview-2026-03.jpg",
-        "description": [
-            "Monthly beat preview post highlighting beats from February 2026. This post was published on March 16, 2026 with production credits on slide 2 alongside @oh1uxie, slides 3, 5, 7, 9, and 10 alongside @imsoprouda_u, and slide 10 alongside @prod.1xkneko.",
-            "The Instagram link below opens the rest of the carousel."
-        ],
-        "links": [
-            {"label": "Open full post on Instagram", "url": "https://www.instagram.com/prodbyjvn/p/DV9cIz7jk9O/"}
-        ],
-        "gallery": [
-            {"label": "Selected beat preview", "url": "assets/videos/posts/beat-preview-2026-03.mp4"}
-        ]
-    },
-    {
-        "id": "project-012",
-        "type": "project",
-        "title": "Beat Preview - January 2026",
-        "year": "February 2026",
-        "role": "Edit & Production",
-        "tags": ["Music Production", "Motion / Editing", "Design"],
-        "cardTypeLabel": "Post",
-        "modalTypeLabel": "Post",
-        "thumb": "assets/images/posts/beat-preview-2026-02.jpg",
-        "description": [
-            "Monthly beat preview post highlighting beats from January 2026. This post was published on February 8, 2026 with production credits on slides 1, 5, and 7 alongside @imsoprouda_u, and on slide 10 alongside @dani.lilboiboi.",
-            "The Instagram link below opens the rest of the carousel."
-        ],
-        "links": [
-            {"label": "Open full post on Instagram", "url": "https://www.instagram.com/prodbyjvn/p/DUg7VofjXWf/"}
-        ],
-        "gallery": [
-            {"label": "Selected beat preview, co-produced w/ @imsoprouda_u", "url": "assets/videos/posts/beat-preview-2026-02.mp4"}
-        ]
-    },
-    {
-        "id": "project-011",
-        "type": "project",
-        "title": "Beat Preview - December 2025",
-        "year": "January 2026",
-        "role": "Edit & Production",
-        "tags": ["Music Production", "Motion / Editing", "Design"],
-        "cardTypeLabel": "Post",
-        "modalTypeLabel": "Post",
-        "thumb": "assets/images/posts/beat-preview-2026-01.jpg",
-        "description": [
-            "Monthly beat preview post highlighting beats from December 2025. This post was published on January 13, 2026 with production credits on slides 1, 3, and 8 alongside @flowrrrrpot, slides 2, 3, and 10 alongside @imsoprouda_u, and slide 4 alongside @prod.1xkneko.",
-            "The Instagram link below opens the rest of the carousel."
-        ],
-        "links": [
-            {"label": "Open full post on Instagram", "url": "https://www.instagram.com/prodbyjvn/p/DTd6JfLDaD8/"}
-        ],
-        "gallery": [
-            {"label": "Selected beat preview, co-produced w/ @flowrrrrpot", "url": "assets/videos/posts/beat-preview-2026-01.mp4"}
-        ]
-    },
-    {
-        "id": "project-010",
-        "type": "project",
-        "title": "Beat Preview - November 2025",
-        "year": "December 2025",
-        "role": "Edit & Production",
-        "tags": ["Music Production", "Motion / Editing", "Design"],
-        "cardTypeLabel": "Post",
-        "modalTypeLabel": "Post",
-        "thumb": "assets/images/posts/beat-preview-2025-12.jpg",
-        "description": [
-            "Monthly beat preview post highlighting beats from November 2025. This post was published on December 2, 2025 with production credits on slide 1 alongside @saintdadah, slides 2, 9, and 13 alongside @flowrrrrpot, slide 4 alongside @imsoprouda_u, and slides 7, 11, and 14 alongside @iconmzk.",
-            "The Instagram link below opens the rest of the carousel."
-        ],
-        "links": [
-            {"label": "Open full post on Instagram", "url": "https://www.instagram.com/prodbyjvn/p/DRx38LSjbXn/"}
-        ],
-        "gallery": [
-            {"label": "Selected beat preview, co-produced w/ @iconmzk", "url": "assets/videos/posts/beat-preview-2025-12.mp4"}
-        ]
-    },
-    {
-        "id": "project-009",
-        "type": "project",
-        "title": "Beat Preview - October 2025",
-        "year": "November 2025",
-        "role": "Edit & Production",
-        "tags": ["Music Production", "Motion / Editing", "Design"],
-        "cardTypeLabel": "Post",
-        "modalTypeLabel": "Post",
-        "thumb": "assets/images/posts/beat-preview-2025-11.jpg",
-        "description": [
-            "Monthly beat preview post highlighting beats from October 2025. This post was published on November 11, 2025 with production credits on slide 2 alongside @flowrrrrpot, and on slides 3 and 5 alongside @imsoprouda_u.",
-            "The Instagram link below opens the rest of the carousel."
-        ],
-        "links": [
-            {"label": "Open full post on Instagram", "url": "https://www.instagram.com/prodbyjvn/p/DQ6YqgAjofu/"}
-        ],
-        "gallery": [
-            {"label": "Selected beat preview, co-produced w/ @imsoprouda_u", "url": "assets/videos/posts/beat-preview-2025-11.mp4"}
-        ]
-    },
-    {
-        "id": "project-008",
-        "type": "project",
-        "title": "Beat Preview - September 2025",
-        "year": "October 2025",
-        "role": "Edit & Production",
-        "tags": ["Music Production", "Motion / Editing", "Design"],
-        "cardTypeLabel": "Post",
-        "modalTypeLabel": "Post",
-        "thumb": "assets/images/posts/beat-preview-2025-10.jpg",
-        "description": [
-            "Monthly beat preview post highlighting beats from September 2025. This post was published on October 10, 2025 with production credits on slides 1 and 4 alongside @strellaaaaaaaaaa, slide 5 alongside @iconmzk, slide 7 alongside @imsoprouda_u, and slide 8 alongside @____plax.",
-            "The Instagram link below opens the rest of the carousel."
-        ],
-        "links": [
-            {"label": "Open full post on Instagram", "url": "https://www.instagram.com/prodbyjvn/p/DPp92d6DZBn/"}
-        ],
-        "gallery": [
-            {"label": "Selected beat preview", "url": "assets/videos/posts/beat-preview-2025-10.mp4"}
-        ]
-    },
-    {
-        "id": "project-007",
-        "type": "project",
-        "title": "Beat Preview - August 2025",
-        "year": "September 2025",
-        "role": "Edit & Production",
-        "tags": ["Music Production", "Motion / Editing", "Design"],
-        "cardTypeLabel": "Post",
-        "modalTypeLabel": "Post",
-        "thumb": "assets/images/posts/beat-preview-2025-09.jpg",
-        "description": [
-            "Monthly beat preview post highlighting beats from August 2025. This post was published on September 1, 2025 with production credits on slides 3 and 8 alongside @prodpunk, and on slides 4 and 6 alongside @imsoprouda_u.",
-            "Video footage credited to @imdreaming17, and the final edit was assembled by me.",
-            "The Instagram link below opens the rest of the carousel."
-        ],
-        "links": [
-            {"label": "Open full post on Instagram", "url": "https://www.instagram.com/prodbyjvn/p/DOEpBu3Diay/"}
-        ],
-        "gallery": [
-            {"label": "Selected beat preview", "url": "assets/videos/posts/beat-preview-2025-09.mp4"}
-        ]
-    },
-    {
-        "id": "project-006",
-        "type": "project",
-        "title": "Beat Preview - June 2025",
-        "year": "July 2025",
-        "role": "Edit & Production",
-        "tags": ["Music Production", "Motion / Editing", "Design"],
-        "cardTypeLabel": "Post",
-        "modalTypeLabel": "Post",
-        "thumb": "assets/images/posts/beat-preview-2025-07.jpg",
-        "description": [
-            "Monthly beat preview post highlighting beats from June 2025. This post was published on July 3, 2025 with production credited on slide 3 alongside @notspxttro.",
-            "The Instagram link below opens the rest of the carousel."
-        ],
-        "links": [
-            {"label": "Open full post on Instagram", "url": "https://www.instagram.com/prodbyjvn/p/DLpstq8x_r0/"}
-        ],
-        "gallery": [
-            {"label": "Selected beat preview", "url": "assets/videos/posts/beat-preview-2025-07.mp4"}
-        ]
-    },
-    {
-        "id": "project-005",
-        "type": "project",
-        "title": "NAP Solutions",
-        "tags": ["Design", "Brand Identity", "Web Design", "Frontend Development"],
-        "year": "March 2026 - Present",
-        "role": "Brand Identity & Web Direction",
-        "cardTypeLabel": "Position",
-        "modalTypeLabel": "Position",
-        "featured": true,
-        "thumb": "assets/images/nap/nap-solutions-site-01.png",
-        "description": [
-            "NAP Solutions provides an AI-powered receptionist that answers your business calls 24/7. It books appointments, handles inquiries, reschedules, cancels, and escalates to your team when needed - all without any human staff required.",
-            "I was responsible for creating the brand identity and designing the website. The design direction was inspired by the idea of a 'digital concierge' - a service that is both professional and approachable, with a touch of warmth and personality. I took direct inspiration from the PSP and Apple's liquid glass design language to create a sleek and modern aesthetic that is both functional and visually appealing. The website features a clean and intuitive layout."
-        ],
-        "links": [
-            {"label": "Visit the website", "url": "https://getnapsolutions.com/"}
-        ],
-        "gallery": [
-            {"label": "Homepage and hero", "url": "assets/images/nap/nap-solutions-site-01.png"},
-            {"label": "Pricing and plans page", "url": "assets/images/nap/nap-solutions-site-02.png"}
-        ]
-    },
-    {
-        "id": "project-001",
-        "type": "project",
-        "title": "'flowrpot' - Art & Production",
-        "tags": ["Design", "Brand Identity", "Cover Art", "Promotional Material", "Music Production"],
-        "year": "August 2025",
-        "role": "Lead Designer & Producer",
-        "featured": true,
-        "thumb": "assets/images/flowrpot/flowrpot-preview.jpg",
-        "description": "'flowrpot' is a Toronto-based hip-hop artist. I was responsible for designing the visual identity for his self-titled mixtape, including the cover art, promotional materials, and social media graphics. Additionally, I produced and engineered all 13 tracks on the mixtape, blending electronic beats with soulful melodies to create a unique sound that complements flowrpot's vocals.",
-        "links": [
-            {"label": "Link to flowrpot's socials", "url": "https://linktr.ee/flowrpot"},
-            {"label": "Link to the album", "url": "https://soundcloud.com/flowrpot/sets/flowrpot"}
-        ],
-        "gallery": [
-            {"label": "Cover Art", "url": "assets/images/flowrpot/flowrpot-self-titled-cover.png"},
-            {"label": "Track list on the back of the physical CD", "url": "assets/images/flowrpot/flowrpot-self-titled_back-cover.jpg"},
-            {"label": "Alternate cover for SoundCloud remixes", "url": "assets/images/flowrpot/flowrpot-self-titled-alternative-cover.png"}
-        ]
-    },
-    {
-        "id": "project-002",
-        "type": "project",
-        "title": "Pareidolia (Game)",
-        "tags": ["UI/UX Designer", "Asset Artist", "Music Production", "Sound Design", "Design"],
-        "year": "January 2025",
-        "role": "Lead UI/UX Designer",
-        "featured": true,
-        "thumb": "assets/images/pareidolia/parei-preview.jpg",
-        "description": [
-            "I was responsible for designing the user interface elements and title screen. I also created various minor assets throughout the game, and one of the soundtracks used in the beginning cutscenes. This game was a school project collaboration between UofT, and OCAD U students for the Level Up Showcase in spring 2025.", 
-            "Pareidolia is a first-person horror game inspired by the Bélmez Faces. The game takes place in an “ordinary” suburban home that is slowly being transformed and infected by face-like stains. Players must try and go about their daily routine by finishing chores, all the while trying to ignore the ever-growing presence of the stains that seem to be multiplying by the hour."
-        ],
-        "links": [
-            {"label": "View the Itch.io download page", "url": "https://nourdles.itch.io/pareidolia"},
-            {"label": "See the rest of the team here", "url": "https://teampareidolia.carrd.co/#about"}
-        ],
-        "gallery": [
-            {"label": "Intro GIF", "url": "assets/images/pareidolia/parei intro gif.gif"},
-            {"label": "Controller Scheme", "url": "assets/images/pareidolia/controllerSchemeAlt.png"},
-            {"label": "UI & Model Screenshots", "url": "assets/images/pareidolia/parei-ui1.png"},
-            {"label": " ", "url": "assets/images/pareidolia/parei-ui2.png"},
-            {"label": " ", "url": "assets/images/pareidolia/parei-ui3.png"},
-            {"label": " ", "url": "assets/images/pareidolia/parei-ui4.png"}
-        ],
-        "audio": {
-            "title": "Intro Cutscene Track - Pareidolia",
-            "src": "assets/audio/pareidolia/pareidolia [intro cutscene] @prodbyjvn.mp3"
-        }
-    },
-    {
-        "id": "project-003",
-        "type": "project",
-        "title": "'cold' - Art & Production",
-        "tags": ["Design", "Brand Identity", "Cover Art", "Promotional Material", "Music Production"],
-        "year": "February 2025",
-        "role": "Lead Designer & Producer",
-        "featured": true,
-        "thumb": "assets/images/cold/flowrpot-cold-cover.jpg",
-        "description": "'flowrpot' is a Toronto-based hip-hop artist. I was responsible for designing the visual identity for his first EP, including the cover art, promotional materials, and social media graphics. Additionally, I produced and engineered all 8 tracks on the EP, blending electronic beats with soulful melodies to create a unique sound that complements flowrpot's vocals.",
-        "links": [
-            {"label": "Link to flowrpot's socials", "url": "https://linktr.ee/flowrpot"},
-            {"label": "Link to the album", "url": "https://soundcloud.com/flowrpot/sets/flowrpot"}
-        ],
-        "gallery": [
-            {"label": "Cover Art", "url": "assets/images/cold/flowrpot-cold-cover.jpg"},
-            {"label": "Track list on the back of the physical CD", "url": "assets/images/cold/flowrpot-cold-back-cover.jpg"},
-            {"label": "Alternate cover for SoundCloud remixes", "url": "assets/images/cold/flowrpot-cold-alternate-cover.jpg"}
-        ]
-    },
-    {
-        "id": "project-004",
-        "type": "project",
-        "title": "Virality (Audio Tool Website)",
-        "tags": ["Design", "Web Design", "UI/UX Designer", "Frontend Development", "Figma", "HTML/CSS/JS"],
-        "year": "April 2025",
-        "role": "Creator",
-        "featured": true,
-        "thumb": "assets/images/virality/virality-screenshot1.png",
-        "description": "'Virality' is a web-based audio tool that allows users to create and share slowed + reverb, or nightcore sound clips. I designed and developed the entire user interface, including the interactive audio editor. The design is heavily inspired by the handheld PSP UI, with a focus on simplicity and ease of use. Users can upload their own audio files, apply effects, and export their creations for free, directly from the website.",
-        "links": [
-            {"label": "Link to the Website", "url": "https://jevendev.github.io/Virality/"},
-            {"label": "Link to the GitHub Repo", "url": "https://github.com/JevenDev/Virality"}
-        ],
-        "gallery": [
-            {"label": "Screenshot of the website", "url": "assets/images/virality/virality-screenshot1.png"},
-            {"label": "Initial design creation in Figma ", "url": "assets/images/virality/virality-concept1.png"}
-        ]
-    },
-    {
-        "id": "artwork-001",
-        "type": "artwork",
-        "title": "i hate eye contact",
-        "year": "December 2025",
-        "tags": ["Design", "Digital Art", "Photoshop Composite"],
-        "thumb": "assets/images/misc/artwork/i-hate-eye-contact.png",
-        "gallery": [
-            {"label": "Created using Adobe Photoshop", "url": "assets/images/misc/artwork/i-hate-eye-contact.png"}
-        ]
-    },
-    {
-        "id": "artwork-002",
-        "type": "artwork",
-        "title": "'V6 (feat. Xanman) [Remix]' - Single Cover Art",
-        "year": "April 2021",
-        "tags": ["Design", "Digital Art", "Cover Art", "Photoshop Composite"],
-        "thumb": "assets/images/misc/artwork/exokaiser-v6-cover.png",
-        "gallery": [
-            {"label": "Cover art for the artist ExoKaiser, created using Adobe Photoshop", "url": "assets/images/misc/artwork/exokaiser-v6-cover.png"}
-        ]
-    },
-    {
-        "id": "artwork-003",
-        "type": "artwork",
-        "title": "worthless creative",
-        "year": "April 2025",
-        "tags": ["Design", "Digital Art", "Photoshop Composite"],
-        "thumb": "assets/images/misc/artwork/worthless-creative-poster.png",
-        "gallery": [
-            {"label": "Created using Adobe Photoshop", "url": "assets/images/misc/artwork/worthless-creative-poster.png"}
-        ]
-    },
-    {
-        "id": "artwork-004",
-        "type": "artwork",
-        "title": "FOR YOU",
-        "year": "April 2025",
-        "tags": ["Design", "Digital Art", "Photoshop Composite"],
-        "thumb": "assets/images/misc/artwork/for-you-poster.png",
-        "gallery": [
-            {"label": "Created using Adobe Photoshop", "url": "assets/images/misc/artwork/for-you-poster.png"}
-        ]
-    },
-    {
-        "id": "artwork-005",
-        "type": "artwork",
-        "title": "Godess of Rot",
-        "year": "November 2024",
-        "tags": ["Design", "Digital Art", "Photoshop Composite"],
-        "thumb": "assets/images/misc/artwork/malenia-poster.png",
-        "gallery": [
-            {"label": "Created using Adobe Photoshop", "url": "assets/images/misc/artwork/malenia-poster.png"}
-        ]
-    },
-    {
-        "id": "artwork-006",
-        "type": "artwork",
-        "title": "'down' - Single Cover Art",
-        "year": "November 2024",
-        "tags": ["Design", "Digital Art", "Cover Art", "Visualizer", "Motion / Editing", "Music Production", "Photoshop Composite"],
-        "thumb": "assets/images/misc/artwork/down-cover.png",
-        "gallery": [
-            {"label": "Cover art for the artist flowrpot, created using Adobe Photoshop", "url": "assets/images/misc/artwork/down-cover.png"},
-            {"label": "Visualizer GIF, Created using Premiere Pro", "url": "assets/images/misc/artwork/down-visualizer.gif"}
-        ]
-    },
-    {
-        "id": "artwork-007",
-        "type": "artwork",
-        "title": "eternal",
-        "year": "November 2024",
-        "tags": ["Design", "Digital Art", "Photoshop Composite"],
-        "thumb": "assets/images/misc/artwork/radhan-miqeulla-poster.png",
-        "gallery": [
-            {"label": "Created using Adobe Photoshop", "url": "assets/images/misc/artwork/radhan-miqeulla-poster.png"}
-        ]
-    },
-    {
-        "id": "artwork-008",
-        "type": "artwork",
-        "title": "like me",
-        "year": "October 2024",
-        "tags": ["Design", "Digital Art", "Photoshop Composite"],
-        "thumb": "assets/images/misc/artwork/like-me-poster.png",
-        "gallery": [
-            {"label": "Created using Adobe Photoshop", "url": "assets/images/misc/artwork/like-me-poster.png"}
-        ]
-    },
-    {
-        "id": "artwork-009",
-        "type": "artwork",
-        "title": "'EGO' - Single Cover Art",
-        "year": "October 2024",
-        "tags": ["Design", "Digital Art", "Cover Art", "Music Production", "Photoshop Composite"],
-        "thumb": "assets/images/misc/artwork/ego-cover.jpg",
-        "gallery": [
-            {"label": "Cover art for the artist flowrpot, created using Adobe Photoshop", "url": "assets/images/misc/artwork/ego-cover.jpg"}
-        ]
-    },
-    {
-        "id": "artwork-010",
-        "type": "artwork",
-        "title": "'CANNIBAL' - Single Cover Art",
-        "year": "August 2024",
-        "tags": ["Design", "Digital Art", "Cover Art", "Music Production", "Photoshop Composite"],
-        "thumb": "assets/images/misc/artwork/cannibal-cover.jpg",
-        "gallery": [
-            {"label": "Cover art for the artist flowrpot, created using Adobe Photoshop", "url": "assets/images/misc/artwork/cannibal-cover.jpg"}
-        ]
-    },
-    {
-        "id": "artwork-011",
-        "type": "artwork",
-        "title": "DUEL",
-        "year": "December 2023",
-        "tags": ["Design", "Digital Art", "Photoshop Composite"],
-        "thumb": "assets/images/misc/artwork/duel-poster.jpg",
-        "gallery": [
-            {"label": "Created using Adobe Photoshop", "url": "assets/images/misc/artwork/duel-poster.jpg"}
-        ]
-    },
-    {
-        "id": "artwork-012",
-        "type": "artwork",
-        "title": "VELOCITY",
-        "year": "October 2023",
-        "tags": ["Design", "Digital Art", "Photoshop Composite"],
-        "thumb": "assets/images/misc/artwork/velocity-poster.jpg",
-        "gallery": [
-            {"label": "Created using Adobe Photoshop", "url": "assets/images/misc/artwork/velocity-poster.jpg"}
-        ]
-    },
-    {
-        "id": "artwork-013",
-        "type": "artwork",
-        "title": "Aki Blink - Pixel Art Animation",
-        "year": "December 2022",
-        "tags": ["Design", "Digital Art", "Animation", "Motion / Editing", "Pixel Art"],
-        "thumb": "assets/images/misc/artwork/aki-blink-animation.gif",
-        "gallery": [
-            {"label": "Created using Aseprite", "url": "assets/images/misc/artwork/aki-blink-animation.gif"}
-        ]
-    },
-    {
-        "id": "artwork-014",
-        "type": "artwork",
-        "title": "Stalker 2 Bodycam Poster",
-        "year": "October 2022",
-        "tags": ["Design", "Digital Art", "Photoshop Composite"],
-        "thumb": "assets/images/misc/artwork/stalker2-poster.jpg",
-        "gallery": [
-            {"label": "Created using Adobe Photoshop", "url": "assets/images/misc/artwork/stalker2-poster.jpg"}
-        ]
-    },
-    {
-        "id": "artwork-015",
-        "type": "artwork",
-        "title": "contradiction",
-        "year": "August 2022",
-        "tags": ["Design", "Digital Art", "Photoshop Composite"],
-        "thumb": "assets/images/misc/artwork/contradiction-poster.jpg",
-        "gallery": [
-            {"label": "Created using Adobe Photoshop", "url": "assets/images/misc/artwork/contradiction-poster.jpg"}
-        ]
-    },
-    {
-        "id": "artwork-016",
-        "type": "artwork",
-        "title": "'The Wolf of Peachtree 2' - Concept Cover Art",
-        "year": "March 2021",
-        "tags": ["Design", "Digital Art", "Cover Art", "Concept", "Photoshop Composite"],
-        "thumb": "assets/images/misc/artwork/wop2-cover-concept.jpg",
-        "gallery": [
-            {"label": "Created using Adobe Photoshop", "url": "assets/images/misc/artwork/wop2-cover-concept.jpg"}
-        ]
-    },
-    {
-        "id": "artwork-017",
-        "type": "artwork",
-        "title": "'I AM MUSIC' - Concept Cover Art",
-        "year": "September 2024",
-        "tags": ["Design", "Digital Art", "Cover Art", "Concept", "Photoshop Composite"],
-        "thumb": "assets/images/misc/artwork/playboi-carti-music-poster.jpg",
-        "gallery": [
-            {"label": "Created using Adobe Photoshop", "url": "assets/images/misc/artwork/playboi-carti-music-poster.jpg"}
-        ]
-    },
-    {
-        "id": "artwork-018",
-        "type": "artwork",
-        "title": "'Whole Lotta Red' Poster",
-        "year": "December 2024",
-        "tags": ["Design", "Digital Art", "Cover Art", "Concept", "Photoshop Composite"],
-        "thumb": "assets/images/misc/artwork/playboi-carti-wlr-poster.png",
-        "gallery": [
-            {"label": "Created using Adobe Photoshop", "url": "assets/images/misc/artwork/playboi-carti-wlr-poster.png"}
-        ]
-    },
-    {
-        "id": "artwork-019",
-        "type": "artwork",
-        "title": "'MELTDOWN' - Single Cover Art",
-        "year": "October 2025",
-        "tags": ["Design", "Digital Art", "Cover Art", "Music Production", "Photoshop Composite"],
-        "thumb": "assets/images/misc/artwork/meltdown-cover.png",
-        "gallery": [
-            {"label": "Cover art for the artist flowrpot, created using Adobe Photoshop", "url": "assets/images/misc/artwork/meltdown-cover.png"}
-        ]
-    },
-    {
-        "id": "artwork-020",
-        "type": "artwork",
-        "title": "SELF MADE - Single Cover Art",
-        "year": "June 2025",
-        "tags": ["Design", "Digital Art", "Cover Art", "Music Production", "Photoshop Composite"],
-        "thumb": "assets/images/misc/artwork/self-made-cover.png",
-        "gallery": [
-            {"label": "Cover art for the artist flowrpot, created using Adobe Photoshop", "url": "assets/images/misc/artwork/self-made-cover.png"}
-        ]
-    },
-    {
-        "id": "artwork-021",
-        "type": "artwork",
-        "title": "'2x' - Scrapped Mixtape Cover Art",
-        "year": "May 2025",
-        "tags": ["Design", "Digital Art", "Cover Art", "Photoshop Composite"],
-        "thumb": "assets/images/misc/artwork/2x-cover.png",
-        "gallery": [
-            {"label": "Cover art for the artists flowrpot & oh1uxie, created using Adobe Photoshop", "url": "assets/images/misc/artwork/2x-cover.png"}
-        ]
-    },
-    {
-        "id": "artwork-022",
-        "type": "artwork",
-        "title": "ISOLATION 3d Render",
-        "year": "January 2023",
-        "tags": ["Design", "Digital Art", "3D Render", "3D Modeling"],
-        "thumb": "assets/images/misc/artwork/isolation-3d-render.jpg",
-        "gallery": [
-            {"label": "Created using the program Crocotile3D, all assets by me", "url": "assets/images/misc/artwork/isolation-3d-render.jpg"}
-        ]
-    },
-    {
-        "id": "artwork-023",
-        "type": "artwork",
-        "title": "Asa Pixel Art",
-        "year": "April 2023",
-        "tags": ["Design", "Digital Art", "Pixel Art"],
-        "thumb": "assets/images/misc/artwork/asa-pixel-poster.png",
-        "gallery": [
-            {"label": "Created using Aseprite", "url": "assets/images/misc/artwork/asa-pixel-poster.png"}
-        ]
-    },
-    {
-        "id": "artwork-024",
-        "type": "artwork",
-        "title": "EXCEL!",
-        "year": "July 2023",
-        "tags": ["Design", "Digital Art", "Photoshop Composite"],
-        "thumb": "assets/images/misc/artwork/excel-01.jpg",
-        "gallery": [
-            {"label": "", "url": "assets/images/misc/artwork/excel-01.jpg"},
-            {"label": "", "url": "assets/images/misc/artwork/excel-02.jpg"},
-            {"label": "", "url": "assets/images/misc/artwork/excel-03.jpg"},
-            {"label": "Created using Adobe Photoshop", "url": "assets/images/misc/artwork/excel-04.jpg"}
-        ]
-    },
-    {
-        "id": "artwork-025",
-        "type": "artwork",
-        "title": "peace in noise",
-        "year": "December 2025",
-        "tags": ["Design", "Digital Art", "Photoshop Composite"],
-        "thumb": "assets/images/misc/artwork/peace-in-noise-poster.png",
-        "gallery": [
-            {"label": "Created using Adobe Photoshop", "url": "assets/images/misc/artwork/peace-in-noise-poster.png"}
-        ]
-    },
-    {
-        "id": "artwork-026",
-        "type": "artwork",
-        "title": "change",
-        "year": "December 2025",
-        "tags": ["Design", "Digital Art", "Photoshop Composite"],
-        "thumb": "assets/images/misc/artwork/change-poster.png",
-        "gallery": [
-            {"label": "Created using Adobe Photoshop", "url": "assets/images/misc/artwork/change-poster.png"}
-        ]
-    },
-    {
-        "id": "artwork-027",
-        "type": "artwork",
-        "title": "'PERFECTIONIST' - Single Cover Art",
-        "year": "February 2026",
-        "tags": ["Design", "Digital Art", "Cover Art", "Music Production", "Photoshop Composite"],
-        "thumb": "assets/images/misc/artwork/perfectionist-cover.png",
-        "gallery": [
-            {"label": "Created using Adobe Photoshop", "url": "assets/images/misc/artwork/perfectionist-cover.png"},
-            {"label": " ", "url": "assets/images/misc/artwork/perfectionist-alt-cover-1.png"},
-            {"label": "Alternate covers, Created using Photoshop", "url": "assets/images/misc/artwork/perfectionist-alt-cover-2.png"}
-        ]
-    },
-    {
-        "id": "artwork-028",
-        "type": "artwork",
-        "title": "'flow state' - Single Cover Art",
-        "year": "February 2026",
-        "tags": ["Design", "Digital Art", "Cover Art", "Music Production", "Photoshop Composite"],
-        "thumb": "assets/images/misc/artwork/flow-state-cover.png",
-        "gallery": [
-            {"label": "Created using Adobe Photoshop", "url": "assets/images/misc/artwork/flow-state-cover.png"},
-            {"label": " ", "url": "assets/images/misc/artwork/flow-state-alt-cover-1.png"},
-            {"label": "Alternate covers, Created using Photoshop", "url": "assets/images/misc/artwork/flow-state-alt-cover-2.png"}
-        ]
-    },
-    {
-        "id": "artwork-029",
-        "type": "artwork",
-        "title": "'if i wanna' - Single Cover Art",
-        "year": "March 2026",
-        "tags": ["Design", "Digital Art", "Cover Art", "Music Production", "Photoshop Composite"],
-        "thumb": "assets/images/misc/artwork/if-i-wanna-cover.png",
-        "gallery": [
-            {"label": "Created using Adobe Photoshop", "url": "assets/images/misc/artwork/if-i-wanna-cover.png"}
-        ]
+  {
+    "id": "project-001",
+    "type": "project",
+    "title": "'flowrpot' - Art & Production",
+    "tags": [
+      "Design",
+      "Brand Identity",
+      "Cover Art",
+      "Promotional Material",
+      "Music Production"
+    ],
+    "year": "August 2025",
+    "role": "Lead Designer & Producer",
+    "featured": true,
+    "thumb": "assets/images/flowrpot/flowrpot-preview.jpg",
+    "description": "'flowrpot' is a Toronto-based hip-hop artist. I was responsible for designing the visual identity for his self-titled mixtape, including the cover art, promotional materials, and social media graphics. Additionally, I produced and engineered all 13 tracks on the mixtape, blending electronic beats with soulful melodies to create a unique sound that complements flowrpot's vocals.",
+    "links": [
+      {
+        "label": "Link to flowrpot's socials",
+        "url": "https://linktr.ee/flowrpot"
+      },
+      {
+        "label": "Link to the album",
+        "url": "https://soundcloud.com/flowrpot/sets/flowrpot"
+      }
+    ],
+    "gallery": [
+      {
+        "label": "Cover Art",
+        "url": "assets/images/flowrpot/flowrpot-self-titled-cover.png"
+      },
+      {
+        "label": "Track list on the back of the physical CD",
+        "url": "assets/images/flowrpot/flowrpot-self-titled_back-cover.jpg"
+      },
+      {
+        "label": "Alternate cover for SoundCloud remixes",
+        "url": "assets/images/flowrpot/flowrpot-self-titled-alternative-cover.png"
+      }
+    ]
+  },
+  {
+    "id": "project-002",
+    "type": "project",
+    "title": "Pareidolia (Game)",
+    "tags": [
+      "UI/UX Designer",
+      "Asset Artist",
+      "Music Production",
+      "Sound Design",
+      "Design"
+    ],
+    "year": "January 2025",
+    "role": "Lead UI/UX Designer",
+    "featured": true,
+    "thumb": "assets/images/pareidolia/parei-preview.jpg",
+    "description": [
+      "I was responsible for designing the user interface elements and title screen. I also created various minor assets throughout the game, and one of the soundtracks used in the beginning cutscenes. This game was a school project collaboration between UofT, and OCAD U students for the Level Up Showcase in spring 2025.",
+      "Pareidolia is a first-person horror game inspired by the BÃ©lmez Faces. The game takes place in an â€œordinaryâ€ suburban home that is slowly being transformed and infected by face-like stains. Players must try and go about their daily routine by finishing chores, all the while trying to ignore the ever-growing presence of the stains that seem to be multiplying by the hour."
+    ],
+    "links": [
+      {
+        "label": "View the Itch.io download page",
+        "url": "https://nourdles.itch.io/pareidolia"
+      },
+      {
+        "label": "See the rest of the team here",
+        "url": "https://teampareidolia.carrd.co/#about"
+      }
+    ],
+    "gallery": [
+      {
+        "label": "Intro GIF",
+        "url": "assets/images/pareidolia/parei intro gif.gif"
+      },
+      {
+        "label": "Controller Scheme",
+        "url": "assets/images/pareidolia/controllerSchemeAlt.png"
+      },
+      {
+        "label": "UI & Model Screenshots",
+        "url": "assets/images/pareidolia/parei-ui1.png"
+      },
+      {
+        "label": " ",
+        "url": "assets/images/pareidolia/parei-ui2.png"
+      },
+      {
+        "label": " ",
+        "url": "assets/images/pareidolia/parei-ui3.png"
+      },
+      {
+        "label": " ",
+        "url": "assets/images/pareidolia/parei-ui4.png"
+      }
+    ],
+    "audio": {
+      "title": "Intro Cutscene Track - Pareidolia",
+      "src": "assets/audio/pareidolia/pareidolia [intro cutscene] @prodbyjvn.mp3"
     }
+  },
+  {
+    "id": "project-003",
+    "type": "project",
+    "title": "'cold' - Art & Production",
+    "tags": [
+      "Design",
+      "Brand Identity",
+      "Cover Art",
+      "Promotional Material",
+      "Music Production"
+    ],
+    "year": "February 2025",
+    "role": "Lead Designer & Producer",
+    "featured": true,
+    "thumb": "assets/images/cold/flowrpot-cold-cover.jpg",
+    "description": "'flowrpot' is a Toronto-based hip-hop artist. I was responsible for designing the visual identity for his first EP, including the cover art, promotional materials, and social media graphics. Additionally, I produced and engineered all 8 tracks on the EP, blending electronic beats with soulful melodies to create a unique sound that complements flowrpot's vocals.",
+    "links": [
+      {
+        "label": "Link to flowrpot's socials",
+        "url": "https://linktr.ee/flowrpot"
+      },
+      {
+        "label": "Link to the album",
+        "url": "https://soundcloud.com/flowrpot/sets/flowrpot"
+      }
+    ],
+    "gallery": [
+      {
+        "label": "Cover Art",
+        "url": "assets/images/cold/flowrpot-cold-cover.jpg"
+      },
+      {
+        "label": "Track list on the back of the physical CD",
+        "url": "assets/images/cold/flowrpot-cold-back-cover.jpg"
+      },
+      {
+        "label": "Alternate cover for SoundCloud remixes",
+        "url": "assets/images/cold/flowrpot-cold-alternate-cover.jpg"
+      }
+    ]
+  },
+  {
+    "id": "project-004",
+    "type": "project",
+    "title": "Virality (Audio Tool Website)",
+    "tags": [
+      "Design",
+      "Web Design",
+      "UI/UX Designer",
+      "Frontend Development",
+      "Figma",
+      "HTML/CSS/JS"
+    ],
+    "year": "April 2025",
+    "role": "Creator",
+    "featured": true,
+    "thumb": "assets/images/virality/virality-screenshot1.png",
+    "description": "'Virality' is a web-based audio tool that allows users to create and share slowed + reverb, or nightcore sound clips. I designed and developed the entire user interface, including the interactive audio editor. The design is heavily inspired by the handheld PSP UI, with a focus on simplicity and ease of use. Users can upload their own audio files, apply effects, and export their creations for free, directly from the website.",
+    "links": [
+      {
+        "label": "Link to the Website",
+        "url": "https://jevendev.github.io/Virality/"
+      },
+      {
+        "label": "Link to the GitHub Repo",
+        "url": "https://github.com/JevenDev/Virality"
+      }
+    ],
+    "gallery": [
+      {
+        "label": "Screenshot of the website",
+        "url": "assets/images/virality/virality-screenshot1.png"
+      },
+      {
+        "label": "Initial design creation in Figma ",
+        "url": "assets/images/virality/virality-concept1.png"
+      }
+    ]
+  }
 ]
