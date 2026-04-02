@@ -1,5 +1,20 @@
 [
     {
+        "name": "NAP Solutions",
+        "role": "Brand Identity & Website Design",
+        "yearRange": "2026 - Current",
+        "notableWorks": [
+            "Designed and developed the website",
+            "Contributed to the NAP Solutions brand identity"
+        ],
+        "image": "assets/images/misc/profile-pics/nap-solutions-logo.png",
+        "links": [
+            {"label": "Website", "url": "https://getnapsolutions.com/"},
+            {"label": "Instagram", "url": "https://www.instagram.com/getnapsolutions"},
+            {"label": "TikTok", "url": "https://www.tiktok.com/@napsolutions"}
+        ]
+    },
+    {
         "name": "flowrpot",
         "role": "Art Direction, Engineering, & Music Production",
         "yearRange": "2024 - Current",

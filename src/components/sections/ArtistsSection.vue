@@ -7,7 +7,7 @@
         description="Creative partners across production, engineering, and visual direction."
       />
 
-      <div class="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+      <div class="grid gap-5 md:grid-cols-2 xl:grid-cols-3" data-reveal>
         <ArtistCard v-for="artist in artists" :key="artist.name" :artist="artist" @open="emit('open', $event)" />
       </div>
     </div>
@@ -30,5 +30,9 @@ defineProps({
 const emit = defineEmits(['open']);
 
 const root = ref(null);
-useScrollReveal(root);
+useScrollReveal(root, '[data-reveal]', {
+  initialViewportMultiplier: 1.05,
+  rootMargin: '0px 0px 12% 0px',
+  threshold: 0.01
+});
 </script>

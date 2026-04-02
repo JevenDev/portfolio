@@ -1,5 +1,27 @@
 [
     {
+        "id": "project-005",
+        "type": "project",
+        "title": "NAP Solutions",
+        "tags": ["Design", "Brand Identity", "Web Design", "Frontend Development"],
+        "year": "March 2026 - Present",
+        "role": "Brand Identity & Web Direction",
+        "modalTypeLabel": "Position",
+        "featured": true,
+        "thumb": "assets/images/nap/nap-solutions-site-01.png",
+        "description": [
+            "NAP Solutions provides an AI-powered receptionist that answers your business calls 24/7. It books appointments, handles inquiries, reschedules, cancels, and escalates to your team when needed - all without any human staff required.",
+            "I was responsible for creating the brand identity and designing the website. The design direction was inspired by the idea of a 'digital concierge' - a service that is both professional and approachable, with a touch of warmth and personality. I took direct inspiration from the PSP and Apple's liquid glass design language to create a sleek and modern aesthetic that is both functional and visually appealing. The website features a clean and intuitive layout."
+        ],
+        "links": [
+            {"label": "Visit the website", "url": "https://getnapsolutions.com/"}
+        ],
+        "gallery": [
+            {"label": "Homepage and hero", "url": "assets/images/nap/nap-solutions-site-01.png"},
+            {"label": "Pricing and plans page", "url": "assets/images/nap/nap-solutions-site-02.png"}
+        ]
+    },
+    {
         "id": "project-001",
         "type": "project",
         "title": "'flowrpot' - Art & Production",

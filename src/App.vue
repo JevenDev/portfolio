@@ -5,30 +5,28 @@
     <TopTicker :skills="config.skills" :interval-ms="config.tickerIntervalMs" />
     <SiteHeader :active-section="activeSection" @navigate="handleNavigation" />
 
-    <div id="smooth-wrapper" class="min-h-screen">
-      <div id="smooth-content">
-        <RouterView v-slot="{ Component }">
-          <component
-            :is="Component"
-            :artists="artists"
-            :config="config"
-            :featured-projects="featuredProjects"
-            :music-projects="musicProjects"
-            :top-projects="topProjects"
-            :projects="filteredSortedProjects"
-            :active-tags="activeTags"
-            :visible-tags="visibleFilterTags"
-            :sort-by="sortBy"
-            @navigate="handleNavigation"
-            @open-project="openProject"
-            @open-artist="openArtist"
-            @toggle-tag="toggleTag"
-            @update-sort="sortBy = $event"
-          />
-        </RouterView>
+    <div class="min-h-screen">
+      <RouterView v-slot="{ Component }">
+        <component
+          :is="Component"
+          :artists="artists"
+          :config="config"
+          :featured-projects="featuredProjects"
+          :music-projects="musicProjects"
+          :top-projects="topProjects"
+          :projects="filteredSortedProjects"
+          :active-tags="activeTags"
+          :visible-tags="visibleFilterTags"
+          :sort-by="sortBy"
+          @navigate="handleNavigation"
+          @open-project="openProject"
+          @open-artist="openArtist"
+          @toggle-tag="toggleTag"
+          @update-sort="sortBy = $event"
+        />
+      </RouterView>
 
-        <SiteFooter :socials="config.socials" />
-      </div>
+      <SiteFooter :socials="config.socials" />
     </div>
 
     <DetailModal :open="Boolean(modalItem)" :item="modalItem" :mode="modalMode" @close="closeModal" />
@@ -38,15 +36,16 @@
 </template>
 
 <script setup>
-import { nextTick, onMounted, onUnmounted, ref, watch } from 'vue';
+import { defineAsyncComponent, nextTick, onMounted, onUnmounted, ref, watch } from 'vue';
 import { RouterView, useRoute, useRouter } from 'vue-router';
 import SiteFooter from './components/layout/SiteFooter.vue';
 import SiteHeader from './components/layout/SiteHeader.vue';
 import TopTicker from './components/layout/TopTicker.vue';
 import BackToTop from './components/ui/BackToTop.vue';
-import DetailModal from './components/ui/DetailModal.vue';
 import { usePortfolioData } from './composables/usePortfolioData';
-import { gsap, ScrollSmoother, ScrollTrigger } from './utils/gsap';
+import { ScrollTrigger } from './utils/gsap';
+
+const DetailModal = defineAsyncComponent(() => import('./components/ui/DetailModal.vue'));
 
 const route = useRoute();
 const router = useRouter();
@@ -71,7 +70,6 @@ const modalItem = ref(null);
 const modalMode = ref('project');
 let galleryPrefetchPromise = null;
 let idlePrefetchId = null;
-let scrollSmoother = null;
 let resizeRaf = null;
 
 let sectionObserver;
@@ -92,53 +90,18 @@ function prefersReducedMotion() {
   return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 }
 
-function shouldUseScrollSmoother() {
-  if (prefersReducedMotion()) return false;
-  if (window.matchMedia('(pointer: coarse)').matches) return false;
-  return window.innerWidth >= 768;
-}
-
-function initScrollSmoother() {
-  scrollSmoother?.kill();
-  scrollSmoother = null;
-
-  if (!shouldUseScrollSmoother()) return;
-
-  scrollSmoother = ScrollSmoother.create({
-    content: '#smooth-content',
-    effects: true,
-    smooth: 0.58,
-    smoothTouch: 0,
-    wrapper: '#smooth-wrapper'
-  });
-}
-
 function onResize() {
   if (resizeRaf !== null) {
     window.cancelAnimationFrame(resizeRaf);
   }
 
   resizeRaf = window.requestAnimationFrame(() => {
-    const current = ScrollSmoother.get();
-
-    if (shouldUseScrollSmoother()) {
-      if (!current) {
-        initScrollSmoother();
-      } else {
-        current.refresh();
-      }
-    } else if (current) {
-      current.kill();
-      scrollSmoother = null;
-    }
-
+    ScrollTrigger.refresh();
     onScroll();
   });
 }
 
 function getCurrentScrollTop() {
-  const smoother = ScrollSmoother.get();
-  if (smoother) return smoother.scrollTop();
   return window.scrollY;
 }
 
@@ -149,52 +112,11 @@ function scrollToSection(sectionId) {
   const offsetY = getHeaderOffset();
   const reducedMotion = prefersReducedMotion();
   const targetTop = target.getBoundingClientRect().top + getCurrentScrollTop() - offsetY;
-
-  if (reducedMotion) {
-    const top = target.getBoundingClientRect().top + window.scrollY - offsetY;
-    window.scrollTo({ top, behavior: 'auto' });
-    return;
-  }
-
-  const smoother = ScrollSmoother.get();
-  if (smoother) {
-    smoother.scrollTo(targetTop, true);
-    return;
-  }
-
-  gsap.to(window, {
-    duration: 0.85,
-    ease: 'power3.out',
-    scrollTo: {
-      autoKill: true,
-      offsetY,
-      y: target
-    }
-  });
+  window.scrollTo({ top: targetTop, behavior: reducedMotion ? 'auto' : 'smooth' });
 }
 
 function scrollPageTop() {
-  const reducedMotion = prefersReducedMotion();
-
-  if (reducedMotion) {
-    window.scrollTo({ top: 0, behavior: 'auto' });
-    return;
-  }
-
-  const smoother = ScrollSmoother.get();
-  if (smoother) {
-    smoother.scrollTo(0, true);
-    return;
-  }
-
-  gsap.to(window, {
-    duration: 0.75,
-    ease: 'power3.out',
-    scrollTo: {
-      autoKill: true,
-      y: 0
-    }
-  });
+  window.scrollTo({ top: 0, behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
 }
 
 async function handleNavigation(target) {
@@ -325,23 +247,13 @@ watch(
   () => route.fullPath,
   async () => {
     await nextTick();
-    scrollSmoother?.refresh();
     ScrollTrigger.refresh();
     setupSectionObserver();
     await syncFromRoute();
   }
 );
 
-watch(
-  () => Boolean(modalItem.value),
-  (isOpen) => {
-    const smoother = ScrollSmoother.get();
-    smoother?.paused(isOpen);
-  }
-);
-
 onMounted(async () => {
-  initScrollSmoother();
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', onResize, { passive: true });
   onScroll();
@@ -362,7 +274,6 @@ onMounted(async () => {
   }
 
   await nextTick();
-  scrollSmoother?.refresh();
   ScrollTrigger.refresh();
   setupSectionObserver();
   await syncFromRoute();
@@ -372,8 +283,6 @@ onUnmounted(() => {
   window.removeEventListener('scroll', onScroll);
   window.removeEventListener('resize', onResize);
   sectionObserver?.disconnect();
-  scrollSmoother?.kill();
-  scrollSmoother = null;
 
   if (resizeRaf !== null) {
     window.cancelAnimationFrame(resizeRaf);

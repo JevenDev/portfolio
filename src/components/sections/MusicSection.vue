@@ -36,7 +36,7 @@
             @click="emit('open', featuredMusicProject)"
           >
             <img
-              :src="featuredMusicProject.thumb"
+              :src="featuredMusicProject.thumbCard || featuredMusicProject.thumb"
               :alt="featuredMusicProject.title"
               class="aspect-[4/3] w-full border-b border-line object-cover transition duration-500 group-hover:scale-[1.015]"
               loading="lazy"

@@ -91,11 +91,11 @@ const emit = defineEmits(['navigate']);
 const menuOpen = ref(false);
 
 const navItems = [
+  { id: 'about', label: 'About' },
   { id: 'work', label: 'Selected Work' },
   { id: 'projects', label: 'Featured Projects' },
   { id: 'gallery', label: 'Full Gallery' },
-  { id: 'artists', label: 'Collaborators' },
-  { id: 'about', label: 'About' }
+  { id: 'artists', label: 'Collaborators' }
 ];
 
 function onNavigate(sectionId) {

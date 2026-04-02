@@ -74,7 +74,7 @@
                 <span class="text-line">/</span>
                 <span v-if="item.role">{{ item.role }}</span>
                 <span v-if="item.role" class="text-line">/</span>
-                <span>{{ item.type === 'artwork' ? 'Artwork' : 'Project' }}</span>
+                <span>{{ projectTypeLabel }}</span>
               </div>
             </header>
 
@@ -185,6 +185,12 @@ const descriptionLines = computed(() => {
     return [props.item.description];
   }
   return [];
+});
+
+const projectTypeLabel = computed(() => {
+  if (!props.item) return 'Project';
+  if (props.item.modalTypeLabel) return props.item.modalTypeLabel;
+  return props.item.type === 'artwork' ? 'Artwork' : 'Project';
 });
 
 const galleryItems = computed(() => {

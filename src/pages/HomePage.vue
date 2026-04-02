@@ -3,6 +3,7 @@
     <HeroSection
       :name="'Jeven Randhawa'"
       :tagline="config.tagline"
+      :email="config.email"
       :location="config.location"
       :hero-project="heroProject"
       @navigate="emit('navigate', $event)"
@@ -94,13 +95,14 @@ const selectedWorks = computed(() => {
 });
 
 const projectHighlights = computed(() => {
-  const base = props.topProjects.slice(0, 3);
-  const pareidolia = findById('project-002');
+  const preferredIds = ['project-005', 'project-001', 'project-004', 'project-002'];
+  const selected = preferredIds.map(findById).filter(Boolean);
 
-  if (!pareidolia || base.some((project) => project.id === pareidolia.id)) {
-    return base;
+  if (selected.length >= 4) {
+    return selected.slice(0, 4);
   }
 
-  return [...base, pareidolia];
+  const fallback = props.topProjects.filter((project) => !selected.includes(project) && project.id !== 'project-003');
+  return [...selected, ...fallback].slice(0, 4);
 });
 </script>

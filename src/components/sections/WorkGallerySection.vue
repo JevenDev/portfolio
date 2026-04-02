@@ -223,6 +223,8 @@ watch(
   async (newCount, oldCount) => {
     await nextTick();
 
+    if (oldCount == null) return;
+
     const previousCount = Math.max(oldCount || 0, 0);
     const startIndex = newCount > previousCount ? previousCount : 0;
     animateGalleryCards(startIndex);

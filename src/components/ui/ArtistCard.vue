@@ -1,5 +1,5 @@
 <template>
-  <article class="group frame-block flex h-full flex-col transition duration-300 hover:border-ink/30" data-reveal>
+  <article class="group frame-block flex h-full flex-col transition duration-300 hover:border-ink/30">
     <button
       type="button"
       class="focus-ring block h-full text-left"
@@ -10,10 +10,13 @@
         <div class="flex items-start gap-4 border-b border-line pb-4">
           <img
             v-if="artist.image"
-            :src="artist.image"
+            :src="artist.imageThumb || artist.image"
             :alt="artist.name"
             class="h-16 w-16 shrink-0 border border-line object-cover"
+            decoding="async"
             loading="lazy"
+            width="64"
+            height="64"
           />
           <div class="space-y-2">
             <h3 class="font-display text-2xl font-semibold tracking-[-0.03em] text-ink">{{ artist.name }}</h3>

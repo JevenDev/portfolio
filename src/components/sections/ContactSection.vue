@@ -6,9 +6,7 @@
           <div class="space-y-4">
             <p class="eyebrow-label" data-reveal>Contact</p>
             <h2 class="max-w-4xl font-display text-4xl font-semibold leading-[1.05] tracking-[-0.04em] text-ink md:text-7xl">
-              Let's Build Work
-              <br />
-              That Looks and Sounds Distinct.
+              Let's Build Work That Looks and Sounds Distinct.
             </h2>
             <p class="editorial-lead" data-reveal>
               Available for visual identity, cover art direction, and production support.

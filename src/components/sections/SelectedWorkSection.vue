@@ -26,10 +26,9 @@
               @click="emit('open', featuredProject)"
             >
               <img
-                :src="featuredProject.thumb"
+                :src="featuredProject.thumbCard || featuredProject.thumb"
                 :alt="featuredProject.title"
                 class="aspect-[4/3] h-full w-full object-cover transition duration-500 group-hover:scale-[1.02]"
-                data-speed="0.99"
                 fetchpriority="low"
                 loading="lazy"
                 decoding="async"
@@ -81,10 +80,9 @@
               @click="emit('open', project)"
             >
               <img
-                :src="project.thumb"
+                :src="project.thumbCard || project.thumb"
                 :alt="project.title"
                 class="aspect-[5/4] w-full border-b border-line object-cover transition duration-500 group-hover:scale-[1.015]"
-                data-speed="0.995"
                 fetchpriority="low"
                 loading="lazy"
                 decoding="async"

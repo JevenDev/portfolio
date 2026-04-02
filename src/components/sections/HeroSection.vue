@@ -34,9 +34,18 @@
             {{ name }}
           </h1>
 
-          <p class="md:col-span-2 max-w-[48rem] text-base leading-relaxed text-muted md:text-lg" data-reveal>
-            {{ tagline }}
-          </p>
+          <div class="md:col-span-2 space-y-1.5" data-reveal>
+            <p class="max-w-[48rem] text-base leading-relaxed text-muted md:text-lg">
+              {{ tagline }}
+            </p>
+            <a
+              v-if="email"
+              :href="`mailto:${email}`"
+              class="focus-ring inline-block w-fit text-sm font-semibold tracking-[-0.01em] text-muted underline decoration-line underline-offset-4 transition hover:text-ink hover:decoration-ink"
+            >
+              {{ email }}
+            </a>
+          </div>
         </div>
 
         <div class="space-y-4 p-3 md:p-4">
@@ -49,11 +58,12 @@
           >
             <figure class="overflow-hidden border border-line bg-shell" data-speed="0.985">
               <img
-                :src="heroProject.thumb"
+                :src="heroProject.thumbCard || heroProject.thumb"
                 :alt="heroProject.title"
                 class="aspect-[16/9] w-full object-cover transition duration-500 group-hover:scale-[1.015]"
                 decoding="async"
                 fetchpriority="high"
+                loading="eager"
               />
             </figure>
           </button>
@@ -100,6 +110,10 @@ defineProps({
   heroProject: {
     type: Object,
     default: null
+  },
+  email: {
+    type: String,
+    default: ''
   },
   location: {
     type: String,

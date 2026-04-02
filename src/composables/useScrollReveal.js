@@ -1,5 +1,4 @@
 import { nextTick, onBeforeUnmount, onMounted } from 'vue';
-import { gsap } from '../utils/gsap';
 
 function isDomElement(value) {
   return value instanceof Element || value instanceof HTMLDocument;
@@ -32,56 +31,67 @@ function resolveTargets(scopeElement, selector) {
     return Array.from(scopeElement.querySelectorAll(selector));
   }
 
-  return gsap.utils
-    .toArray(selector)
+  return []
+    .concat(selector)
     .map((target) => resolveElement(target))
     .filter((target) => target instanceof Element);
 }
 
-export function useScrollReveal(scopeTarget, selector = '[data-reveal]') {
-  let ctx = null;
+function isInInitialViewport(element, multiplier = 0.92) {
+  const rect = element.getBoundingClientRect();
+  return rect.bottom > 0 && rect.top < window.innerHeight * multiplier;
+}
+
+export function useScrollReveal(scopeTarget, selector = '[data-reveal]', options = {}) {
+  let observer = null;
 
   onMounted(async () => {
     await nextTick();
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
     const scopeElement = resolveElement(scopeTarget);
     if (!scopeElement) return;
 
-    ctx = gsap.context(() => {
-      const targets = resolveTargets(scopeElement, selector);
-      if (!targets.length) return;
+    const targets = resolveTargets(scopeElement, selector);
+    if (!targets.length) return;
 
-      gsap.set(targets, {
-        autoAlpha: 0,
-        force3D: true,
-        willChange: 'opacity, transform',
-        y: 18
-      });
+    if (
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
+      typeof IntersectionObserver === 'undefined'
+    ) {
+      targets.forEach((target) => target.classList.add('reveal-visible'));
+      return;
+    }
 
-      targets.forEach((element, index) => {
-        gsap.to(
-          element,
-          {
-            autoAlpha: 1,
-            y: 0,
-            duration: 0.56,
-            ease: 'power2.out',
-            overwrite: 'auto',
-            clearProps: 'willChange,force3D',
-            scrollTrigger: {
-              trigger: element,
-              start: `top ${Math.max(80, 90 - index * 2)}%`,
-              once: true
-            }
-          }
-        );
-      });
-    }, scopeElement);
+    observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+
+          entry.target.classList.add('reveal-visible');
+          entry.target.classList.remove('reveal-ready');
+          observer?.unobserve(entry.target);
+        });
+      },
+      {
+        root: null,
+        rootMargin: options.rootMargin || '0px 0px -10% 0px',
+        threshold: options.threshold ?? 0.12
+      }
+    );
+
+    targets.forEach((target) => {
+      if (isInInitialViewport(target, options.initialViewportMultiplier ?? 0.92)) {
+        target.classList.add('reveal-visible');
+        return;
+      }
+
+      target.classList.add('reveal-ready');
+      observer?.observe(target);
+    });
   });
 
   onBeforeUnmount(() => {
-    ctx?.revert();
-    ctx = null;
+    observer?.disconnect();
+    observer = null;
   });
 }

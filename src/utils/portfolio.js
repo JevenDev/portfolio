@@ -27,7 +27,7 @@ export function normalizeAssetPath(path) {
   return joinWithBase(path);
 }
 
-function buildCardThumbPath(path) {
+function buildThumbPath(path) {
   if (!path || typeof path !== 'string') return '';
 
   const normalized = path.startsWith('/') ? path.slice(1) : path;
@@ -93,7 +93,7 @@ export function filterProjects(projects, activeTags = []) {
 export function normalizeProject(project) {
   return {
     ...project,
-    thumbCard: buildCardThumbPath(project.thumb),
+    thumbCard: buildThumbPath(project.thumb),
     thumb: normalizeAssetPath(project.thumb),
     gallery: (project.gallery || []).map((item) => {
       if (typeof item === 'string') return normalizeAssetPath(item);
@@ -114,6 +114,7 @@ export function normalizeProject(project) {
 export function normalizeArtist(artist) {
   return {
     ...artist,
+    imageThumb: buildThumbPath(artist.image),
     image: normalizeAssetPath(artist.image)
   };
 }
