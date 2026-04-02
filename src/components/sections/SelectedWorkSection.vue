@@ -46,7 +46,7 @@
                 </p>
                 <ul class="flex flex-wrap gap-2">
                   <li
-                    v-for="tag in featuredProject.tags?.slice(0, 4)"
+                    v-for="tag in getFeaturedTags(featuredProject)"
                     :key="`${featuredProject.id}-${tag}`"
                     class="rounded-full border border-line px-2.5 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-muted"
                   >
@@ -93,6 +93,26 @@
                   {{ project.title }}
                 </h4>
                 <p class="text-base text-muted">{{ project.role || 'Graphic Design Piece' }}</p>
+                <ul
+                  v-if="project.tags?.length"
+                  :ref="(el) => setSecondaryTagListRef(project.id, el)"
+                  class="flex h-[4.1rem] flex-wrap content-start gap-2 overflow-hidden"
+                >
+                  <li
+                    v-for="tag in getSecondaryTags(project)"
+                    :key="`${project.id}-${tag}`"
+                    :title="tag"
+                    class="max-w-full truncate whitespace-nowrap rounded-full border border-line px-2.5 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-muted"
+                  >
+                    {{ tag }}
+                  </li>
+                  <li
+                    v-if="getSecondaryHiddenTagCount(project) > 0"
+                    class="max-w-full truncate whitespace-nowrap rounded-full border border-line px-2.5 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-muted"
+                  >
+                    +{{ getSecondaryHiddenTagCount(project) }}
+                  </li>
+                </ul>
               </div>
             </button>
           </article>
@@ -107,7 +127,7 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue';
+import { computed, nextTick, onMounted, onUnmounted, reactive, ref, watch } from 'vue';
 import { useScrollReveal } from '../../composables/useScrollReveal';
 import SectionHeading from '../ui/SectionHeading.vue';
 
@@ -153,4 +173,173 @@ useScrollReveal(root);
 
 const featuredProject = computed(() => props.projects[0] || null);
 const secondaryProjects = computed(() => props.projects.slice(1));
+const secondaryTagVisibleCountById = reactive({});
+const secondaryTagListRefs = new Map();
+
+const MAX_SECONDARY_TAG_ROWS = 2;
+const secondaryTagChipClasses =
+  'max-w-full truncate whitespace-nowrap rounded-full border border-line px-2.5 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-muted';
+
+let resizeObserver;
+let measureRoot;
+let recalcRaf = null;
+
+function getFeaturedTags(project) {
+  return project?.tags?.slice(0, 20) || [];
+}
+
+function getSecondaryTags(project) {
+  const tags = project?.tags || [];
+  const visibleCount = secondaryTagVisibleCountById[project?.id];
+  const fallbackCount = Math.min(tags.length, 5);
+  const count = Number.isInteger(visibleCount) ? visibleCount : fallbackCount;
+  return tags.slice(0, count);
+}
+
+function getSecondaryHiddenTagCount(project) {
+  const total = project?.tags?.length || 0;
+  return Math.max(0, total - getSecondaryTags(project).length);
+}
+
+function ensureMeasureRoot() {
+  if (measureRoot) return measureRoot;
+
+  const rootElement = document.createElement('div');
+  rootElement.style.position = 'fixed';
+  rootElement.style.left = '-10000px';
+  rootElement.style.top = '-10000px';
+  rootElement.style.visibility = 'hidden';
+  rootElement.style.pointerEvents = 'none';
+  rootElement.style.zIndex = '-1';
+  document.body.appendChild(rootElement);
+  measureRoot = rootElement;
+  return measureRoot;
+}
+
+function createMeasureChip(label) {
+  const chip = document.createElement('li');
+  chip.className = secondaryTagChipClasses;
+  chip.textContent = label;
+  return chip;
+}
+
+function getRowCount(listElement) {
+  const rows = new Set();
+
+  Array.from(listElement.children).forEach((chip) => {
+    rows.add(chip.offsetTop);
+  });
+
+  return rows.size;
+}
+
+function calculateVisibleTagCount(project, containerElement) {
+  const tags = project?.tags || [];
+  if (!tags.length || !containerElement) return 0;
+
+  const containerWidth = Math.floor(containerElement.clientWidth);
+  if (containerWidth <= 0) return Math.min(tags.length, 5);
+
+  const rootElement = ensureMeasureRoot();
+  const listElement = document.createElement('ul');
+  listElement.className = 'flex flex-wrap content-start gap-2';
+  listElement.style.width = `${containerWidth}px`;
+  listElement.style.margin = '0';
+  listElement.style.padding = '0';
+  listElement.style.listStyle = 'none';
+  rootElement.appendChild(listElement);
+
+  let visibleCount = 0;
+
+  for (let count = tags.length; count >= 0; count -= 1) {
+    listElement.replaceChildren();
+
+    tags.slice(0, count).forEach((tag) => {
+      listElement.appendChild(createMeasureChip(tag));
+    });
+
+    if (count < tags.length) {
+      listElement.appendChild(createMeasureChip(`+${tags.length - count}`));
+    }
+
+    if (getRowCount(listElement) <= MAX_SECONDARY_TAG_ROWS) {
+      visibleCount = count;
+      break;
+    }
+  }
+
+  rootElement.removeChild(listElement);
+  return visibleCount;
+}
+
+function recalculateSecondaryTagVisibility() {
+  secondaryProjects.value.forEach((project) => {
+    const containerElement = secondaryTagListRefs.get(project.id);
+    secondaryTagVisibleCountById[project.id] = calculateVisibleTagCount(project, containerElement);
+  });
+}
+
+function scheduleSecondaryTagRecalculation() {
+  if (recalcRaf !== null) {
+    window.cancelAnimationFrame(recalcRaf);
+  }
+
+  recalcRaf = window.requestAnimationFrame(() => {
+    recalcRaf = null;
+    recalculateSecondaryTagVisibility();
+  });
+}
+
+function observeSecondaryTagLists() {
+  if (!resizeObserver) {
+    resizeObserver = new ResizeObserver(() => {
+      scheduleSecondaryTagRecalculation();
+    });
+  } else {
+    resizeObserver.disconnect();
+  }
+
+  secondaryTagListRefs.forEach((element) => {
+    resizeObserver.observe(element);
+  });
+}
+
+function setSecondaryTagListRef(projectId, element) {
+  if (element) {
+    secondaryTagListRefs.set(projectId, element);
+    return;
+  }
+
+  secondaryTagListRefs.delete(projectId);
+}
+
+watch(
+  secondaryProjects,
+  async () => {
+    await nextTick();
+    observeSecondaryTagLists();
+    scheduleSecondaryTagRecalculation();
+  },
+  { immediate: true, deep: true }
+);
+
+onMounted(() => {
+  scheduleSecondaryTagRecalculation();
+});
+
+onUnmounted(() => {
+  if (recalcRaf !== null) {
+    window.cancelAnimationFrame(recalcRaf);
+  }
+
+  resizeObserver?.disconnect();
+  secondaryTagListRefs.clear();
+
+  if (measureRoot?.parentNode) {
+    measureRoot.parentNode.removeChild(measureRoot);
+  }
+
+  measureRoot = null;
+  resizeObserver = null;
+});
 </script>
