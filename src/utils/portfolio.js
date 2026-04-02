@@ -13,6 +13,13 @@ const MONTHS = {
   december: 11
 };
 
+const TYPE_LABELS = {
+  project: 'Project',
+  position: 'Position',
+  post: 'Post',
+  artwork: 'Artwork'
+};
+
 export const PRIMARY_FILTER_TAGS = ['Projects', 'Positions', 'Design', 'Music Production', 'Motion / Editing'];
 
 function joinWithBase(path = '') {
@@ -96,6 +103,26 @@ export function hasProjectType(project, targetType) {
   }
 
   return project.type === targetType;
+}
+
+export function getProjectTypeLabels(project) {
+  if (!project) return [];
+
+  const rawTypes = Array.isArray(project.type) ? project.type : [project.type];
+  const labels = [];
+  const seen = new Set();
+
+  rawTypes.forEach((rawType) => {
+    if (typeof rawType !== 'string') return;
+
+    const label = TYPE_LABELS[rawType.toLowerCase()];
+    if (!label || seen.has(label)) return;
+
+    seen.add(label);
+    labels.push(label);
+  });
+
+  return labels;
 }
 
 export function filterProjects(projects, activeTags = []) {

@@ -46,19 +46,13 @@
 </template>
 
 <script setup>
-import { hasProjectType } from '../../utils/portfolio';
+import { getProjectTypeLabels } from '../../utils/portfolio';
 
 function getFallbackTypeLabel(project) {
-  const labels = [];
-
-  if (hasProjectType(project, 'project')) labels.push('Project');
-  if (hasProjectType(project, 'position')) labels.push('Position');
-  if (hasProjectType(project, 'post')) labels.push('Post');
-  if (hasProjectType(project, 'artwork')) labels.push('Artwork');
-
-  if (labels.length > 1) return labels.join(' / ');
+  const labels = getProjectTypeLabels(project);
+  if (labels.length) return labels.join(' / ');
   if (project.cardTypeLabel) return project.cardTypeLabel;
-  return labels.length ? labels.join(' / ') : 'Project';
+  return 'Project';
 }
 
 defineProps({
