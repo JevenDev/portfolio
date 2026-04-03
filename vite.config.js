@@ -1,8 +1,13 @@
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 
-export default defineConfig(({ command }) => ({
-  base: command === 'serve' ? '/' : '/portfolio/',
+const repoName = process.env.GITHUB_REPOSITORY?.split('/')[1] ?? '';
+const isGitHubActions = process.env.GITHUB_ACTIONS === 'true';
+const isUserOrOrgPage = repoName.endsWith('.github.io');
+const base = isGitHubActions && repoName && !isUserOrOrgPage ? `/${repoName}/` : '/';
+
+export default defineConfig({
+  base,
   plugins: [vue()],
   build: {
     rollupOptions: {
@@ -14,4 +19,4 @@ export default defineConfig(({ command }) => ({
       }
     }
   }
-}));
+});
