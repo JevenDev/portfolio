@@ -16,7 +16,8 @@
       "Vite",
       "Vue",
       "Tailwind CSS",
-      "JavaScript"
+      "JavaScript",
+      "Motion / Editing"
     ],
     "year": "March 2026 - Present",
     "role": "Brand Identity & Web Development",
@@ -42,6 +43,10 @@
       {
         "label": "Pricing and plans page",
         "url": "assets/images/nap/nap-solutions-site-02.png"
+      },
+      {
+        "label": "NAP promotional video",
+        "url": "assets/videos/nap/Nap_Promo_Vid_1_1x1.mp4"
       }
     ]
   }

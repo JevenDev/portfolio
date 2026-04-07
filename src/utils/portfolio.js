@@ -77,6 +77,26 @@ export function parseMonthYear(input) {
 export function sortProjects(projects, sortBy) {
   const sorted = [...projects];
 
+  function isOngoingProject(project) {
+    if (!project?.year || typeof project.year !== 'string') return false;
+    return /\b(?:present|current)\b/i.test(project.year);
+  }
+
+  function compareOngoingPriority(a, b, direction = 'newest') {
+    const aIsOngoing = isOngoingProject(a);
+    const bIsOngoing = isOngoingProject(b);
+
+    if (aIsOngoing && !bIsOngoing) return direction === 'oldest' ? 1 : -1;
+    if (!aIsOngoing && bIsOngoing) return direction === 'oldest' ? -1 : 1;
+
+    if (aIsOngoing && bIsOngoing) {
+      const delta = parseMonthYear(b.year).getTime() - parseMonthYear(a.year).getTime();
+      if (delta !== 0) return delta;
+    }
+
+    return 0;
+  }
+
   if (sortBy === 'a-z') {
     sorted.sort((a, b) => a.title.localeCompare(b.title));
     return sorted;
@@ -88,6 +108,9 @@ export function sortProjects(projects, sortBy) {
   }
 
   sorted.sort((a, b) => {
+    const ongoingPriority = compareOngoingPriority(a, b, sortBy === 'oldest' ? 'oldest' : 'newest');
+    if (ongoingPriority !== 0) return ongoingPriority;
+
     const delta = parseMonthYear(b.year).getTime() - parseMonthYear(a.year).getTime();
     return sortBy === 'oldest' ? -delta : delta;
   });

@@ -33,11 +33,17 @@
 
         <ul class="flex flex-wrap gap-2">
           <li
-            v-for="tag in project.tags?.slice(0, 4)"
+            v-for="tag in getVisibleTags(project)"
             :key="`${project.id}-${tag}`"
             class="rounded-full border border-line px-2.5 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-muted"
           >
             {{ tag }}
+          </li>
+          <li
+            v-if="getHiddenTagCount(project) > 0"
+            class="rounded-full border border-line px-2.5 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-muted"
+          >
+            +{{ getHiddenTagCount(project) }}
           </li>
         </ul>
       </div>
@@ -48,11 +54,22 @@
 <script setup>
 import { getProjectTypeLabels } from '../../utils/portfolio';
 
+const MAX_VISIBLE_TAGS = 4;
+
 function getFallbackTypeLabel(project) {
   const labels = getProjectTypeLabels(project);
   if (labels.length) return labels.join(' / ');
   if (project.cardTypeLabel) return project.cardTypeLabel;
   return 'Project';
+}
+
+function getVisibleTags(project) {
+  return project?.tags?.slice(0, MAX_VISIBLE_TAGS) || [];
+}
+
+function getHiddenTagCount(project) {
+  const total = project?.tags?.length || 0;
+  return Math.max(0, total - getVisibleTags(project).length);
 }
 
 defineProps({
