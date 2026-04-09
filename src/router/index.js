@@ -9,12 +9,40 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomePage
+      component: HomePage,
+      meta: {
+        seoTitle: 'Graphic Design & Music Production Portfolio',
+        seoDescription:
+          'Portfolio of Jeven Randhawa (JVN) featuring brand identity work, cover art, web projects, and music production collaborations.',
+        seoType: 'ProfilePage',
+        seoKeywords: [
+          'Jeven Randhawa',
+          'JVN Graphics',
+          'graphic designer',
+          'brand identity',
+          'album cover art',
+          'music producer'
+        ]
+      }
     },
     {
       path: '/gallery',
       name: 'gallery',
-      component: GalleryPage
+      component: GalleryPage,
+      meta: {
+        seoTitle: 'Full Works Gallery',
+        seoDescription:
+          'Browse Jeven Randhawa\'s full gallery of projects, artwork, motion pieces, and music-focused creative work.',
+        seoType: 'CollectionPage',
+        seoKeywords: [
+          'creative gallery',
+          'portfolio projects',
+          'graphic design gallery',
+          'cover art portfolio',
+          'motion design',
+          'music production portfolio'
+        ]
+      }
     },
     {
       path: '/:pathMatch(.*)*',

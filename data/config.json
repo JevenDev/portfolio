@@ -1,5 +1,22 @@
 {
     "siteName": "JVN Graphics",
+    "siteUrl": "https://jvn.graphics",
+    "personName": "Jeven Randhawa",
+    "jobTitle": "Graphic Designer and Music Producer",
+    "defaultDescription": "Portfolio of Jeven Randhawa (JVN): graphic design, branding, cover art, web projects, and music production.",
+    "defaultOgImage": "/assets/images/nap/nap-solutions-site-01.png",
+    "seoKeywords": [
+        "Jeven Randhawa",
+        "JVN Graphics",
+        "graphic designer portfolio",
+        "brand identity designer",
+        "album cover artist",
+        "creative portfolio",
+        "music producer portfolio",
+        "Brampton designer",
+        "Toronto designer",
+        "Vue portfolio"
+    ],
     "tagline": "Graphic Designer & Producer | @jvngraphics / @prodbyjvn",
     "location": "Brampton ON, Canada",
     "email": "jevenrandhawa@gmail.com",
