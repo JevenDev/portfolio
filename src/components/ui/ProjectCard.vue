@@ -41,9 +41,15 @@
           </li>
           <li
             v-if="getHiddenTagCount(project) > 0"
-            class="rounded-full border border-line px-2.5 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-muted"
+            :aria-label="`Hidden tags: ${getHiddenTagsTooltip(project)}`"
+            class="tag-overflow-chip rounded-full border border-line px-2.5 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-muted"
           >
             +{{ getHiddenTagCount(project) }}
+            <span
+              class="tag-overflow-tooltip pointer-events-none absolute bottom-full left-1/2 z-40 mb-2 w-max max-w-[16rem] -translate-x-1/2 whitespace-normal rounded border border-line bg-paper px-2 py-1 text-[11px] font-medium normal-case tracking-normal text-ink shadow-sm"
+            >
+              {{ getHiddenTagsTooltip(project) }}
+            </span>
           </li>
         </ul>
       </div>
@@ -68,8 +74,16 @@ function getVisibleTags(project) {
 }
 
 function getHiddenTagCount(project) {
-  const total = project?.tags?.length || 0;
-  return Math.max(0, total - getVisibleTags(project).length);
+  return getHiddenTags(project).length;
+}
+
+function getHiddenTags(project) {
+  const tags = project?.tags || [];
+  return tags.slice(getVisibleTags(project).length);
+}
+
+function getHiddenTagsTooltip(project) {
+  return getHiddenTags(project).join(", ");
 }
 
 defineProps({
@@ -84,8 +98,28 @@ defineEmits(['open']);
 
 <style scoped>
 .project-card {
-  content-visibility: auto;
-  contain-intrinsic-size: 420px;
+  position: relative;
+  overflow: visible;
+}
+
+.tag-overflow-chip {
+  position: relative;
+}
+
+.tag-overflow-tooltip {
+  opacity: 0;
+  transform: translate(-50%, 2px);
+  transition: opacity 140ms ease, transform 140ms ease;
+  visibility: hidden;
+}
+
+.tag-overflow-chip:hover .tag-overflow-tooltip,
+.tag-overflow-chip:focus-within .tag-overflow-tooltip,
+.tag-overflow-chip:focus-visible .tag-overflow-tooltip {
+  opacity: 1;
+  transform: translate(-50%, 0);
+  visibility: visible;
 }
 </style>
+
 

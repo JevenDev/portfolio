@@ -70,7 +70,7 @@
           <article
             v-for="project in secondaryProjects"
             :key="project.id"
-            class="frame-block group flex h-full flex-col"
+            class="frame-block group relative flex h-full flex-col overflow-visible"
             data-reveal
           >
             <button
@@ -96,7 +96,7 @@
                 <ul
                   v-if="project.tags?.length"
                   :ref="(el) => setSecondaryTagListRef(project.id, el)"
-                  class="flex h-[4.1rem] flex-wrap content-start gap-2 overflow-hidden"
+                  class="flex h-[4.1rem] flex-wrap content-start gap-2 overflow-visible"
                 >
                   <li
                     v-for="tag in getSecondaryTags(project)"
@@ -108,9 +108,15 @@
                   </li>
                   <li
                     v-if="getSecondaryHiddenTagCount(project) > 0"
-                    class="max-w-full truncate whitespace-nowrap rounded-full border border-line px-2.5 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-muted"
+                    :aria-label="`Hidden tags: ${getSecondaryHiddenTagsTooltip(project)}`"
+                    class="tag-overflow-chip relative max-w-full whitespace-nowrap rounded-full border border-line px-2.5 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-muted"
                   >
                     +{{ getSecondaryHiddenTagCount(project) }}
+                    <span
+                      class="tag-overflow-tooltip pointer-events-none absolute bottom-full left-1/2 z-40 mb-2 w-max max-w-[16rem] -translate-x-1/2 whitespace-normal rounded border border-line bg-paper px-2 py-1 text-[11px] font-medium normal-case tracking-normal text-ink shadow-sm"
+                    >
+                      {{ getSecondaryHiddenTagsTooltip(project) }}
+                    </span>
                   </li>
                 </ul>
               </div>
@@ -197,8 +203,16 @@ function getSecondaryTags(project) {
 }
 
 function getSecondaryHiddenTagCount(project) {
-  const total = project?.tags?.length || 0;
-  return Math.max(0, total - getSecondaryTags(project).length);
+  return getSecondaryHiddenTags(project).length;
+}
+
+function getSecondaryHiddenTags(project) {
+  const tags = project?.tags || [];
+  return tags.slice(getSecondaryTags(project).length);
+}
+
+function getSecondaryHiddenTagsTooltip(project) {
+  return getSecondaryHiddenTags(project).join(", ");
 }
 
 function ensureMeasureRoot() {
@@ -343,3 +357,25 @@ onUnmounted(() => {
   resizeObserver = null;
 });
 </script>
+
+<style scoped>
+.tag-overflow-chip {
+  position: relative;
+}
+
+.tag-overflow-tooltip {
+  opacity: 0;
+  transform: translate(-50%, 2px);
+  transition: opacity 140ms ease, transform 140ms ease;
+  visibility: hidden;
+}
+
+.tag-overflow-chip:hover .tag-overflow-tooltip,
+.tag-overflow-chip:focus-within .tag-overflow-tooltip,
+.tag-overflow-chip:focus-visible .tag-overflow-tooltip {
+  opacity: 1;
+  transform: translate(-50%, 0);
+  visibility: visible;
+}
+</style>
+
