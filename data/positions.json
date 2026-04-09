@@ -1,11 +1,8 @@
 [
   {
     "id": "project-005",
-    "type": [
-      "position",
-      "project"
-    ],
-    "title": "NAP Solutions",
+    "type": "project",
+    "title": "NAP Solutions Website",
     "tags": [
       "Design",
       "Brand Identity",
@@ -16,13 +13,10 @@
       "Vite",
       "Vue",
       "Tailwind CSS",
-      "JavaScript",
-      "Motion / Editing"
+      "JavaScript"
     ],
-    "year": "March 2026 - Present",
+    "year": "April 2026",
     "role": "Brand Identity & Web Development",
-    "cardTypeLabel": "Position",
-    "modalTypeLabel": "Position",
     "featured": true,
     "thumb": "assets/images/nap/nap-solutions-site-01.png",
     "description": [
@@ -43,10 +37,51 @@
       {
         "label": "Pricing and plans page",
         "url": "assets/images/nap/nap-solutions-site-02.png"
+      }
+    ]
+  },
+  {
+    "id": "project-014",
+    "type": "project",
+    "title": "NAP Solutions Promo Campaign 1",
+    "tags": [
+      "Design",
+      "Brand Identity",
+      "Campaign Creative",
+      "Motion / Editing",
+      "Storyboarding",
+      "Video Production"
+    ],
+    "year": "April 2026",
+    "role": "Creative Direction & Motion Design",
+    "featured": true,
+    "thumb": "assets/images/nap/nap-promo-campaign-1.png",
+    "description": [
+      "I developed and produced NAP Solutions' first promo campaign to communicate the product's value in a fast, social-first format.",
+      "This campaign focused on converting the brand voice and visual identity into motion by combining concise messaging, clean composition, and polished edit pacing for a clear and engaging first impression."
+    ],
+    "links": [
+      {
+        "label": "Visit the website",
+        "url": "https://getnapsolutions.com/"
+      }
+    ],
+    "gallery": [
+      {
+        "label": "NAP promotional video (16:9)",
+        "url": "assets/videos/nap/Nap_Promo_Vid_1_16x9.mp4"
       },
       {
-        "label": "NAP promotional video",
+        "label": "NAP promotional video (1:1)",
         "url": "assets/videos/nap/Nap_Promo_Vid_1_1x1.mp4"
+      },
+      {
+        "label": "NAP promotional video (4:5)",
+        "url": "assets/videos/nap/Nap_Promo_Vid_1_4x5.mp4"
+      },
+      {
+        "label": "NAP promotional video (9:16)",
+        "url": "assets/videos/nap/Nap_Promo_Vid_1_9x16.mp4"
       }
     ]
   }
