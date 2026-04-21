@@ -95,7 +95,7 @@ const selectedWorks = computed(() => {
 });
 
 const projectHighlights = computed(() => {
-  const preferredIds = ['project-005', 'project-001', 'project-004', 'project-002'];
+  const preferredIds = ['project-005', 'project-001', 'project-014', 'project-002'];
   const selected = preferredIds.map(findById).filter(Boolean);
 
   if (selected.length >= 4) {

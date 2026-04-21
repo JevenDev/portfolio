@@ -155,7 +155,7 @@
     ],
     "year": "April 2025",
     "role": "Creator",
-    "featured": true,
+    "featured": false,
     "thumb": "assets/images/virality/virality-screenshot1.png",
     "description": "'Virality' is a web-based audio tool that allows users to create and share slowed + reverb, or nightcore sound clips. I designed and developed the entire user interface, including the interactive audio editor. The design is heavily inspired by the handheld PSP UI, with a focus on simplicity and ease of use. Users can upload their own audio files, apply effects, and export their creations for free, directly from the website.",
     "links": [
