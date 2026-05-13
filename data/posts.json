@@ -1,5 +1,36 @@
 [
   {
+    "id": "project-015",
+    "type": "post",
+    "title": "Beat Preview - March 2026",
+    "year": "April 2026",
+    "role": "Edit & Production",
+    "tags": [
+      "Music Production",
+      "Motion / Editing",
+      "Design"
+    ],
+    "cardTypeLabel": "Post",
+    "modalTypeLabel": "Post",
+    "thumb": "assets/images/posts/beat-preview-2026-04.jpg",
+    "description": [
+      "Monthly beat preview post highlighting beats from March 2026. This post was published on April 13, 2026 with production credits on slides 1-5 alongside @imsoprouda_u, and 6, 8, 10, 12, 14 solo.",
+      "The Instagram link below opens the rest of the carousel."
+    ],
+    "links": [
+      {
+        "label": "Open full post on Instagram",
+        "url": "https://www.instagram.com/prodbyjvn/p/DW6hTGPjZrr/"
+      }
+    ],
+    "gallery": [
+      {
+        "label": "Selected beat preview, co-produced w/ @imsoprouda_u",
+        "url": "assets/videos/posts/beat-preview-2026-04.mp4"
+      }
+    ]
+  },
+  {
     "id": "project-013",
     "type": "post",
     "title": "Beat Preview - February 2026",

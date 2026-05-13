@@ -66,7 +66,7 @@
           </div>
         </article>
 
-        <div v-if="secondaryProjects.length" class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+        <div v-if="secondaryProjects.length" class="grid gap-4 md:auto-rows-fr md:grid-cols-2 xl:grid-cols-3">
           <article
             v-for="project in secondaryProjects"
             :key="project.id"
@@ -75,19 +75,19 @@
           >
             <button
               type="button"
-              class="focus-ring block h-full text-left"
+              class="focus-ring flex h-full flex-col text-left"
               :aria-label="`Open details for ${project.title}`"
               @click="emit('open', project)"
             >
               <img
                 :src="project.thumbCard || project.thumb"
                 :alt="project.title"
-                class="aspect-[5/4] w-full border-b border-line object-cover transition duration-500 group-hover:scale-[1.015]"
+                class="aspect-[5/4] w-full shrink-0 border-b border-line object-cover transition duration-500 group-hover:scale-[1.015]"
                 fetchpriority="low"
                 loading="lazy"
                 decoding="async"
               />
-              <div class="space-y-3 p-5">
+              <div class="flex flex-1 flex-col gap-3 p-5">
                 <p class="text-xs font-semibold uppercase tracking-[0.15em] text-muted">{{ project.year }}</p>
                 <h4 class="font-display text-2xl font-semibold leading-[1.12] tracking-[-0.02em] text-ink">
                   {{ project.title }}
@@ -96,7 +96,7 @@
                 <ul
                   v-if="project.tags?.length"
                   :ref="(el) => setSecondaryTagListRef(project.id, el)"
-                  class="flex h-[4.1rem] flex-wrap content-start gap-2 overflow-visible"
+                  class="mt-auto flex h-[4.1rem] flex-wrap content-start gap-2 overflow-visible"
                 >
                   <li
                     v-for="tag in getSecondaryTags(project)"

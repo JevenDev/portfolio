@@ -15,10 +15,10 @@
       "Tailwind CSS",
       "JavaScript"
     ],
-    "year": "April 2026",
+    "year": "April 2026 - Present",
     "role": "Brand Identity & Web Development",
     "featured": true,
-    "thumb": "assets/images/nap/nap-solutions-site-01.png",
+    "thumb": "assets/images/nap/getnapsolutions_outbound_agent.png",
     "description": [
       "NAP Solutions provides an AI-powered receptionist that answers your business calls 24/7. It books appointments, handles inquiries, reschedules, cancels, and escalates to your team when needed - all without any human staff required.",
       "I was responsible for creating the brand identity and designing the website. The design direction was inspired by the idea of a 'digital concierge' - a service that is both professional and approachable, with a touch of warmth and personality. I took direct inspiration from the PSP and Apple's liquid glass design language to create a sleek and modern aesthetic that is both functional and visually appealing. The website features a clean and intuitive layout."
@@ -31,12 +31,20 @@
     ],
     "gallery": [
       {
-        "label": "Homepage and hero",
-        "url": "assets/images/nap/nap-solutions-site-01.png"
+        "label": "Homepage and product selector",
+        "url": "assets/images/nap/getnapsolutions_home_page.png"
       },
       {
-        "label": "Pricing and plans page",
-        "url": "assets/images/nap/nap-solutions-site-02.png"
+        "label": "AI receptionist landing page",
+        "url": "assets/images/nap/getnapsolutions_ai_receptionist.png"
+      },
+      {
+        "label": "Outbound agent landing page",
+        "url": "assets/images/nap/getnapsolutions_outbound_agent.png"
+      },
+      {
+        "label": "Pricing and plan comparison",
+        "url": "assets/images/nap/getnapsolutions_ai_receptionist_pricing.png"
       }
     ]
   },
@@ -82,6 +90,34 @@
       {
         "label": "NAP promotional video (9:16)",
         "url": "assets/videos/nap/Nap_Promo_Vid_1_9x16.mp4"
+      }
+    ]
+  },
+  {
+    "id": "project-016",
+    "type": "project",
+    "title": "Riva Promo Campaign 1",
+    "tags": [
+      "Design",
+      "Brand Identity",
+      "Campaign Creative",
+      "Motion / Editing",
+      "Storyboarding",
+      "Video Production"
+    ],
+    "year": "May 2026",
+    "role": "Creative Direction & Motion Design",
+    "featured": false,
+    "thumb": "assets/images/nap/riva-promo-campaign-1.png",
+    "description": [
+      "I developed and produced Riva's first promo campaign to communicate the product's value in a fast, social-first format.",
+      "This campaign adapted the motion language and edit pacing from the NAP promo structure while tailoring the messaging and brand presentation to Riva."
+    ],
+    "links": [],
+    "gallery": [
+      {
+        "label": "Riva promotional video (1:1)",
+        "url": "assets/videos/nap/Riva_Promo_Vid_1_1x1.mp4"
       }
     ]
   }
