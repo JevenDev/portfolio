@@ -6,7 +6,7 @@
         <p class="font-display text-2xl font-semibold tracking-[-0.03em] text-ink md:text-3xl">
           Graphic Design + Music Production
         </p>
-        <p class="text-base text-muted">Brampton, Ontario</p>
+        <p class="text-base text-muted">ON, Canada</p>
       </div>
 
       <ul class="flex flex-wrap gap-2 md:justify-end">
