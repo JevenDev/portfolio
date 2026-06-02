@@ -6,7 +6,7 @@
           Graphic Designer + Producer
         </p>
         <p class="text-xs font-semibold uppercase leading-none tracking-[0.16em] text-muted">
-          Brampton, ON
+          ON, Canada
         </p>
       </div>
 
