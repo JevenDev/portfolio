@@ -1,6 +1,6 @@
 <template>
   <section id="outputs" class="work" aria-labelledby="work-title">
-    <RegistrationStrip class="work__registration" index="02" label="Selected work" detail="Six project chapters" tone="light" />
+    <RegistrationStrip class="work__registration" index="01" label="Selected work" detail="Six project chapters" tone="light" />
 
     <header class="work__head" data-motion-section>
       <p class="meta-type">Selected projects / 01–06</p>

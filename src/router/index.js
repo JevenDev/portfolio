@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 
 const HomePage = () => import('../pages/HomePage.vue');
 const GalleryPage = () => import('../pages/GalleryPage.vue');
+const ModsPage = () => import('../pages/ModsPage.vue');
 const ProjectPage = () => import('../pages/ProjectPage.vue');
 
 const router = createRouter({
@@ -17,6 +18,17 @@ const router = createRouter({
           'Portfolio of Jeven Randhawa (JVN) featuring brand identity work, cover art, web projects, and music production collaborations.',
         seoType: 'ProfilePage',
         seoKeywords: ['Jeven Randhawa', 'JVN Graphics', 'graphic designer', 'brand identity', 'album cover art', 'music producer']
+      }
+    },
+    {
+      path: '/mods',
+      name: 'mods',
+      component: ModsPage,
+      meta: {
+        seoTitle: 'Minecraft Mods',
+        seoDescription: 'Minecraft mods by Jeven Randhawa spanning combat, atmosphere, survival systems, utilities, and village mechanics.',
+        seoType: 'CollectionPage',
+        seoKeywords: ['Minecraft mods', 'JVN mods', 'Modrinth creator', 'NeoForge mods', 'Fabric mods']
       }
     },
     {

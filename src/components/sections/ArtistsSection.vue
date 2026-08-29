@@ -1,7 +1,7 @@
 <template>
   <section class="artists" aria-labelledby="artists-title">
     <span class="artists__word" data-poster-drift aria-hidden="true">COLLAB</span>
-    <RegistrationStrip index="04" label="Collaborations" detail="Artists, teams, and releases" />
+    <RegistrationStrip index="03" label="Collaborations" detail="Artists, teams, and releases" />
 
     <header class="artists__head" data-motion-section>
       <div>

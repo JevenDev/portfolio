@@ -2,7 +2,7 @@
   <section id="mods" class="mods" aria-labelledby="mods-title">
     <span class="mods__watermark" data-poster-drift aria-hidden="true">MODS</span>
     <RegistrationStrip
-      index="01"
+      index="00"
       label="Mod catalogue"
       :detail="`${String(mods.length).padStart(2, '0')} public mods / Modrinth`"
     />
@@ -102,7 +102,7 @@ function formatNumber(value) {
   position: relative;
   overflow: hidden;
   background: var(--acid);
-  padding: clamp(4rem, 9vw, 9rem) clamp(1.25rem, 3vw, 3rem) clamp(5rem, 10vw, 10rem);
+  padding: clamp(2rem, 4vw, 4rem) clamp(1.25rem, 3vw, 3rem) clamp(5rem, 10vw, 10rem);
   isolation: isolate;
 }
 

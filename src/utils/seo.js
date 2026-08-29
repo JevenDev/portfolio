@@ -141,10 +141,8 @@ function buildSchemas({ canonicalUrl, project, siteName, siteUrl, route }) {
     return [websiteSchema, personSchema];
   }
 
-  if (route.name === 'archive') {
-    const itemList = buildPortfolioItemList(siteUrl);
-
-    return [
+  if (route.meta?.seoType === 'CollectionPage') {
+    const schemas = [
       websiteSchema,
       personSchema,
       {
@@ -158,15 +156,21 @@ function buildSchemas({ canonicalUrl, project, siteName, siteUrl, route }) {
           name: siteName,
           url: siteUrl
         }
-      },
-      {
+      }
+    ];
+
+    if (route.name === 'archive') {
+      const itemList = buildPortfolioItemList(siteUrl);
+      schemas.push({
         '@context': 'https://schema.org',
         '@type': 'ItemList',
         name: 'Portfolio Gallery Items',
         numberOfItems: itemList.length,
         itemListElement: itemList
-      }
-    ];
+      });
+    }
+
+    return schemas;
   }
 
   if (project) {

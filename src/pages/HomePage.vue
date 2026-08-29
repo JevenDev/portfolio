@@ -1,7 +1,6 @@
 <template>
   <main id="main-content" ref="page" tabindex="-1" class="page-shell">
     <HeroSection :email="config.email" :hero-projects="heroProjects" />
-    <ModsSection :mods="mods" />
     <SelectedWorkSection :projects="selectedWorks" />
     <AboutSection
       :body="config.aboutBody"
@@ -20,7 +19,6 @@ import AboutSection from '../components/sections/AboutSection.vue';
 import ArtistsSection from '../components/sections/ArtistsSection.vue';
 import ContactSection from '../components/sections/ContactSection.vue';
 import HeroSection from '../components/sections/HeroSection.vue';
-import ModsSection from '../components/sections/ModsSection.vue';
 import SelectedWorkSection from '../components/sections/SelectedWorkSection.vue';
 import { usePosterMotion } from '../composables/usePosterMotion';
 
@@ -37,10 +35,6 @@ const props = defineProps({
     required: true
   },
   featuredProjects: {
-    type: Array,
-    default: () => []
-  },
-  mods: {
     type: Array,
     default: () => []
   },
