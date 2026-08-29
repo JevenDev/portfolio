@@ -1,20 +1,22 @@
 <template>
   <section class="artists" aria-labelledby="artists-title">
-    <span class="artists__word" aria-hidden="true">COLLAB</span>
-    <header class="artists__head">
+    <span class="artists__word" data-poster-drift aria-hidden="true">COLLAB</span>
+    <RegistrationStrip index="03" label="Collaborations" detail="Artists, teams, and releases" />
+
+    <header class="artists__head" data-motion-section>
       <div>
         <p class="section-kicker">Collaborations</p>
-        <h2 id="artists-title">Artists and teams</h2>
+        <h2 id="artists-title" data-poster-heading>Artists and teams</h2>
       </div>
-      <p>Selected ongoing and past relationships across identity, websites, artwork, production, and engineering.</p>
+      <p data-poster-copy>Selected ongoing and past relationships across identity, websites, artwork, production, and engineering.</p>
     </header>
 
     <div class="artists__list">
-      <article v-for="(artist, index) in artists" :key="artist.name" class="artist">
+      <article v-for="(artist, index) in artists" :key="artist.name" class="artist" data-motion-section>
         <span class="artist__index meta-type">{{ String(index + 1).padStart(2, '0') }}</span>
-        <img :src="artist.imageThumb || artist.image" :alt="artist.name" loading="lazy" decoding="async" />
-        <div class="artist__identity">
-          <h3>{{ artist.name }}</h3>
+        <img :src="artist.imageThumb || artist.image" :alt="artist.name" loading="lazy" decoding="async" data-poster-media />
+        <div class="artist__identity" data-poster-copy>
+          <h3 data-poster-heading>{{ artist.name }}</h3>
           <p>{{ artist.role }}</p>
         </div>
         <p class="artist__period meta-type">{{ artist.yearRange }}</p>
@@ -30,6 +32,8 @@
 </template>
 
 <script setup>
+import RegistrationStrip from '../ui/RegistrationStrip.vue';
+
 defineProps({ artists: { type: Array, default: () => [] } });
 </script>
 
@@ -47,7 +51,8 @@ defineProps({ artists: { type: Array, default: () => [] } });
   top: 2rem;
   right: -0.08em;
   z-index: -1;
-  color: var(--acid);
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(41, 38, 199, 0.3);
   font-size: clamp(10rem, 24vw, 26rem);
   font-weight: 720;
   letter-spacing: -0.1em;
@@ -67,8 +72,7 @@ defineProps({ artists: { type: Array, default: () => [] } });
   align-items: end;
   position: relative;
   z-index: 2;
-  border-top: 1px solid var(--black);
-  padding-top: 0.8rem;
+  padding-top: clamp(3rem, 7vw, 7rem);
 }
 
 .artists__head .section-kicker {

@@ -1,30 +1,30 @@
 <template>
-  <main id="main-content" tabindex="-1" class="project page-shell">
+  <main id="main-content" ref="page" tabindex="-1" class="project page-shell">
     <template v-if="project">
-      <header class="project__hero">
+      <header class="project__hero" data-motion-section>
         <svg class="project__web" viewBox="0 0 1000 700" aria-hidden="true">
-          <path d="M-60 560C170 350 350 430 520 250S810 -30 1060 170" />
-          <path d="M90 -50C240 170 350 160 520 250S760 540 930 750" />
+          <path data-draw-path d="M-60 560C170 350 350 430 520 250S810 -30 1060 170" />
+          <path data-draw-path d="M90 -50C240 170 350 160 520 250S760 540 930 750" />
         </svg>
+        <RegistrationStrip :index="displayIndex" label="Case study" :detail="`${category} / ${project.year}`" />
         <div class="project__top meta-type">
           <RouterLink to="/archive">← Project archive</RouterLink>
-          <span>{{ displayIndex }} / {{ category }}</span>
-          <span>{{ status }} / {{ project.year }}</span>
+          <span>{{ status }}</span>
         </div>
 
         <div class="project__hero-grid">
           <div class="project__intro">
             <p class="section-kicker">Case study {{ displayIndex }}</p>
-            <h1>{{ project.title }}</h1>
-            <p>{{ contextText }}</p>
+            <h1 data-poster-heading>{{ project.title }}</h1>
+            <p data-poster-copy>{{ contextText }}</p>
           </div>
 
-          <div class="project__cover">
+          <div class="project__cover registered-media" data-poster-media>
             <GlitchMedia :src="project.thumb" :alt="project.title" eager fit="contain" treatment="full" />
           </div>
         </div>
 
-        <dl class="project__meta">
+        <dl class="project__meta" data-poster-copy>
           <div><dt>Format</dt><dd>{{ category }}</dd></div>
           <div><dt>Role</dt><dd>{{ project.role || 'Graphic design' }}</dd></div>
           <div><dt>Date</dt><dd>{{ project.year }}</dd></div>
@@ -32,16 +32,17 @@
         </dl>
       </header>
 
-      <section class="project__story" aria-labelledby="story-title">
+      <section class="project__story" aria-labelledby="story-title" data-motion-section>
+        <RegistrationStrip index="01" label="Project notes" detail="Context / intent / process" />
         <header class="project__section-head">
           <p class="section-kicker">Project notes</p>
-          <h2 id="story-title">Context, intent, and process</h2>
+          <h2 id="story-title" data-poster-heading>Context, intent, and process</h2>
         </header>
 
         <div class="project__story-grid">
-          <article><h3>Context</h3><p>{{ contextText }}</p></article>
-          <article><h3>Intent</h3><p>{{ problemText }}</p></article>
-          <article><h3>Process</h3><p>{{ processText }}</p></article>
+          <article data-poster-copy><h3>Context</h3><p>{{ contextText }}</p></article>
+          <article data-poster-copy><h3>Intent</h3><p>{{ problemText }}</p></article>
+          <article data-poster-copy><h3>Process</h3><p>{{ processText }}</p></article>
         </div>
 
         <div class="project__tags">
@@ -51,19 +52,20 @@
       </section>
 
       <section class="project__outputs" aria-labelledby="outputs-title">
-        <header class="project__section-head project__section-head--outputs">
+        <RegistrationStrip index="02" label="Selected frames" :detail="`${String(mediaItems.length).padStart(2, '0')} documented outputs`" />
+        <header class="project__section-head project__section-head--outputs" data-motion-section>
           <div>
             <p class="section-kicker">Selected frames</p>
-            <h2 id="outputs-title">{{ String(mediaItems.length).padStart(2, '0') }} documented outputs</h2>
+            <h2 id="outputs-title" data-poster-heading>{{ String(mediaItems.length).padStart(2, '0') }} documented outputs</h2>
           </div>
-          <p>Each asset is shown at its native ratio so the composition and production details remain readable.</p>
+          <p data-poster-copy>Each asset is shown at its native ratio so the composition and production details remain readable.</p>
         </header>
 
         <div class="project__gallery">
-          <figure v-for="(media, index) in mediaItems" :key="`${media.url}-${index}`">
-            <video v-if="media.type === 'video'" :src="media.url" :poster="project.thumb" controls playsinline preload="none" />
-            <img v-else :src="media.url" :alt="media.label || project.title" loading="lazy" decoding="async" />
-            <figcaption class="meta-type">
+          <figure v-for="(media, index) in mediaItems" :key="`${media.url}-${index}`" data-motion-section>
+            <video v-if="media.type === 'video'" :src="media.url" :poster="project.thumb" controls playsinline preload="none" data-poster-media />
+            <img v-else :src="media.url" :alt="media.label || project.title" loading="lazy" decoding="async" data-poster-media />
+            <figcaption class="meta-type" data-poster-copy>
               <span>{{ String(index + 1).padStart(2, '0') }} / {{ media.label || project.title }}</span>
               <span>{{ media.type }}</span>
             </figcaption>
@@ -79,10 +81,11 @@
         </div>
       </section>
 
-      <section class="project__result">
+      <section class="project__result" data-motion-section>
+        <RegistrationStrip index="03" label="Result and credits" detail="Close case study" tone="light" />
         <div class="project__result-copy">
           <p class="section-kicker">Result</p>
-          <p>{{ resultText }}</p>
+          <p data-poster-heading>{{ resultText }}</p>
         </div>
 
         <div class="project__credits">
@@ -110,10 +113,15 @@
 </template>
 
 <script setup>
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { RouterLink, useRoute } from 'vue-router';
 import GlitchMedia from '../components/ui/GlitchMedia.vue';
+import RegistrationStrip from '../components/ui/RegistrationStrip.vue';
+import { usePosterMotion } from '../composables/usePosterMotion';
 import { getProjectCategory } from '../utils/portfolio';
+
+const page = ref(null);
+usePosterMotion(page);
 
 const props = defineProps({ projects: { type: Array, default: () => [] } });
 const route = useRoute();
@@ -176,10 +184,10 @@ const nextProject = computed(() => projectIndex.value < 0 ? null : props.project
   position: relative;
   z-index: 3;
   display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  grid-template-columns: 1fr auto;
   gap: 1rem;
-  border-top: 1px solid var(--black);
-  padding-top: 0.7rem;
+  margin-top: 1.3rem;
+  padding-top: 0;
   color: var(--ink-soft);
 }
 
@@ -282,7 +290,7 @@ const nextProject = computed(() => projectIndex.value < 0 ? null : props.project
 }
 
 .project__story {
-  background: var(--sky);
+  background: var(--signal-red);
 }
 
 .project__section-head {
@@ -292,8 +300,7 @@ const nextProject = computed(() => projectIndex.value < 0 ? null : props.project
   align-items: end;
   width: min(100%, 90rem);
   margin-inline: auto;
-  border-top: 1px solid var(--black);
-  padding-top: 0.8rem;
+  padding-top: clamp(3rem, 6vw, 6rem);
 }
 
 .project__section-head p,
@@ -586,14 +593,6 @@ const nextProject = computed(() => projectIndex.value < 0 ? null : props.project
 }
 
 @media (max-width: 650px) {
-  .project__top {
-    grid-template-columns: 1fr auto;
-  }
-
-  .project__top span:nth-child(2) {
-    display: none;
-  }
-
   .project__cover {
     height: 26rem;
   }

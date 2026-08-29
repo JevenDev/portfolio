@@ -4,10 +4,10 @@
     <SiteHeader />
 
     <RouterView v-slot="{ Component }">
-      <Transition name="route-shift" mode="out-in">
+      <Transition name="route-shift" mode="out-in" @after-enter="queueRoutePosition">
         <component
           :is="Component"
-          :key="route.fullPath"
+          :key="route.path"
           :artists="artists"
           :config="config"
           :featured-projects="featuredProjects"
@@ -44,21 +44,24 @@ function scrollTop() {
   });
 }
 
-watch(
-  () => route.fullPath,
-  async () => {
-    await nextTick();
-    window.requestAnimationFrame(() => {
-      const target = route.hash ? document.querySelector(route.hash) : null;
-      const top = target ? target.getBoundingClientRect().top + window.scrollY - 72 : 0;
-      window.scrollTo({ top, behavior: 'auto' });
-    });
-  }
-);
+function syncRoutePosition() {
+  const target = route.hash ? document.querySelector(route.hash) : null;
+  const top = target ? target.getBoundingClientRect().top + window.scrollY - 72 : 0;
+  window.scrollTo({ top, behavior: 'auto' });
+}
+
+async function queueRoutePosition() {
+  await nextTick();
+  window.requestAnimationFrame(syncRoutePosition);
+}
+
+watch(() => route.fullPath, queueRoutePosition);
 
 onMounted(() => {
+  if ('scrollRestoration' in window.history) window.history.scrollRestoration = 'manual';
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
+  queueRoutePosition();
 });
 
 onUnmounted(() => {

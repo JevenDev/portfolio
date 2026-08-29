@@ -1,14 +1,16 @@
 <template>
-  <section id="contact" class="contact" aria-labelledby="contact-title">
+  <section id="contact" class="contact" aria-labelledby="contact-title" data-motion-section>
     <svg class="contact__web" viewBox="0 0 1000 600" aria-hidden="true">
-      <path d="M-50 480C170 270 370 360 520 210S760 -60 1060 160" />
-      <path d="M100 -40C220 180 330 150 520 210S800 440 940 680" />
+      <path data-draw-path d="M-50 480C170 270 370 360 520 210S760 -60 1060 160" />
+      <path data-draw-path d="M100 -40C220 180 330 150 520 210S800 440 940 680" />
     </svg>
+
+    <RegistrationStrip index="04" label="Contact" detail="Available for selected projects" tone="light" />
 
     <div class="contact__main">
       <p class="section-kicker">Contact / New work</p>
-      <h2 id="contact-title">Let’s make something worth keeping.</h2>
-      <div class="contact__copy">
+      <h2 id="contact-title" data-poster-heading>Let’s make something worth keeping.</h2>
+      <div class="contact__copy" data-poster-copy>
         <p>For identity, artwork, web, production, or a project that crosses those lines, send a note with the essentials.</p>
         <a :href="`mailto:${email}`">{{ email }} ↗</a>
       </div>
@@ -19,11 +21,13 @@
         <a :href="social.url" target="_blank" rel="noreferrer">{{ social.label }} ↗</a>
       </li>
     </ul>
-    <span class="contact__disc" aria-hidden="true"></span>
+    <span class="contact__disc" data-poster-drift aria-hidden="true"></span>
   </section>
 </template>
 
 <script setup>
+import RegistrationStrip from '../ui/RegistrationStrip.vue';
+
 defineProps({ email: { type: String, default: '' }, socials: { type: Array, default: () => [] } });
 </script>
 
@@ -63,8 +67,7 @@ defineProps({ email: { type: String, default: '' }, socials: { type: Array, defa
   grid-template-columns: 0.25fr 1fr 0.55fr;
   gap: clamp(2rem, 5vw, 5rem);
   align-items: start;
-  border-top: 1px solid var(--rule-white);
-  padding-top: 0.8rem;
+  padding-top: clamp(3rem, 7vw, 7rem);
 }
 
 .contact__main .section-kicker {

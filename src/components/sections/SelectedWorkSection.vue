@@ -1,9 +1,11 @@
 <template>
   <section id="outputs" class="work" aria-labelledby="work-title">
-    <header class="work__head">
+    <RegistrationStrip class="work__registration" index="01" label="Selected work" detail="Six project chapters" tone="light" />
+
+    <header class="work__head" data-motion-section>
       <p class="meta-type">Selected projects / 01–06</p>
-      <h2 id="work-title">A working index of images, identities, interfaces, and sound.</h2>
-      <RouterLink to="/archive">Everything in the archive ↗</RouterLink>
+      <h2 id="work-title" data-poster-heading>A working index of images, identities, interfaces, and sound.</h2>
+      <RouterLink to="/archive" data-poster-copy>Everything in the archive ↗</RouterLink>
     </header>
 
     <div class="work__chapters">
@@ -12,15 +14,16 @@
         :key="project.id"
         :to="`/work/${project.id}`"
         class="work-project"
+        data-motion-section
       >
-        <span class="work-project__number">{{ String(index + 1).padStart(2, '0') }}</span>
-        <div class="work-project__media">
+        <span class="work-project__number" data-poster-drift>{{ String(index + 1).padStart(2, '0') }}</span>
+        <div class="work-project__media registered-media" data-poster-media>
           <GlitchMedia :src="project.thumbCard || project.thumb" :alt="project.title" treatment="full" />
         </div>
         <div class="work-project__copy">
-          <p class="meta-type">{{ getProjectCategory(project) }} / {{ project.year }}</p>
-          <h3>{{ project.title }}</h3>
-          <span>Open project ↗</span>
+          <p class="meta-type" data-poster-copy>{{ getProjectCategory(project) }} / {{ project.year }}</p>
+          <h3 data-poster-heading>{{ project.title }}</h3>
+          <span data-poster-copy>Open project ↗</span>
         </div>
       </RouterLink>
     </div>
@@ -31,6 +34,7 @@
 import { RouterLink } from 'vue-router';
 import { getProjectCategory } from '../../utils/portfolio';
 import GlitchMedia from '../ui/GlitchMedia.vue';
+import RegistrationStrip from '../ui/RegistrationStrip.vue';
 
 defineProps({ projects: { type: Array, default: () => [] } });
 </script>
@@ -39,6 +43,11 @@ defineProps({ projects: { type: Array, default: () => [] } });
 .work {
   background: var(--black);
   color: var(--paper-cool);
+  padding-top: clamp(2rem, 4vw, 4rem);
+}
+
+.work__registration {
+  width: calc(100% - clamp(2.5rem, 6vw, 6rem));
 }
 
 .work__head {
@@ -80,34 +89,24 @@ defineProps({ projects: { type: Array, default: () => [] } });
   isolation: isolate;
 }
 
-.work-project:nth-child(6n + 1) {
+.work-project:nth-child(4n + 1) {
   background: var(--paper);
   color: var(--black);
 }
 
-.work-project:nth-child(6n + 2) {
+.work-project:nth-child(4n + 2) {
   background: var(--blue);
   color: var(--paper-cool);
 }
 
-.work-project:nth-child(6n + 3) {
+.work-project:nth-child(4n + 3) {
   background: var(--signal-red);
   color: var(--black);
 }
 
-.work-project:nth-child(6n + 4) {
-  background: var(--sky);
-  color: var(--black);
-}
-
-.work-project:nth-child(6n + 5) {
+.work-project:nth-child(4n) {
   background: var(--black);
   color: var(--paper-cool);
-}
-
-.work-project:nth-child(6n) {
-  background: var(--acid);
-  color: var(--black);
 }
 
 .work-project__number {
@@ -152,13 +151,13 @@ defineProps({ projects: { type: Array, default: () => [] } });
 .work-project__copy p {
   width: fit-content;
   margin: 0 0 1rem;
-  background: currentColor;
+  background: var(--black);
   padding: 0.3rem 0.45rem;
   color: var(--paper-cool);
 }
 
-.work-project:nth-child(2) .work-project__copy p,
-.work-project:nth-child(5) .work-project__copy p {
+.work-project:nth-child(4n + 2) .work-project__copy p,
+.work-project:nth-child(4n) .work-project__copy p {
   background: var(--paper-cool);
   color: var(--black);
 }

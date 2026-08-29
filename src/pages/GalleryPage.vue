@@ -1,17 +1,18 @@
 <template>
-  <main id="main-content" tabindex="-1" class="archive page-shell">
-    <header class="archive__hero">
+  <main id="main-content" ref="page" tabindex="-1" class="archive page-shell">
+    <header class="archive__hero" data-motion-section>
       <svg class="archive__web" viewBox="0 0 1000 650" aria-hidden="true">
-        <path d="M-50 520C180 300 320 430 510 250S790 -40 1050 150" />
-        <path d="M80 -40C260 150 330 160 510 250S760 510 930 700" />
-        <path d="M-30 180C170 280 310 180 510 250S790 430 1040 350" />
+        <path data-draw-path d="M-50 520C180 300 320 430 510 250S790 -40 1050 150" />
+        <path data-draw-path d="M80 -40C260 150 330 160 510 250S760 510 930 700" />
+        <path data-draw-path d="M-30 180C170 280 310 180 510 250S790 430 1040 350" />
       </svg>
+      <RegistrationStrip class="archive__registration" index="00" label="Archive" detail="Complete project catalogue" />
       <div class="archive__hero-copy">
         <p class="section-kicker">Archive / 2019–2026</p>
-        <h1><span>Project</span><span>archive</span></h1>
-        <p>A searchable catalogue of identities, artwork, campaigns, digital builds, sound, and ongoing experiments.</p>
+        <h1 data-poster-copy><span>Project</span><span>archive</span></h1>
+        <p data-poster-copy>A searchable catalogue of identities, artwork, campaigns, digital builds, sound, and ongoing experiments.</p>
       </div>
-      <div class="archive__counter">
+      <div class="archive__counter" data-poster-drift>
         <strong>{{ String(filteredProjects.length).padStart(3, '0') }}</strong>
         <p class="meta-type">Visible records<br />Updated live</p>
       </div>
@@ -51,12 +52,12 @@
 
     <section class="archive__results" :aria-label="`${filteredProjects.length} archive results`">
       <div v-if="filteredProjects.length && view === 'grid'" class="archive-grid">
-        <article v-for="(project, index) in filteredProjects" :key="project.id" class="archive-item">
+        <article v-for="(project, index) in filteredProjects" :key="project.id" class="archive-item" data-motion-section>
           <RouterLink :to="`/work/${project.id}`">
-            <div class="archive-item__media">
+            <div class="archive-item__media registered-media" data-poster-media>
               <GlitchMedia :src="project.thumbCard || project.thumb" :alt="project.title" treatment="preview" />
             </div>
-            <div class="archive-item__body">
+            <div class="archive-item__body" data-poster-copy>
               <span class="meta-type">{{ String(index + 1).padStart(3, '0') }}</span>
               <div>
                 <h2>{{ project.title }}</h2>
@@ -96,7 +97,12 @@ import { computed, ref } from 'vue';
 import { RouterLink } from 'vue-router';
 import GlitchMedia from '../components/ui/GlitchMedia.vue';
 import ProjectIndexRow from '../components/ui/ProjectIndexRow.vue';
+import RegistrationStrip from '../components/ui/RegistrationStrip.vue';
+import { usePosterMotion } from '../composables/usePosterMotion';
 import { ARCHIVE_CATEGORIES, getProjectCategory, projectMatchesArchiveCategory, sortProjects } from '../utils/portfolio';
+
+const page = ref(null);
+usePosterMotion(page);
 
 const props = defineProps({ projects: { type: Array, default: () => [] } });
 const activeCategory = ref('ALL');
@@ -148,6 +154,12 @@ function resetFilters() {
   stroke: var(--blue);
   stroke-width: 1.3;
   pointer-events: none;
+}
+
+.archive__registration {
+  position: absolute;
+  inset: 2rem clamp(1.25rem, 3vw, 3rem) auto;
+  width: auto;
 }
 
 .archive__hero-copy,

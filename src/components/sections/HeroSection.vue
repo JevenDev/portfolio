@@ -1,17 +1,17 @@
 <template>
-  <section class="hero" aria-labelledby="hero-title">
+  <section class="hero" aria-labelledby="hero-title" data-motion-intro>
     <svg class="hero__web" viewBox="0 0 1000 700" aria-hidden="true">
-      <path d="M-80 230C150 30 390 70 510 310S850 690 1090 370" />
-      <path d="M-30 520C210 670 350 560 470 350S770 -20 1040 160" />
-      <path d="M140 -40C90 210 250 270 510 310S910 410 980 760" />
-      <path d="M770 -50C690 160 580 220 510 310S380 600 210 760" />
+      <path data-draw-path d="M-80 230C150 30 390 70 510 310S850 690 1090 370" />
+      <path data-draw-path d="M-30 520C210 670 350 560 470 350S770 -20 1040 160" />
+      <path data-draw-path d="M140 -40C90 210 250 270 510 310S910 410 980 760" />
+      <path data-draw-path d="M770 -50C690 160 580 220 510 310S380 600 210 760" />
     </svg>
 
     <div class="hero__identity">
-      <p class="meta-type">Independent practice / 2019–2026</p>
+      <p class="meta-type" data-hero-meta>Independent practice / 2019–2026</p>
       <h1 id="hero-title">
-        <span>Jeven</span>
-        <span>Randhawa</span>
+        <span class="hero__title-line"><span data-hero-word>Jeven</span></span>
+        <span class="hero__title-line"><span data-hero-word>Randhawa</span></span>
       </h1>
     </div>
 
@@ -21,8 +21,9 @@
         :key="project.id"
         :class="`hero-print hero-print--${index + 1}`"
         :to="`/work/${project.id}`"
+        data-hero-print
       >
-        <div class="hero-print__media">
+        <div class="hero-print__media registered-media">
           <GlitchMedia
             :src="project.thumbCard || project.thumb"
             :alt="project.title"
@@ -38,7 +39,7 @@
       </RouterLink>
     </div>
 
-    <div class="hero__role">
+    <div class="hero__role" data-hero-note>
       <p>Graphic design, art direction, web, and sound for artists, teams, and independent releases.</p>
       <nav aria-label="Introduction links">
         <RouterLink to="/#outputs">Selected work</RouterLink>
@@ -47,8 +48,10 @@
       </nav>
     </div>
 
-    <p class="hero__edition meta-type">Issue 01<br />Ontario, Canada<br />Available worldwide</p>
-    <span class="hero__seal" aria-hidden="true">J/R</span>
+    <p class="hero__edition meta-type" data-hero-detail>Issue 01<br />Ontario, Canada<br />Available worldwide</p>
+    <span class="hero__seal" data-hero-seal aria-hidden="true">J/R</span>
+    <span class="hero__coordinate hero__coordinate--a meta-type" data-hero-detail aria-hidden="true">43.6532° N</span>
+    <span class="hero__coordinate hero__coordinate--b meta-type" data-hero-detail aria-hidden="true">079.3832° W</span>
   </section>
 </template>
 
@@ -103,11 +106,17 @@ defineProps({
   line-height: 0.6;
 }
 
-.hero h1 span {
+.hero__title-line {
+  display: block;
+  overflow: hidden;
+  padding-right: 0.08em;
+}
+
+.hero__title-line > span {
   display: block;
 }
 
-.hero h1 span:last-child {
+.hero__title-line:last-child {
   margin-left: 13vw;
   color: var(--blue);
   font-size: 0.62em;
@@ -241,6 +250,24 @@ defineProps({
   transform: rotate(10deg);
 }
 
+.hero__coordinate {
+  position: absolute;
+  z-index: 5;
+  margin: 0;
+  color: var(--blue);
+  writing-mode: vertical-rl;
+}
+
+.hero__coordinate--a {
+  top: 38%;
+  left: 1rem;
+}
+
+.hero__coordinate--b {
+  top: 45%;
+  right: 0.75rem;
+}
+
 @media (max-width: 820px) {
   .hero {
     min-height: 58rem;
@@ -250,7 +277,7 @@ defineProps({
     font-size: clamp(6rem, 24vw, 12rem);
   }
 
-  .hero h1 span:last-child {
+  .hero__title-line:last-child {
     margin-left: 4vw;
   }
 
@@ -294,7 +321,7 @@ defineProps({
     line-height: 0.65;
   }
 
-  .hero h1 span:last-child {
+  .hero__title-line:last-child {
     margin-left: 0;
     font-size: 0.52em;
   }

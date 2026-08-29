@@ -1,5 +1,5 @@
 <template>
-  <main id="main-content" tabindex="-1" class="page-shell">
+  <main id="main-content" ref="page" tabindex="-1" class="page-shell">
     <HeroSection :email="config.email" :hero-projects="heroProjects" />
     <SelectedWorkSection :projects="selectedWorks" />
     <AboutSection
@@ -14,12 +14,16 @@
 </template>
 
 <script setup>
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import AboutSection from '../components/sections/AboutSection.vue';
 import ArtistsSection from '../components/sections/ArtistsSection.vue';
 import ContactSection from '../components/sections/ContactSection.vue';
 import HeroSection from '../components/sections/HeroSection.vue';
 import SelectedWorkSection from '../components/sections/SelectedWorkSection.vue';
+import { usePosterMotion } from '../composables/usePosterMotion';
+
+const page = ref(null);
+usePosterMotion(page, { hero: true });
 
 const props = defineProps({
   artists: {

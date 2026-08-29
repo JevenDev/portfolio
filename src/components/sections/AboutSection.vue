@@ -1,24 +1,21 @@
 <template>
-  <section id="profile" class="profile" aria-labelledby="profile-title">
-    <span class="profile__word" aria-hidden="true">PROFILE</span>
+  <section id="profile" class="profile" aria-labelledby="profile-title" data-motion-section>
+    <span class="profile__word" data-poster-drift aria-hidden="true">PROFILE</span>
     <svg class="profile__web" viewBox="0 0 900 700" aria-hidden="true">
-      <path d="M-20 620C180 430 280 480 430 330S690 30 940 190" />
-      <path d="M80 -20C220 180 330 190 430 330S580 640 860 740" />
-      <path d="M-40 220C180 300 330 250 430 330S670 510 950 420" />
+      <path data-draw-path d="M-20 620C180 430 280 480 430 330S690 30 940 190" />
+      <path data-draw-path d="M80 -20C220 180 330 190 430 330S580 640 860 740" />
+      <path data-draw-path d="M-40 220C180 300 330 250 430 330S670 510 950 420" />
     </svg>
 
-    <div class="profile__head">
-      <p class="section-kicker">About / Jeven Randhawa</p>
-      <p class="meta-type">{{ location }}</p>
-    </div>
+    <RegistrationStrip index="02" label="Profile" :detail="location" tone="light" />
 
     <div class="profile__content">
       <div class="profile__statement">
-        <h2 id="profile-title">{{ headline }}</h2>
-        <p>{{ body }}</p>
+        <h2 id="profile-title" data-poster-heading>{{ headline }}</h2>
+        <p data-poster-copy>{{ body }}</p>
       </div>
 
-      <div class="profile__capabilities">
+      <div class="profile__capabilities" data-poster-copy>
         <article v-for="(group, index) in skillGroups" :key="group.label">
           <span class="meta-type">0{{ index + 1 }}</span>
           <h3>{{ group.label }}</h3>
@@ -33,6 +30,7 @@
 
 <script setup>
 import { computed } from 'vue';
+import RegistrationStrip from '../ui/RegistrationStrip.vue';
 
 const props = defineProps({
   body: { type: String, default: '' },
@@ -82,24 +80,11 @@ const skillGroups = computed(() => [
   stroke-width: 1.5;
 }
 
-.profile__head,
 .profile__content {
   position: relative;
   z-index: 2;
   width: min(100%, 90rem);
   margin-inline: auto;
-}
-
-.profile__head {
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-  border-top: 1px solid var(--rule-white);
-  padding-top: 0.75rem;
-}
-
-.profile__head p {
-  margin: 0;
 }
 
 .profile__content {
