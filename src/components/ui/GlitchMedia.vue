@@ -15,8 +15,6 @@ const props = defineProps({
   alt: { type: String, default: '' },
   eager: { type: Boolean, default: false },
   fit: { type: String, default: 'cover' },
-  resolve: { type: Boolean, default: true },
-  signal: { type: [String, Number], default: '' },
   src: { type: String, required: true },
   treatment: { type: String, default: 'preview' }
 });

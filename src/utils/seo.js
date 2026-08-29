@@ -137,6 +137,10 @@ function buildSchemas({ canonicalUrl, project, siteName, siteUrl, route }) {
     description: defaultDescription
   };
 
+  if (route.name === 'project' && !project) {
+    return [websiteSchema, personSchema];
+  }
+
   if (route.name === 'archive') {
     const itemList = buildPortfolioItemList(siteUrl);
 
@@ -213,20 +217,32 @@ function applySeo(route) {
   const siteUrl = getSiteUrl();
   const routePath = route.path || '/';
   const project = route.name === 'project' ? allPortfolioItems.find((item) => item.id === route.params?.id) : null;
+  const missingProject = route.name === 'project' && !project;
 
-  const pageTitle = project
+  const pageTitle = missingProject
+    ? `Project Not Found | ${siteName}`
+    : project
     ? `${project.title} | ${siteName}`
     : route.meta?.seoTitle
       ? `${route.meta.seoTitle} | ${siteName}`
       : `${siteName} | Portfolio`;
-  const pageDescription = project
+  const pageDescription = missingProject
+    ? 'The requested portfolio project could not be found.'
+    : project
     ? descriptionToText(project.description) || `${project.title}, a selected output by Jeven Randhawa.`
     : route.meta?.seoDescription || configData.defaultDescription || '';
   const pageKeywords = project?.tags || route.meta?.seoKeywords || configData.seoKeywords || [];
-  const canonicalUrl = buildCanonicalFromPath(routePath, siteUrl);
+  const canonicalPath = route.name === 'archive' ? '/archive' : routePath;
+  const canonicalUrl = buildCanonicalFromPath(canonicalPath, siteUrl);
   const imageUrl = toAbsoluteUrl(project?.thumb || route.meta?.seoImage || configData.defaultOgImage, siteUrl);
-  const robots = route.meta?.seoNoIndex ? 'noindex, nofollow' : 'index, follow';
-  const ogType = project ? 'article' : route.meta?.seoType === 'CollectionPage' ? 'website' : 'profile';
+  const robots = missingProject || route.meta?.seoNoIndex ? 'noindex, nofollow' : 'index, follow';
+  const ogType = missingProject
+    ? 'website'
+    : project
+      ? 'article'
+      : route.meta?.seoType === 'CollectionPage'
+        ? 'website'
+        : 'profile';
 
   document.title = pageTitle;
 

@@ -155,6 +155,12 @@ defineProps({ artists: { type: Array, default: () => [] } });
   color: var(--blue);
 }
 
+.artist__links a {
+  display: inline-flex;
+  min-height: 1.75rem;
+  align-items: center;
+}
+
 .artist:hover img,
 .artist:focus-within img {
   filter: none;

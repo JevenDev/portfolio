@@ -74,8 +74,10 @@ defineProps({ projects: { type: Array, default: () => [] } });
 }
 
 .work__head > a {
+  display: inline-flex;
+  min-height: 1.75rem;
+  align-items: center;
   border-bottom: 1px solid currentColor;
-  padding-bottom: 0.2rem;
   font-size: 0.72rem;
 }
 

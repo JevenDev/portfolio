@@ -47,15 +47,19 @@ const router = createRouter({
     }
   ],
   scrollBehavior(to, from, savedPosition) {
-    if (savedPosition) return savedPosition;
-    if (to.hash) {
-      return {
+    const position = savedPosition || (to.hash
+      ? {
         el: to.hash,
-        top: 88,
+        top: 72,
         behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
-      };
-    }
-    return { left: 0, top: 0 };
+      }
+      : { left: 0, top: 0 });
+
+    if (to.path === from.path) return position;
+
+    return new Promise((resolve) => {
+      window.setTimeout(() => resolve(position), 160);
+    });
   }
 });
 

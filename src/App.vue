@@ -4,7 +4,7 @@
     <SiteHeader />
 
     <RouterView v-slot="{ Component }">
-      <Transition name="route-shift" mode="out-in" @after-enter="queueRoutePosition">
+      <Transition name="route-shift" mode="out-in">
         <component
           :is="Component"
           :key="route.path"
@@ -22,7 +22,7 @@
 </template>
 
 <script setup>
-import { nextTick, onMounted, onUnmounted, ref, watch } from 'vue';
+import { onMounted, onUnmounted, ref } from 'vue';
 import { RouterView, useRoute } from 'vue-router';
 import SiteFooter from './components/layout/SiteFooter.vue';
 import SiteHeader from './components/layout/SiteHeader.vue';
@@ -44,24 +44,9 @@ function scrollTop() {
   });
 }
 
-function syncRoutePosition() {
-  const target = route.hash ? document.querySelector(route.hash) : null;
-  const top = target ? target.getBoundingClientRect().top + window.scrollY - 72 : 0;
-  window.scrollTo({ top, behavior: 'auto' });
-}
-
-async function queueRoutePosition() {
-  await nextTick();
-  window.requestAnimationFrame(syncRoutePosition);
-}
-
-watch(() => route.fullPath, queueRoutePosition);
-
 onMounted(() => {
-  if ('scrollRestoration' in window.history) window.history.scrollRestoration = 'manual';
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
-  queueRoutePosition();
 });
 
 onUnmounted(() => {

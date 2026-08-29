@@ -1,5 +1,5 @@
 <template>
-  <header class="site-header">
+  <header class="site-header" @keydown.esc="closeMenu(true)">
     <RouterLink to="/" class="site-header__brand" aria-label="JVN Graphics home">
       <span aria-hidden="true">✣</span>
       <strong>Jeven Randhawa</strong>
@@ -19,9 +19,10 @@
     <p class="site-header__location meta-type">Design + sound<br />Ontario, Canada</p>
 
     <button
+      ref="menuButton"
       type="button"
       class="site-header__menu"
-      :aria-expanded="String(menuOpen)"
+      :aria-expanded="menuOpen"
       aria-controls="mobile-navigation"
       @click="menuOpen = !menuOpen"
     >
@@ -30,7 +31,7 @@
 
     <Transition name="menu-fade">
       <nav v-if="menuOpen" id="mobile-navigation" class="site-header__mobile" aria-label="Mobile navigation">
-        <RouterLink v-for="item in navItems" :key="item.label" :to="item.to" @click="menuOpen = false">
+        <RouterLink v-for="item in navItems" :key="item.label" :to="item.to" @click="closeMenu()">
           {{ item.label }}
         </RouterLink>
       </nav>
@@ -39,10 +40,11 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { nextTick, ref, watch } from 'vue';
 import { RouterLink, useRoute } from 'vue-router';
 
 const menuOpen = ref(false);
+const menuButton = ref(null);
 const route = useRoute();
 const navItems = [
   { label: 'Work', to: '/#outputs' },
@@ -52,11 +54,22 @@ const navItems = [
 ];
 
 function isActive(item) {
-  if (item.to === '/archive') return route.path === '/archive';
+  if (item.to === '/archive') return route.name === 'archive';
+  if (route.name === 'project') return item.label === 'Work';
   if (route.path !== '/') return false;
   const targetHash = item.to.includes('#') ? `#${item.to.split('#')[1]}` : '';
   return route.hash ? route.hash === targetHash : item.label === 'Work';
 }
+
+async function closeMenu(restoreFocus = false) {
+  if (!menuOpen.value) return;
+  menuOpen.value = false;
+  if (!restoreFocus) return;
+  await nextTick();
+  menuButton.value?.focus();
+}
+
+watch(() => route.fullPath, () => closeMenu());
 </script>
 
 <style scoped>

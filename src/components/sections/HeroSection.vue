@@ -9,7 +9,7 @@
 
     <div class="hero__identity">
       <p class="meta-type" data-hero-meta>Independent practice / 2019–2026</p>
-      <h1 id="hero-title">
+      <h1 id="hero-title" aria-label="Jeven Randhawa">
         <span class="hero__title-line"><span data-hero-word>Jeven</span></span>
         <span class="hero__title-line"><span data-hero-word>Randhawa</span></span>
       </h1>
@@ -222,6 +222,12 @@ defineProps({
 .hero__role a:focus-visible {
   text-decoration: underline;
   text-underline-offset: 0.2rem;
+}
+
+.hero__role a {
+  display: inline-flex;
+  min-height: 1.75rem;
+  align-items: center;
 }
 
 .hero__edition {

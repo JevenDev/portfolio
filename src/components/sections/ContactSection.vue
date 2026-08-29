@@ -121,6 +121,12 @@ defineProps({ email: { type: String, default: '' }, socials: { type: Array, defa
   color: var(--signal-red);
 }
 
+.contact__links a {
+  display: inline-flex;
+  min-height: 1.75rem;
+  align-items: center;
+}
+
 .contact__disc {
   position: absolute;
   right: -10vw;

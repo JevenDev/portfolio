@@ -79,6 +79,12 @@ const currentYear = new Date().getFullYear();
   color: var(--blue-soft);
 }
 
+.site-footer__links a {
+  display: inline-flex;
+  min-height: 1.75rem;
+  align-items: center;
+}
+
 .site-footer__base {
   display: flex;
   justify-content: space-between;

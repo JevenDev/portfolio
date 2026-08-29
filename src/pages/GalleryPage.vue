@@ -51,6 +51,9 @@
     </section>
 
     <section class="archive__results" :aria-label="`${filteredProjects.length} archive results`">
+      <p class="sr-only" role="status" aria-live="polite" aria-atomic="true">
+        {{ filteredProjects.length }} {{ filteredProjects.length === 1 ? 'project' : 'projects' }} shown in {{ view }} view.
+      </p>
       <div v-if="filteredProjects.length && view === 'grid'" class="archive-grid">
         <article v-for="(project, index) in filteredProjects" :key="project.id" class="archive-item" data-motion-section>
           <RouterLink :to="`/work/${project.id}`">

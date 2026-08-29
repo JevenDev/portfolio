@@ -63,7 +63,16 @@
 
         <div class="project__gallery">
           <figure v-for="(media, index) in mediaItems" :key="`${media.url}-${index}`" data-motion-section>
-            <video v-if="media.type === 'video'" :src="media.url" :poster="project.thumb" controls playsinline preload="none" data-poster-media />
+            <video
+              v-if="media.type === 'video'"
+              :src="media.url"
+              :poster="project.thumb"
+              :aria-label="media.label || `${project.title} video`"
+              controls
+              playsinline
+              preload="none"
+              data-poster-media
+            />
             <img v-else :src="media.url" :alt="media.label || project.title" loading="lazy" decoding="async" data-poster-media />
             <figcaption class="meta-type" data-poster-copy>
               <span>{{ String(index + 1).padStart(2, '0') }} / {{ media.label || project.title }}</span>
@@ -77,7 +86,9 @@
             <p class="meta-type">Audio playback</p>
             <h3>{{ project.audio.title }}</h3>
           </div>
-          <audio :src="project.audio.src" controls preload="none">Your browser does not support embedded audio.</audio>
+          <audio :src="project.audio.src" :aria-label="project.audio.title" controls preload="none">
+            Your browser does not support embedded audio.
+          </audio>
         </div>
       </section>
 
@@ -198,6 +209,13 @@ const nextProject = computed(() => projectIndex.value < 0 ? null : props.project
 .project__top a:hover,
 .project__top a:focus-visible {
   color: var(--blue);
+}
+
+.project__top a,
+.project__credits a {
+  display: inline-flex;
+  min-height: 1.75rem;
+  align-items: center;
 }
 
 .project__hero-grid {
