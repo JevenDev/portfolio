@@ -11,6 +11,7 @@
           :artists="artists"
           :config="config"
           :featured-projects="featuredProjects"
+          :mods="mods"
           :projects="projects"
         />
       </Transition>
@@ -30,7 +31,7 @@ import BackToTop from './components/ui/BackToTop.vue';
 import { usePortfolioData } from './composables/usePortfolioData';
 
 const route = useRoute();
-const { artists, config, featuredProjects, projects } = usePortfolioData();
+const { artists, config, featuredProjects, mods, projects } = usePortfolioData();
 const showBackToTop = ref(false);
 
 function onScroll() {

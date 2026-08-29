@@ -5,7 +5,7 @@
       <path data-draw-path d="M100 -40C220 180 330 150 520 210S800 440 940 680" />
     </svg>
 
-    <RegistrationStrip index="04" label="Contact" detail="Available for selected projects" tone="light" />
+    <RegistrationStrip index="05" label="Contact" detail="Available for selected projects" tone="light" />
 
     <div class="contact__main">
       <p class="section-kicker">Contact / New work</p>

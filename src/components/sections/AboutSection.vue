@@ -7,7 +7,7 @@
       <path data-draw-path d="M-40 220C180 300 330 250 430 330S670 510 950 420" />
     </svg>
 
-    <RegistrationStrip index="02" label="Profile" :detail="location" tone="light" />
+    <RegistrationStrip index="03" label="Profile" :detail="location" tone="light" />
 
     <div class="profile__content">
       <div class="profile__statement">

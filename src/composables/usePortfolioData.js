@@ -2,6 +2,7 @@ import { computed, ref } from 'vue';
 import artistsData from '../../data/artists.json';
 import artworksData from '../../data/artworks.json';
 import configData from '../../data/config.json';
+import modsData from '../../data/mods.json';
 import postsData from '../../data/posts.json';
 import positionsData from '../../data/positions.json';
 import projectsData from '../../data/projects.json';
@@ -22,6 +23,7 @@ export function usePortfolioData() {
   const allPortfolioItems = [...postsData, ...projectsData, ...positionsData, ...artworksData];
 
   const config = computed(() => configData);
+  const mods = computed(() => modsData);
   const projects = computed(() => allPortfolioItems.map(normalizeProject));
   const artists = computed(() => artistsData.map(normalizeArtist));
 
@@ -60,6 +62,7 @@ export function usePortfolioData() {
     featuredProjects,
     filteredSortedProjects,
     musicProjects,
+    mods,
     projects,
     sortBy,
     topProjects,
