@@ -20,7 +20,14 @@
           </div>
 
           <div class="project__cover registered-media" data-poster-media>
-            <GlitchMedia :src="project.thumbCard || project.thumb" :alt="project.title" eager fit="contain" treatment="full" />
+            <GlitchMedia
+              :src="project.thumbDisplay || project.thumb"
+              :mobile-src="project.thumbCard"
+              :alt="project.title"
+              eager
+              fit="contain"
+              treatment="full"
+            />
           </div>
         </div>
 

@@ -211,6 +211,7 @@ export function normalizeProject(project) {
   return {
     ...project,
     thumbCard: buildThumbPath(project.thumb),
+    thumbDisplay: normalizeAssetPath(project.thumbDisplay),
     thumb: normalizeAssetPath(project.thumb),
     gallery: (project.gallery || []).map((item) => {
       if (typeof item === 'string') return normalizeAssetPath(item);

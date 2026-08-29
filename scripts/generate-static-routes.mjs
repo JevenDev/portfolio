@@ -287,9 +287,10 @@ function renderHtml(page) {
   html = upsertMeta(html, 'name', 'twitter:image', page.image);
   html = upsertMeta(html, 'name', 'twitter:image:alt', page.imageAlt);
   html = html.replace(/<script[^>]+id=["']seo-schema["'][^>]*>[\s\S]*?<\/script>\s*/i, '');
-  html = html.replace(/\s*<link[^>]+data-page-preload[^>]*>/i, '');
+  html = html.replace(/\s*<link[^>]+data-page-preload[^>]*>/gi, '');
   if (page.preloadImage) {
-    html = html.replace('</head>', `    <link rel="preload" as="image" href="${escapeHtml(page.preloadImage)}" fetchpriority="high" data-page-preload />\n  </head>`);
+    const media = page.preloadMedia ? ` media="${escapeHtml(page.preloadMedia)}"` : '';
+    html = html.replace('</head>', `    <link rel="preload" as="image" href="${escapeHtml(page.preloadImage)}" fetchpriority="high"${media} data-page-preload />\n  </head>`);
   }
   const schema = JSON.stringify(page.schemas).replaceAll('<', '\\u003c');
   html = html.replace('</head>', `    <script type="application/ld+json" id="seo-schema">${schema}</script>\n    ${staticStyle}\n  </head>`);
@@ -303,7 +304,11 @@ const homePage = {
   description: truncateText('Portfolio of Jeven Randhawa featuring brand identity, cover art, web projects, game interfaces, and music production collaborations.'),
   image: defaultImage,
   imageAlt: defaultImageAlt,
-  preloadImage: toThumbnailPath(portfolioItems.find((item) => item.id === 'artwork-029')?.thumb || ''),
+  preloadImage: (() => {
+    const feature = portfolioItems.find((item) => item.id === 'artwork-029');
+    return feature?.thumbDisplay ? `/${feature.thumbDisplay.replace(/^\/+/, '')}` : toThumbnailPath(feature?.thumb || '');
+  })(),
+  preloadMedia: '(min-width: 761px)',
   ogType: 'profile',
   schemas: buildHomeSchemas(),
   content: renderHomeContent()
@@ -343,7 +348,10 @@ const projectPages = portfolioItems.map((item) => {
     description: truncateText(toPlainText(item.description) || `${item.title}, a selected output by Jeven Randhawa.`),
     image: item.thumb ? toAbsoluteUrl(item.thumb) : defaultImage,
     imageAlt: item.title,
-    preloadImage: toThumbnailPath(item.thumb),
+    preloadImage: item.thumbDisplay
+      ? `/${item.thumbDisplay.replace(/^\/+/, '')}`
+      : item.thumb ? `/${item.thumb.replace(/^\/+/, '')}` : '',
+    preloadMedia: '(min-width: 761px)',
     ogType: 'article',
     schemas: buildProjectSchemas(item, canonical),
     content: renderProjectContent(item)

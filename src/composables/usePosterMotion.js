@@ -36,15 +36,14 @@ export function usePosterMotion(scopeTarget, options = {}) {
         const heroTimeline = gsap.timeline({ defaults: { ease: 'power3.out' } });
         heroTimeline
           .from('[data-hero-meta]', { autoAlpha: 0, y: 16, duration: 0.45 })
-          .from('[data-hero-word]', { yPercent: 112, duration: 0.95, stagger: 0.11 }, 0.08)
+          .from('[data-hero-word]', { autoAlpha: 0, y: 28, duration: 0.72, stagger: 0.09 }, 0.08)
           .to(introPaths, { strokeDashoffset: 0, duration: 1.4, stagger: 0.08, ease: 'power2.inOut' }, 0.12)
           .from('[data-hero-note]', { autoAlpha: 0, rotate: -5, scale: 0.9, y: -35, duration: 0.7 }, 0.28)
           .from('[data-hero-print]', {
             autoAlpha: 0,
-            clipPath: 'inset(12% 8% 18% 10%)',
-            scale: 0.88,
-            y: 80,
-            duration: 0.9,
+            scale: 0.96,
+            y: 32,
+            duration: 0.72,
             stagger: 0.12
           }, 0.32)
           .from('[data-hero-detail]', { autoAlpha: 0, y: 18, duration: 0.45, stagger: 0.07 }, 0.7);
@@ -90,24 +89,25 @@ export function usePosterMotion(scopeTarget, options = {}) {
         if (heading) {
           gsap.from(heading, {
             autoAlpha: 0,
-            clipPath: 'inset(0 0 100% 0)',
-            y: 36,
-            duration: 0.85,
+            y: 18,
+            duration: 0.58,
             ease: 'power3.out',
-            scrollTrigger: { trigger: heading, start: 'top 86%', once: true }
+            clearProps: 'opacity,visibility,transform',
+            scrollTrigger: { trigger: heading, start: 'top 94%', once: true }
           });
         }
 
         const media = gsap.utils.toArray('[data-poster-media]', section);
         if (media.length) {
           gsap.from(media, {
-            clipPath: 'inset(8% 9% 12% 7%)',
-            scale: 0.94,
-            y: 55,
-            duration: 0.95,
+            autoAlpha: 0,
+            scale: 0.985,
+            y: 18,
+            duration: 0.62,
             ease: 'power3.out',
             stagger: 0.1,
-            scrollTrigger: { trigger: media[0], start: 'top 88%', once: true }
+            clearProps: 'opacity,visibility,transform',
+            scrollTrigger: { trigger: media[0], start: 'top 94%', once: true }
           });
         }
 
@@ -115,11 +115,12 @@ export function usePosterMotion(scopeTarget, options = {}) {
         if (copy.length) {
           gsap.from(copy, {
             autoAlpha: 0,
-            y: 28,
-            duration: 0.65,
+            y: 10,
+            duration: 0.45,
             ease: 'power2.out',
             stagger: 0.08,
-            scrollTrigger: { trigger: copy[0], start: 'top 88%', once: true }
+            clearProps: 'opacity,visibility,transform',
+            scrollTrigger: { trigger: copy[0], start: 'top 94%', once: true }
           });
         }
 

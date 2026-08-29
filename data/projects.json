@@ -14,6 +14,7 @@
     "role": "Lead Designer & Producer",
     "featured": true,
     "thumb": "assets/images/flowrpot/flowrpot-preview.jpg",
+    "thumbDisplay": "assets/images/display/flowrpot/flowrpot-preview-display.webp",
     "description": "'flowrpot' is a Toronto-based hip-hop artist. I was responsible for designing the visual identity for his self-titled mixtape, including the cover art, promotional materials, and social media graphics. Additionally, I produced and engineered all 13 tracks on the mixtape, blending electronic beats with soulful melodies to create a unique sound that complements flowrpot's vocals.",
     "links": [
       {
@@ -55,6 +56,7 @@
     "role": "Lead UI/UX Designer",
     "featured": true,
     "thumb": "assets/images/pareidolia/parei-preview.jpg",
+    "thumbDisplay": "assets/images/display/pareidolia/parei-preview-display.webp",
     "description": [
       "I was responsible for designing the user interface elements and title screen. I also created various minor assets throughout the game, and one of the soundtracks used in the beginning cutscenes. This game was a school project collaboration between UofT, and OCAD U students for the Level Up Showcase in spring 2025.",
       "Pareidolia is a first-person horror game inspired by the Bélmez Faces. The game takes place in an ordinary suburban home that is slowly being transformed and infected by face-like stains. Players must try and go about their daily routine by finishing chores, all the while trying to ignore the ever-growing presence of the stains that seem to be multiplying by the hour."

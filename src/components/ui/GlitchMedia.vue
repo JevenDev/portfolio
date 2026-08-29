@@ -1,12 +1,15 @@
 <template>
   <figure class="project-media" :class="[`project-media--${fit}`, `project-media--${treatment}`]">
-    <img
-      :src="src"
-      :alt="alt"
-      :fetchpriority="priority"
-      :loading="loading"
-      decoding="async"
-    />
+    <picture>
+      <source v-if="mobileSrc" media="(max-width: 760px)" :srcset="mobileSrc" />
+      <img
+        :src="src"
+        :alt="alt"
+        :fetchpriority="priority"
+        :loading="loading"
+        decoding="async"
+      />
+    </picture>
   </figure>
 </template>
 
@@ -15,6 +18,7 @@ const props = defineProps({
   alt: { type: String, default: '' },
   eager: { type: Boolean, default: false },
   fit: { type: String, default: 'cover' },
+  mobileSrc: { type: String, default: '' },
   src: { type: String, required: true },
   treatment: { type: String, default: 'preview' }
 });
@@ -36,6 +40,12 @@ const priority = props.eager ? 'high' : 'auto';
   width: 100%;
   height: 100%;
   transition: filter 180ms ease, opacity 180ms ease;
+}
+
+.project-media picture {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 .project-media--cover img {

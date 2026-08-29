@@ -254,7 +254,7 @@
 
   [data-hero-print],
   [data-poster-drift] {
-    will-change: clip-path, transform;
+    will-change: transform;
   }
 
   [data-draw-path] {

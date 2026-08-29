@@ -25,9 +25,11 @@
       >
         <div class="hero-print__media registered-media">
           <GlitchMedia
-            :src="project.thumbCard || project.thumb"
+            :src="project.thumbDisplay || project.thumbCard || project.thumb"
+            :mobile-src="project.thumbCard"
             :alt="project.title"
             :eager="index === 0"
+            fit="contain"
             treatment="full"
           />
         </div>
@@ -108,7 +110,6 @@ defineProps({
 
 .hero__title-line {
   display: block;
-  overflow: hidden;
   padding-right: 0.08em;
 }
 

@@ -18,7 +18,13 @@
       >
         <span class="work-project__number" data-poster-drift>{{ String(index + 1).padStart(2, '0') }}</span>
         <div class="work-project__media registered-media" data-poster-media>
-          <GlitchMedia :src="project.thumbCard || project.thumb" :alt="project.title" treatment="full" />
+          <GlitchMedia
+            :src="project.thumbDisplay || project.thumb"
+            :mobile-src="project.thumbCard"
+            :alt="project.title"
+            fit="contain"
+            treatment="full"
+          />
         </div>
         <div class="work-project__copy">
           <p class="meta-type" data-poster-copy>{{ getProjectCategory(project) }} / {{ project.year }}</p>
@@ -132,6 +138,7 @@ defineProps({ projects: { type: Array, default: () => [] } });
 }
 
 .work-project__copy {
+  position: relative;
   grid-column: 8 / -1;
   align-self: end;
   z-index: 2;

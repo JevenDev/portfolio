@@ -63,7 +63,7 @@
         <article v-for="(project, index) in filteredProjects" :key="project.id" class="archive-item" data-motion-section>
           <RouterLink :to="`/work/${project.id}/`">
             <div class="archive-item__media registered-media" data-poster-media>
-              <GlitchMedia :src="project.thumbCard || project.thumb" :alt="project.title" treatment="preview" />
+              <GlitchMedia :src="project.thumbCard || project.thumb" :alt="project.title" fit="contain" treatment="preview" />
             </div>
             <div class="archive-item__body" data-poster-copy>
               <span class="meta-type">{{ String(index + 1).padStart(3, '0') }}</span>
