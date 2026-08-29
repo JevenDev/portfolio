@@ -282,8 +282,10 @@ function formatNumber(value) {
 
 .mods__counter {
   display: grid;
+  min-width: 0;
   min-height: 15rem;
   align-content: space-between;
+  overflow: hidden;
   background: var(--blue);
   clip-path: polygon(8% 0, 100% 0, 100% 91%, 0 100%, 0 9%);
   color: var(--paper-cool);
@@ -300,6 +302,8 @@ function formatNumber(value) {
 
 .mods__counter span:last-child {
   justify-self: end;
+  max-width: 100%;
+  overflow-wrap: anywhere;
   text-align: right;
 }
 
@@ -777,12 +781,14 @@ function formatNumber(value) {
 
   .mods__counter {
     grid-column: auto;
-    width: 14rem;
+    width: min(100%, 14rem);
     margin: 0 0 0 auto;
+    transform: rotate(1.5deg);
   }
 
   .mods__status {
     grid-column: auto;
+    width: min(100%, 20rem);
   }
 
   .mods__index-head {
@@ -881,6 +887,23 @@ function formatNumber(value) {
 }
 
 @media (max-width: 440px) {
+  .mods__counter {
+    margin-right: 0.35rem;
+    padding: 1rem;
+  }
+
+  .mods__counter strong {
+    font-size: clamp(3.5rem, 20vw, 4.4rem);
+  }
+
+  .mods__status {
+    justify-self: stretch;
+  }
+
+  .mod-index-row__downloads {
+    grid-template-columns: 1fr;
+  }
+
   .mod-story__links {
     grid-template-columns: 1fr;
   }

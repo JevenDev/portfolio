@@ -23,9 +23,9 @@ defineEmits(['to-top']);
   aspect-ratio: 1;
   place-content: center;
   gap: 0.05rem;
-  border: 0;
+  border: 1px solid var(--black);
   border-radius: 50%;
-  background: var(--signal-red);
+  background: var(--paper-cool);
   color: var(--black);
   padding: 0;
   font-family: 'IBM Plex Mono', monospace;
@@ -33,13 +33,14 @@ defineEmits(['to-top']);
   line-height: 1;
   text-align: center;
   cursor: pointer;
-  transform: rotate(5deg);
+  transform: rotate(2deg);
 }
 
 .back-to-top:hover,
 .back-to-top:focus-visible {
-  background: var(--paper-cool);
-  color: var(--blue);
+  border-color: var(--blue);
+  background: var(--blue);
+  color: var(--paper-cool);
 }
 
 .back-to-top span:first-child {
@@ -59,8 +60,8 @@ defineEmits(['to-top']);
 @media (max-width: 560px) {
   .back-to-top {
     right: 0.65rem;
-    bottom: 0.65rem;
-    width: 2.75rem;
+    bottom: max(0.65rem, env(safe-area-inset-bottom));
+    width: 2.9rem;
     font-size: 0.52rem;
   }
 

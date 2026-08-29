@@ -95,7 +95,7 @@ export function useModMetrics(modsSource) {
       if (loadedSources.size && failedSources.size) {
         status.value = `Partial live totals updated ${refreshedAt}`;
       } else if (loadedSources.size) {
-        status.value = `${[...loadedSources].join(' + ')} totals updated ${refreshedAt}`;
+        status.value = `Live totals updated ${refreshedAt}`;
       } else {
         status.value = 'Saved platform totals';
       }

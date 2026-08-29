@@ -100,5 +100,9 @@ const currentYear = new Date().getFullYear();
   .site-footer__main {
     grid-template-columns: 1fr;
   }
+
+  .site-footer__base {
+    padding-right: 3.75rem;
+  }
 }
 </style>
