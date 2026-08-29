@@ -4,12 +4,24 @@
     "slug": "cirrus",
     "title": "Cirrus",
     "description": "Cloud & skybox overhaul mod.",
+    "overview": "A client-side skybox overhaul that replaces flat vanilla skies with layered clouds, time-based colour palettes, storms, lightning, stars, auroras, and a configurable End sky. It is designed to work without Iris or a shader pack while staying close to Minecraft's visual language.",
+    "reflection": "I approached Cirrus as a rendering system rather than a shader pack. The main challenge was coordinating independently moving layers, palette transitions, and weather-reactive effects without losing performance or configurability. Building each effect as an optional layer made the mod easier to tune and let players decide how far from vanilla they want to move.",
+    "features": [
+      "Three independently moving cloud layers with configurable height, speed, opacity, and distance",
+      "Morning, day, evening, and night gradients with smooth palette transitions",
+      "Storm-darkened clouds, deterministic lightning, shooting stars, and auroras",
+      "Fabric and NeoForge support across multiple Minecraft versions"
+    ],
     "categories": ["decoration"],
     "loaders": ["fabric", "neoforge"],
     "downloads": 12055,
     "followers": 170,
     "updated": "2026-08-26T22:29:27.828629Z",
     "iconUrl": "https://cdn.modrinth.com/data/SJDzFJH7/d71c242ef0053e5979117d1b0755e35671ee88fb_96.webp",
+    "featuredImage": "https://cdn.modrinth.com/data/SJDzFJH7/images/fe9ad9e31cb65bc8aa8688738bd66fc9226e5877_350.webp",
+    "featuredImageAlt": "Cirrus rendering an aurora across the Minecraft night sky",
+    "sourceUrl": "https://github.com/JevenDev/Cirrus",
+    "curseforge": { "id": 1572354, "slug": "cirrus", "downloads": 15020 },
     "accent": "#99b6f8"
   },
   {
@@ -17,12 +29,25 @@
     "slug": "toucan",
     "title": "toucanLib",
     "description": "Small shared multi-loader utility helpers for jvn's mods.",
+    "overview": "A shared Fabric and NeoForge library for the recurring systems behind my mods. It collects networking, data loading, inventory, combat attribution, recoverable damage, screen projection, animation state, and deterministic randomness into one maintained foundation.",
+    "reflection": "toucanLib came from noticing the same infrastructure reappear across active projects. Extracting that code reduced drift between loaders and made fixes reusable instead of local. It is less visible than the mods that depend on it, but it changed the way I develop them by making shared behavior deliberate and documented.",
+    "features": [
+      "Aligned Fabric and NeoForge networking helpers",
+      "Datapack readers, item selectors, and inventory extraction utilities",
+      "Combat attribution and recoverable damage rules",
+      "Shared by Villager Retaliation, Second Wind, Lodged, Emerald Pouch, Gracebound, and Where Winds Blow"
+    ],
     "categories": ["library", "utility"],
     "loaders": ["fabric", "neoforge"],
     "downloads": 10635,
     "followers": 2,
     "updated": "2026-08-16T21:54:05.1818Z",
     "iconUrl": "https://cdn.modrinth.com/data/dXwOQg6L/bbd199f45174161779db7435f436873745d33efe.png",
+    "featuredImage": "https://cdn.modrinth.com/data/dXwOQg6L/images/bbd199f45174161779db7435f436873745d33efe.png",
+    "featuredImageAlt": "toucanLib project mark",
+    "sourceUrl": "https://github.com/JevenDev/ToucanLib",
+    "wikiUrl": "https://github.com/JevenDev/toucanLib/blob/main/docs/wiki/Home.md",
+    "curseforge": { "id": 1542666, "slug": "toucanlib", "downloads": 14153 },
     "accent": "#cf671d"
   },
   {
@@ -30,12 +55,25 @@
     "slug": "villager-retaliation",
     "title": "Kingdoms: Villager Retaliation!",
     "description": "It's about time the villagers retaliated.",
+    "overview": "An expansion that turns villagers and villages into reactive communities. Individual villagers remember players, develop skills and moods, offer quests, take contracts, form parties, participate in an economy, and respond to how their village is treated.",
+    "reflection": "This started with a simple retaliation premise and grew into a network of reputation, work, economy, party, quest, raid, and dialogue systems. The difficult part was keeping those systems connected without replacing the vanilla villager entity. Building on top of existing behavior preserves familiarity and makes each new consequence feel like part of the same community.",
+    "features": [
+      "Persistent reputation, gossip, mood, and village allegiance",
+      "Thirteen hired work roles with skills, routes, equipment, wages, and storage",
+      "Parties, mounts, player-led raids, non-lethal duels, and configurable quests",
+      "Player and pack-developer wikis for the larger simulation"
+    ],
     "categories": ["adventure", "game-mechanics", "mobs"],
     "loaders": ["neoforge"],
     "downloads": 7072,
     "followers": 87,
     "updated": "2026-08-18T16:16:38.932949Z",
     "iconUrl": "https://cdn.modrinth.com/data/2ArcBjmC/760c9ac2ab38ba98620df04a776c71b76ea4e34c_96.webp",
+    "featuredImage": "https://cdn.modrinth.com/data/2ArcBjmC/images/fa2d13956326a2852bc3c15f5474c70b2d82383c_350.webp",
+    "featuredImageAlt": "Villagers pursuing a player in Kingdoms: Villager Retaliation",
+    "sourceUrl": "https://github.com/JevenDev/Villager-Retaliation",
+    "wikiUrl": "https://jevendev.github.io/Villager-Retaliation/#/home",
+    "curseforge": { "id": 1533925, "slug": "villager-retaliation", "downloads": 9915 },
     "accent": "#353d21"
   },
   {
@@ -43,12 +81,24 @@
     "slug": "focus",
     "title": "Focus",
     "description": "Z-targeting lock-on mod, customizable & great for combat.",
+    "overview": "A configurable third-person lock-on system that keeps the camera centered on combat. Players can select and swap targets, change shoulders, edit camera offsets, save presets, filter targets, and choose how the lock-on indicator behaves.",
+    "reflection": "Focus began with the feel of third-person combat rather than a long feature list. Target selection, camera framing, crosshair correction, and shoulder changes all had to read as one continuous interaction. Exposing those camera decisions in an editor made the system adaptable instead of forcing every player into the same composition.",
+    "features": [
+      "Directional target swapping and nearby-enemy lock-on",
+      "Live camera editor with saved offsets, distance, rotation, and shoulder behavior",
+      "Corrected crosshair, target filters, cinematic bars, and player fading",
+      "Optional Shoulder Surfing Reloaded compatibility"
+    ],
     "categories": ["equipment", "game-mechanics", "utility"],
     "loaders": ["forge", "neoforge"],
     "downloads": 2318,
     "followers": 47,
     "updated": "2026-04-25T03:34:00.105053Z",
     "iconUrl": "https://cdn.modrinth.com/data/lts9qagb/c9e1bf86c25bdc3ab109260925899c923672b593_96.webp",
+    "featuredImage": "https://cdn.modrinth.com/data/lts9qagb/images/f4d28bee87c64eb91294a2d15c65abcdc70fa9f8.gif",
+    "featuredImageAlt": "Focus locking onto a target during close-quarters combat",
+    "sourceUrl": "https://github.com/JevenDev/Focus",
+    "curseforge": { "id": 1521864, "slug": "focus", "downloads": 3328 },
     "accent": "#332b31"
   },
   {
@@ -56,12 +106,24 @@
     "slug": "second-wind-mod",
     "title": "Second Wind!",
     "description": "Fight for your life, make a last stand!",
+    "overview": "A multiplayer-ready downed state that makes lethal damage the start of a last stand. Downed players can crawl, wait for a teammate, secure a hostile kill to recover, or give up while repeat downs become progressively more dangerous.",
+    "reflection": "The goal was to make failure playable without removing its cost. I balanced bleed-out timers, incoming damage, repeat-down penalties, self-revival, and co-op channel times so the system creates decisions rather than a pause before death. Visual and audio feedback then had to make every stage legible under pressure.",
+    "features": [
+      "Configurable last-stand timer with crawling and damage penalties",
+      "Self-revival through hostile kills and channelled teammate revives",
+      "Repeat-down scaling, cooldown recovery, and server-side rules",
+      "HUD timers, revive progress, flashes, distortion, desaturation, and sound cues"
+    ],
     "categories": ["adventure", "game-mechanics", "utility"],
     "loaders": ["fabric", "neoforge"],
     "downloads": 1981,
     "followers": 35,
     "updated": "2026-08-16T22:25:46.334444Z",
     "iconUrl": "https://cdn.modrinth.com/data/RQkWfoMK/3072ce8a549fb3d7d4beffaf246329e454d94ba1_96.webp",
+    "featuredImage": "https://cdn.modrinth.com/data/RQkWfoMK/images/17e90dc53fc71c9f18130d3bfb9dc3216db4fece.gif",
+    "featuredImageAlt": "A player entering the Second Wind last-stand state",
+    "sourceUrl": "https://github.com/JevenDev/Second-Wind-",
+    "curseforge": { "id": 859101, "slug": "second-wind", "downloads": 2448 },
     "accent": "#e2b962"
   },
   {
@@ -69,12 +131,24 @@
     "slug": "lodged",
     "title": "Lodged",
     "description": "Recover arrows from struck entities, take arrows out of your own body and more!",
+    "overview": "A projectile and wound system where arrows remain attached to animated body parts, shields, armour, and mounts. Arrows can be recovered, removed through timed interactions, or treated with bandages while depth, bleeding, breakage, and status effects change the risk.",
+    "reflection": "A small arrow-recovery idea became a model-aware interaction system. The hard part was keeping projectiles visually attached to moving anatomy while also tracking recoverable items, wound depth, armour, removal timing, and status effects. Treating visuals and gameplay as the same state made the mechanic easier to understand.",
+    "features": [
+      "Arrows attached to animated body parts with model-accurate collision options",
+      "Recovery for regular, spectral, tipped, and supported modded arrows",
+      "Shallow, lodged, and deep wounds with bleeding and removal risks",
+      "Shield, player-armour, horse-armour, bandage, and mount interactions"
+    ],
     "categories": ["cursed", "equipment", "game-mechanics"],
     "loaders": ["neoforge"],
     "downloads": 1763,
     "followers": 32,
     "updated": "2026-08-06T19:34:35.107993Z",
     "iconUrl": "https://cdn.modrinth.com/data/mlaUPhrZ/0becaa5f2d9846871ca36668f2a9f9215b9518d3_96.webp",
+    "featuredImage": "https://cdn.modrinth.com/data/mlaUPhrZ/images/8d6bb55c9ef7320d56818f1df95c1e34451ac5d9.gif",
+    "featuredImageAlt": "An arrow lodged in an entity using the Lodged wound system",
+    "sourceUrl": "https://github.com/JevenDev/Lodged",
+    "curseforge": { "id": 1577929, "slug": "lodged", "downloads": 2236 },
     "accent": "#311945"
   },
   {
@@ -82,12 +156,24 @@
     "slug": "where-winds-blow",
     "title": "Where Winds Blow",
     "description": "Interactive & swaying foliage, new grass types, & other effects!",
+    "overview": "A world-atmosphere system that gives foliage, grass, leaves, weather, particles, signs, banners, lanterns, and chains a shared sense of wind. Local plants also respond to nearby movement, making the environment feel physical without requiring a shader pack.",
+    "reflection": "I treated wind as a world system instead of a single foliage animation. The project needed a consistent visual rhythm across many renderers and a clean compatibility path for Sodium and Iris. Features degrade selectively when a shader pack takes over terrain rendering, so the rest of the atmosphere can remain active instead of failing as one block.",
+    "features": [
+      "Swaying foliage and new grass variants driven by a shared wind model",
+      "Weather, streak, smoke, banner, sign, lantern, and chain effects",
+      "Local plant interaction around moving entities",
+      "Compatibility paths for the standard renderer, Sodium, and Iris"
+    ],
     "categories": ["adventure", "decoration", "worldgen"],
     "loaders": ["neoforge"],
     "downloads": 1664,
     "followers": 71,
     "updated": "2026-08-18T15:44:46.181061Z",
     "iconUrl": "https://cdn.modrinth.com/data/u6keAZw8/935c158574521c2c7b37cd2cacc79bfe2c987b65_96.webp",
+    "featuredImage": "https://cdn.modrinth.com/data/u6keAZw8/images/c097107fdfb236c7623633bfd637b2b562307d1f.gif",
+    "featuredImageAlt": "Grass and foliage swaying in Where Winds Blow",
+    "sourceUrl": "https://github.com/JevenDev/Where-Winds-Blow",
+    "curseforge": { "id": 1570629, "slug": "where-winds-blow", "downloads": 1527 },
     "accent": "#4f683e"
   },
   {
@@ -95,12 +181,24 @@
     "slug": "emerald-pouch",
     "title": "Emerald Pouch",
     "description": "Adds a Pouch that auto-stores and compacts picked-up emeralds.",
+    "overview": "A dedicated currency container that automatically collects and compacts emeralds, supports multiple pouch sizes and colours, opens from a keybind or accessory slot, and lets villagers trade directly against stored currency.",
+    "reflection": "Emerald Pouch started as inventory cleanup and became a currency-flow problem. Auto-pickup, sequential pouch filling, block compaction, accessory slots, and merchant transactions all have to agree about where each emerald came from. The work was in making that accounting invisible so the pouch still feels like a small quality-of-life item.",
+    "features": [
+      "Automatic emerald intake, sequential pouch filling, and optional compaction",
+      "Direct villager trading with stored emeralds and automatic block breakdown",
+      "Custom container screens, multiple colours, and two storage sizes",
+      "Accessories, Curios, and Trinkets belt-slot support"
+    ],
     "categories": ["equipment", "storage", "utility"],
     "loaders": ["fabric", "forge", "neoforge"],
     "downloads": 513,
     "followers": 6,
     "updated": "2026-06-01T03:37:19.126541Z",
     "iconUrl": "https://cdn.modrinth.com/data/puEyW5NX/5afc26012be6345190edb9cc815701b6c76bc2af_96.webp",
+    "featuredImage": "https://cdn.modrinth.com/data/puEyW5NX/images/3d1d73be4230801875c12aca0998fff62f20feb1.gif",
+    "featuredImageAlt": "Emerald Pouch automatically collecting emeralds",
+    "sourceUrl": "https://github.com/JevenDev/Emerald-Pouch",
+    "curseforge": { "id": 1521881, "slug": "emerald-pouch", "downloads": 2071 },
     "accent": "#25232f"
   },
   {
@@ -108,12 +206,24 @@
     "slug": "gracebound",
     "title": "Gracebound",
     "description": "May grace guide your way.",
+    "overview": "A diegetic guidance trail that points toward a death location, recovery compass target, world spawn, or lodestone. It replaces a conventional waypoint marker with configurable strands that fade into the world and protect against misleading cross-dimension directions.",
+    "reflection": "I wanted navigation to feel like part of the world rather than another HUD marker. The process centered on target priority, dimension safety, readable motion, and a trail that appears and disappears gently. Separating death, recovery, regular, and lodestone guidance kept the visual idea simple while supporting several real navigation states.",
+    "features": [
+      "Automatic guidance toward the latest death location",
+      "Recovery, regular, and lodestone compass target support",
+      "Cross-dimension protection and configurable guidance messages",
+      "Adjustable density, origin, distance, vertical offset, and fade timing"
+    ],
     "categories": ["adventure", "transportation", "utility"],
     "loaders": ["neoforge"],
     "downloads": 426,
     "followers": 13,
     "updated": "2026-05-17T06:55:36.983064Z",
     "iconUrl": "https://cdn.modrinth.com/data/sjAUHilJ/958ad6cc8910cd201abc6c9e84564b653d2fb779_96.webp",
+    "featuredImage": "https://cdn.modrinth.com/data/sjAUHilJ/images/7af6f3e16ef3b05dc91c3acc21edd3b2e1868e5d.gif",
+    "featuredImageAlt": "Gracebound drawing a guidance trail through the Minecraft world",
+    "sourceUrl": "https://github.com/JevenDev/Gracebound",
+    "curseforge": { "id": 1526418, "slug": "gracebound", "downloads": 637 },
     "accent": "#2b1a14"
   }
 ]
