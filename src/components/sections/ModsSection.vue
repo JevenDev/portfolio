@@ -23,6 +23,7 @@
 
       <div
         class="mods__counter"
+        role="group"
         data-poster-drift
         :aria-label="`${mods.length} public mods with ${formatExact(totalDownloads)} combined Modrinth and CurseForge downloads`"
       >
@@ -439,6 +440,7 @@ function formatNumber(value) {
 }
 
 .mod-story {
+  --story-background: var(--paper-cool);
   --story-muted: var(--ink-soft);
   --story-rule: var(--rule);
   position: relative;
@@ -451,6 +453,7 @@ function formatNumber(value) {
 }
 
 .mod-story:nth-child(even) {
+  --story-background: var(--black);
   --story-muted: rgba(255, 254, 248, 0.68);
   --story-rule: rgba(255, 254, 248, 0.3);
   background: var(--black);
@@ -458,6 +461,7 @@ function formatNumber(value) {
 }
 
 .mod-story:nth-child(3n) {
+  --story-background: var(--blue);
   --story-muted: rgba(255, 254, 248, 0.72);
   --story-rule: rgba(255, 254, 248, 0.34);
   background: var(--blue);
@@ -589,7 +593,8 @@ function formatNumber(value) {
 
 .mod-story__media figcaption {
   border-top: 1px solid currentColor;
-  padding-top: 0.5rem;
+  background: var(--story-background);
+  padding: 0.5rem 0 0;
   color: var(--story-muted);
 }
 
@@ -693,12 +698,13 @@ function formatNumber(value) {
   margin-left: auto;
   color: var(--story-muted);
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.6rem;
+  font-size: 0.65rem;
 }
 
 .mod-story__links a:hover,
 .mod-story__links a:focus-visible {
-  color: var(--signal-red);
+  text-decoration: underline;
+  text-underline-offset: 0.25rem;
 }
 
 @media (max-width: 1040px) {

@@ -118,7 +118,9 @@ defineProps({ email: { type: String, default: '' }, socials: { type: Array, defa
 .contact__links a:focus-visible,
 .contact__copy a:hover,
 .contact__copy a:focus-visible {
-  color: var(--signal-red);
+  color: var(--blue-soft);
+  text-decoration: underline;
+  text-underline-offset: 0.25rem;
 }
 
 .contact__links a {

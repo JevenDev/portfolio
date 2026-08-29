@@ -33,7 +33,7 @@
       </header>
 
       <section class="project__story" aria-labelledby="story-title" data-motion-section>
-        <RegistrationStrip index="01" label="Project notes" detail="Context / intent / process" />
+        <RegistrationStrip index="01" label="Project notes" detail="Context / intent / process" tone="signal" />
         <header class="project__section-head">
           <p class="section-kicker">Project notes</p>
           <h2 id="story-title" data-poster-heading>Context, intent, and process</h2>
@@ -327,7 +327,7 @@ const nextProject = computed(() => projectIndex.value < 0 ? null : props.project
 }
 
 .project__section-head .section-kicker {
-  color: var(--blue);
+  color: var(--black);
 }
 
 .project__section-head h2 {
@@ -363,7 +363,7 @@ const nextProject = computed(() => projectIndex.value < 0 ? null : props.project
 
 .project__story-grid h3 {
   margin: 0;
-  color: var(--blue);
+  color: var(--black);
   font-size: 0.72rem;
   font-weight: 500;
 }
@@ -384,7 +384,7 @@ const nextProject = computed(() => projectIndex.value < 0 ? null : props.project
 
 .project__tags > p {
   margin: 0;
-  color: var(--blue);
+  color: var(--black);
   font-size: 0.72rem;
 }
 
@@ -523,7 +523,7 @@ const nextProject = computed(() => projectIndex.value < 0 ? null : props.project
 }
 
 .project__credits span {
-  color: rgba(255, 254, 248, 0.58);
+  color: rgba(255, 254, 248, 0.68);
 }
 
 .project__credits a {

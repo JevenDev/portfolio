@@ -56,7 +56,12 @@ defineProps({
 
 .registration-strip--light .registration-strip__index,
 .registration-strip--light .registration-strip__mark {
-  color: var(--signal-red);
+  color: var(--blue-soft);
+}
+
+.registration-strip--signal .registration-strip__index,
+.registration-strip--signal .registration-strip__mark {
+  color: var(--black);
 }
 
 @media (max-width: 560px) {

@@ -11,6 +11,7 @@
         :key="item.label"
         :to="item.to"
         :class="{ 'site-header__nav-link--active': isActive(item) }"
+        :aria-current="isActive(item) ? 'page' : undefined"
       >
         {{ item.label }}
       </RouterLink>
@@ -31,7 +32,13 @@
 
     <Transition name="menu-fade">
       <nav v-if="menuOpen" id="mobile-navigation" class="site-header__mobile" aria-label="Mobile navigation">
-        <RouterLink v-for="item in navItems" :key="item.label" :to="item.to" @click="closeMenu()">
+        <RouterLink
+          v-for="item in navItems"
+          :key="item.label"
+          :to="item.to"
+          :aria-current="isActive(item) ? 'page' : undefined"
+          @click="closeMenu()"
+        >
           {{ item.label }}
         </RouterLink>
       </nav>

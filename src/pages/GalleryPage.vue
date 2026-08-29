@@ -12,7 +12,12 @@
         <h1 data-poster-copy><span>Project</span><span>archive</span></h1>
         <p data-poster-copy>A searchable catalogue of identities, artwork, campaigns, digital builds, sound, and ongoing experiments.</p>
       </div>
-      <div class="archive__counter" data-poster-drift>
+      <div
+        class="archive__counter"
+        role="group"
+        :aria-label="`${filteredProjects.length} visible archive records`"
+        data-poster-drift
+      >
         <strong>{{ String(filteredProjects.length).padStart(3, '0') }}</strong>
         <p class="meta-type">Visible records<br />Updated live</p>
       </div>
@@ -211,7 +216,7 @@ function resetFilters() {
   justify-self: end;
   border-radius: 50%;
   background: var(--signal-red);
-  color: var(--paper-cool);
+  color: var(--black);
   padding: 1rem;
   transform: rotate(7deg);
 }
