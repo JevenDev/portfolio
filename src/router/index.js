@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 
 const HomePage = () => import('../pages/HomePage.vue');
 const GalleryPage = () => import('../pages/GalleryPage.vue');
+const ProjectPage = () => import('../pages/ProjectPage.vue');
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -15,33 +16,29 @@ const router = createRouter({
         seoDescription:
           'Portfolio of Jeven Randhawa (JVN) featuring brand identity work, cover art, web projects, and music production collaborations.',
         seoType: 'ProfilePage',
-        seoKeywords: [
-          'Jeven Randhawa',
-          'JVN Graphics',
-          'graphic designer',
-          'brand identity',
-          'album cover art',
-          'music producer'
-        ]
+        seoKeywords: ['Jeven Randhawa', 'JVN Graphics', 'graphic designer', 'brand identity', 'album cover art', 'music producer']
       }
     },
     {
-      path: '/gallery',
-      name: 'gallery',
+      path: '/archive',
+      alias: '/gallery',
+      name: 'archive',
       component: GalleryPage,
       meta: {
-        seoTitle: 'Full Works Gallery',
-        seoDescription:
-          'Browse Jeven Randhawa\'s full gallery of projects, artwork, motion pieces, and music-focused creative work.',
+        seoTitle: 'Output Archive',
+        seoDescription: 'Search the complete JVN Graphics archive across visual identity, artwork, digital design, games, and audio.',
         seoType: 'CollectionPage',
-        seoKeywords: [
-          'creative gallery',
-          'portfolio projects',
-          'graphic design gallery',
-          'cover art portfolio',
-          'motion design',
-          'music production portfolio'
-        ]
+        seoKeywords: ['creative archive', 'portfolio projects', 'graphic design gallery', 'cover art portfolio', 'motion design']
+      }
+    },
+    {
+      path: '/work/:id',
+      name: 'project',
+      component: ProjectPage,
+      meta: {
+        seoTitle: 'Selected Output',
+        seoDescription: 'A JVN Graphics project case study.',
+        seoType: 'CreativeWork'
       }
     },
     {
@@ -50,18 +47,15 @@ const router = createRouter({
     }
   ],
   scrollBehavior(to, from, savedPosition) {
-    if (savedPosition) {
-      return savedPosition;
-    }
-
-    if (to.path === '/gallery' && from.path !== '/gallery') {
+    if (savedPosition) return savedPosition;
+    if (to.hash) {
       return {
-        left: 0,
-        top: 0
+        el: to.hash,
+        top: 88,
+        behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
       };
     }
-
-    return false;
+    return { left: 0, top: 0 };
   }
 });
 

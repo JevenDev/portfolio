@@ -4,18 +4,19 @@ export default {
   theme: {
     extend: {
       colors: {
-        ink: '#0f0f0f',
-        muted: '#6b6b6b',
-        line: '#e8e8e8',
-        paper: '#ffffff',
-        shell: '#f7f7f6'
+        blue: '#162bd8',
+        deep: '#071266',
+        ink: '#090a0d',
+        lime: '#d7ff00',
+        magenta: '#ff43c6',
+        mist: '#bad5ff',
+        paper: '#eeefea',
+        signal: '#162bd8'
       },
       fontFamily: {
-        sans: ['"Manrope"', 'system-ui', 'sans-serif'],
-        display: ['"Sora"', 'system-ui', 'sans-serif']
-      },
-      boxShadow: {
-        card: '0 18px 48px rgba(12, 12, 12, 0.08)'
+        display: ['"Archivo Black"', 'sans-serif'],
+        mono: ['"IBM Plex Mono"', 'monospace'],
+        sans: ['"Archivo"', 'sans-serif']
       }
     }
   },

@@ -22,6 +22,8 @@ const TYPE_LABELS = {
 
 export const PRIMARY_FILTER_TAGS = ['Projects', 'Positions', 'Design', 'Music Production', 'Motion / Editing'];
 
+export const ARCHIVE_CATEGORIES = ['ALL', 'IDENTITY', 'ARTWORK', 'DIGITAL', 'RELEASES', 'GAMES', 'AUDIO', 'EXPERIMENTS'];
+
 function joinWithBase(path = '') {
   const base = import.meta.env.BASE_URL || '/';
   const normalizedBase = base.endsWith('/') ? base : `${base}/`;
@@ -146,6 +148,37 @@ export function getProjectTypeLabels(project) {
   });
 
   return labels;
+}
+
+export function getProjectCategory(project) {
+  if (!project) return 'EXPERIMENT';
+
+  const tags = project.tags || [];
+  const title = String(project.title || '').toLowerCase();
+
+  if (title.includes('game') || tags.some((tag) => /game|asset artist|sound design/i.test(tag))) return 'GAME / AUDIO';
+  if (hasProjectType(project, 'post') || tags.includes('Music Production')) return 'AUDIO / RELEASE';
+  if (tags.includes('Brand Identity')) return 'VISUAL IDENTITY';
+  if (tags.some((tag) => /web|ui\/ux|frontend/i.test(tag))) return 'DIGITAL DESIGN';
+  if (hasProjectType(project, 'artwork') || tags.some((tag) => /cover art|digital art/i.test(tag))) return 'ARTWORK';
+  if (tags.some((tag) => /motion|video|campaign/i.test(tag))) return 'MOTION / CAMPAIGN';
+  return 'EXPERIMENT';
+}
+
+export function projectMatchesArchiveCategory(project, category) {
+  if (!project || !category || category === 'ALL') return true;
+
+  const tags = project.tags || [];
+  const title = String(project.title || '').toLowerCase();
+
+  if (category === 'IDENTITY') return tags.includes('Brand Identity');
+  if (category === 'ARTWORK') return hasProjectType(project, 'artwork') || tags.some((tag) => /cover art|digital art/i.test(tag));
+  if (category === 'DIGITAL') return tags.some((tag) => /web|ui\/ux|frontend|javascript|vue/i.test(tag));
+  if (category === 'RELEASES') return tags.some((tag) => /cover art|promotional material|campaign/i.test(tag));
+  if (category === 'GAMES') return title.includes('game') || tags.some((tag) => /asset artist|sound design/i.test(tag));
+  if (category === 'AUDIO') return hasProjectType(project, 'post') || tags.includes('Music Production');
+  if (category === 'EXPERIMENTS') return hasProjectType(project, 'artwork') && !tags.includes('Cover Art');
+  return true;
 }
 
 export function filterProjects(projects, activeTags = []) {

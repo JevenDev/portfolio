@@ -1,381 +1,230 @@
 <template>
-  <section :id="sectionId" class="section-shell">
-    <div ref="root" class="section-wrap space-y-8">
-      <div class="grid gap-4 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
-        <SectionHeading :eyebrow="eyebrow" :title="title" :description="description" />
+  <section id="outputs" class="work" aria-labelledby="work-title">
+    <header class="work__head">
+      <p class="meta-type">Selected projects / 01–06</p>
+      <h2 id="work-title">A working index of images, identities, interfaces, and sound.</h2>
+      <RouterLink to="/archive">Everything in the archive ↗</RouterLink>
+    </header>
 
-        <button
-          v-if="showViewAllButton"
-          type="button"
-          class="focus-ring h-fit border border-line px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-ink transition hover:border-ink/40"
-          @click="emit('navigate', 'gallery')"
-        >
-          {{ ctaLabel }}
-        </button>
-      </div>
-
-      <p v-if="introText" class="text-base text-muted" data-reveal>{{ introText }}</p>
-
-      <div v-if="featuredProject" class="space-y-6">
-        <article class="frame-block overflow-hidden" data-reveal>
-          <div class="grid lg:grid-cols-[1.2fr_0.8fr]">
-            <button
-              type="button"
-              class="focus-ring group block h-full border-b border-line text-left lg:border-b-0 lg:border-r"
-              :aria-label="`Open details for ${featuredProject.title}`"
-              @click="emit('open', featuredProject)"
-            >
-              <img
-                :src="featuredProject.thumbCard || featuredProject.thumb"
-                :alt="featuredProject.title"
-                class="aspect-[4/3] h-full w-full object-cover transition duration-500 group-hover:scale-[1.02]"
-                fetchpriority="low"
-                loading="lazy"
-                decoding="async"
-              />
-            </button>
-
-            <div class="flex h-full flex-col justify-between gap-8 p-5 md:p-7">
-              <div class="space-y-4">
-                <p class="eyebrow-label">{{ featuredProject.year }}</p>
-                <h3 class="font-display text-3xl font-semibold leading-[1.05] tracking-[-0.03em] text-ink md:text-5xl">
-                  {{ featuredProject.title }}
-                </h3>
-                <p class="text-base leading-relaxed text-muted">
-                  {{ featuredProject.role || 'Graphic Design Piece' }}
-                </p>
-                <ul class="flex flex-wrap gap-2">
-                  <li
-                    v-for="tag in getFeaturedTags(featuredProject)"
-                    :key="`${featuredProject.id}-${tag}`"
-                    class="rounded-full border border-line px-2.5 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-muted"
-                  >
-                    {{ tag }}
-                  </li>
-                </ul>
-              </div>
-
-              <button
-                type="button"
-                class="focus-ring w-fit border border-line px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-ink transition hover:border-ink/40"
-                @click="emit('open', featuredProject)"
-              >
-                View Project
-              </button>
-            </div>
-          </div>
-        </article>
-
-        <div v-if="secondaryProjects.length" class="grid gap-4 md:auto-rows-fr md:grid-cols-2 xl:grid-cols-3">
-          <article
-            v-for="project in secondaryProjects"
-            :key="project.id"
-            class="frame-block group relative flex h-full flex-col overflow-visible"
-            data-reveal
-          >
-            <button
-              type="button"
-              class="focus-ring flex h-full flex-col text-left"
-              :aria-label="`Open details for ${project.title}`"
-              @click="emit('open', project)"
-            >
-              <img
-                :src="project.thumbCard || project.thumb"
-                :alt="project.title"
-                class="aspect-[5/4] w-full shrink-0 border-b border-line object-cover transition duration-500 group-hover:scale-[1.015]"
-                fetchpriority="low"
-                loading="lazy"
-                decoding="async"
-              />
-              <div class="flex flex-1 flex-col gap-3 p-5">
-                <p class="text-xs font-semibold uppercase tracking-[0.15em] text-muted">{{ project.year }}</p>
-                <h4 class="font-display text-2xl font-semibold leading-[1.12] tracking-[-0.02em] text-ink">
-                  {{ project.title }}
-                </h4>
-                <p class="text-base text-muted">{{ project.role || 'Graphic Design Piece' }}</p>
-                <ul
-                  v-if="project.tags?.length"
-                  :ref="(el) => setSecondaryTagListRef(project.id, el)"
-                  class="mt-auto flex h-[4.1rem] flex-wrap content-start gap-2 overflow-visible"
-                >
-                  <li
-                    v-for="tag in getSecondaryTags(project)"
-                    :key="`${project.id}-${tag}`"
-                    :title="tag"
-                    class="max-w-full truncate whitespace-nowrap rounded-full border border-line px-2.5 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-muted"
-                  >
-                    {{ tag }}
-                  </li>
-                  <li
-                    v-if="getSecondaryHiddenTagCount(project) > 0"
-                    :aria-label="`Hidden tags: ${getSecondaryHiddenTagsTooltip(project)}`"
-                    class="tag-overflow-chip relative max-w-full whitespace-nowrap rounded-full border border-line px-2.5 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-muted"
-                  >
-                    +{{ getSecondaryHiddenTagCount(project) }}
-                    <span
-                      class="tag-overflow-tooltip pointer-events-none absolute bottom-full left-1/2 z-40 mb-2 w-max max-w-[16rem] -translate-x-1/2 whitespace-normal rounded border border-line bg-paper px-2 py-1 text-[11px] font-medium normal-case tracking-normal text-ink shadow-sm"
-                    >
-                      {{ getSecondaryHiddenTagsTooltip(project) }}
-                    </span>
-                  </li>
-                </ul>
-              </div>
-            </button>
-          </article>
+    <div class="work__chapters">
+      <RouterLink
+        v-for="(project, index) in projects"
+        :key="project.id"
+        :to="`/work/${project.id}`"
+        class="work-project"
+      >
+        <span class="work-project__number">{{ String(index + 1).padStart(2, '0') }}</span>
+        <div class="work-project__media">
+          <GlitchMedia :src="project.thumbCard || project.thumb" :alt="project.title" treatment="full" />
         </div>
-      </div>
-
-      <p v-else class="border border-dashed border-line p-6 text-center text-base text-muted" data-reveal>
-        No work has been curated for this section yet.
-      </p>
+        <div class="work-project__copy">
+          <p class="meta-type">{{ getProjectCategory(project) }} / {{ project.year }}</p>
+          <h3>{{ project.title }}</h3>
+          <span>Open project ↗</span>
+        </div>
+      </RouterLink>
     </div>
   </section>
 </template>
 
 <script setup>
-import { computed, nextTick, onMounted, onUnmounted, reactive, ref, watch } from 'vue';
-import { useScrollReveal } from '../../composables/useScrollReveal';
-import SectionHeading from '../ui/SectionHeading.vue';
+import { RouterLink } from 'vue-router';
+import { getProjectCategory } from '../../utils/portfolio';
+import GlitchMedia from '../ui/GlitchMedia.vue';
 
-const props = defineProps({
-  ctaLabel: {
-    type: String,
-    default: 'View Full Works Gallery'
-  },
-  description: {
-    type: String,
-    default: 'A focused view of cross-disciplinary projects that combine visual identity and production work.'
-  },
-  eyebrow: {
-    type: String,
-    default: 'Portfolio'
-  },
-  introText: {
-    type: String,
-    default: ''
-  },
-  projects: {
-    type: Array,
-    default: () => []
-  },
-  sectionId: {
-    type: String,
-    default: 'work'
-  },
-  showViewAllButton: {
-    type: Boolean,
-    default: true
-  },
-  title: {
-    type: String,
-    default: 'Selected Works'
-  }
-});
-
-const emit = defineEmits(['navigate', 'open']);
-
-const root = ref(null);
-useScrollReveal(root);
-
-const featuredProject = computed(() => props.projects[0] || null);
-const secondaryProjects = computed(() => props.projects.slice(1));
-const secondaryTagVisibleCountById = reactive({});
-const secondaryTagListRefs = new Map();
-
-const MAX_SECONDARY_TAG_ROWS = 2;
-const secondaryTagChipClasses =
-  'max-w-full truncate whitespace-nowrap rounded-full border border-line px-2.5 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-muted';
-
-let resizeObserver;
-let measureRoot;
-let recalcRaf = null;
-
-function getFeaturedTags(project) {
-  return project?.tags?.slice(0, 20) || [];
-}
-
-function getSecondaryTags(project) {
-  const tags = project?.tags || [];
-  const visibleCount = secondaryTagVisibleCountById[project?.id];
-  const fallbackCount = Math.min(tags.length, 5);
-  const count = Number.isInteger(visibleCount) ? visibleCount : fallbackCount;
-  return tags.slice(0, count);
-}
-
-function getSecondaryHiddenTagCount(project) {
-  return getSecondaryHiddenTags(project).length;
-}
-
-function getSecondaryHiddenTags(project) {
-  const tags = project?.tags || [];
-  return tags.slice(getSecondaryTags(project).length);
-}
-
-function getSecondaryHiddenTagsTooltip(project) {
-  return getSecondaryHiddenTags(project).join(", ");
-}
-
-function ensureMeasureRoot() {
-  if (measureRoot) return measureRoot;
-
-  const rootElement = document.createElement('div');
-  rootElement.style.position = 'fixed';
-  rootElement.style.left = '-10000px';
-  rootElement.style.top = '-10000px';
-  rootElement.style.visibility = 'hidden';
-  rootElement.style.pointerEvents = 'none';
-  rootElement.style.zIndex = '-1';
-  document.body.appendChild(rootElement);
-  measureRoot = rootElement;
-  return measureRoot;
-}
-
-function createMeasureChip(label) {
-  const chip = document.createElement('li');
-  chip.className = secondaryTagChipClasses;
-  chip.textContent = label;
-  return chip;
-}
-
-function getRowCount(listElement) {
-  const rows = new Set();
-
-  Array.from(listElement.children).forEach((chip) => {
-    rows.add(chip.offsetTop);
-  });
-
-  return rows.size;
-}
-
-function calculateVisibleTagCount(project, containerElement) {
-  const tags = project?.tags || [];
-  if (!tags.length || !containerElement) return 0;
-
-  const containerWidth = Math.floor(containerElement.clientWidth);
-  if (containerWidth <= 0) return Math.min(tags.length, 5);
-
-  const rootElement = ensureMeasureRoot();
-  const listElement = document.createElement('ul');
-  listElement.className = 'flex flex-wrap content-start gap-2';
-  listElement.style.width = `${containerWidth}px`;
-  listElement.style.margin = '0';
-  listElement.style.padding = '0';
-  listElement.style.listStyle = 'none';
-  rootElement.appendChild(listElement);
-
-  let visibleCount = 0;
-
-  for (let count = tags.length; count >= 0; count -= 1) {
-    listElement.replaceChildren();
-
-    tags.slice(0, count).forEach((tag) => {
-      listElement.appendChild(createMeasureChip(tag));
-    });
-
-    if (count < tags.length) {
-      listElement.appendChild(createMeasureChip(`+${tags.length - count}`));
-    }
-
-    if (getRowCount(listElement) <= MAX_SECONDARY_TAG_ROWS) {
-      visibleCount = count;
-      break;
-    }
-  }
-
-  rootElement.removeChild(listElement);
-  return visibleCount;
-}
-
-function recalculateSecondaryTagVisibility() {
-  secondaryProjects.value.forEach((project) => {
-    const containerElement = secondaryTagListRefs.get(project.id);
-    secondaryTagVisibleCountById[project.id] = calculateVisibleTagCount(project, containerElement);
-  });
-}
-
-function scheduleSecondaryTagRecalculation() {
-  if (recalcRaf !== null) {
-    window.cancelAnimationFrame(recalcRaf);
-  }
-
-  recalcRaf = window.requestAnimationFrame(() => {
-    recalcRaf = null;
-    recalculateSecondaryTagVisibility();
-  });
-}
-
-function observeSecondaryTagLists() {
-  if (!resizeObserver) {
-    resizeObserver = new ResizeObserver(() => {
-      scheduleSecondaryTagRecalculation();
-    });
-  } else {
-    resizeObserver.disconnect();
-  }
-
-  secondaryTagListRefs.forEach((element) => {
-    resizeObserver.observe(element);
-  });
-}
-
-function setSecondaryTagListRef(projectId, element) {
-  if (element) {
-    secondaryTagListRefs.set(projectId, element);
-    return;
-  }
-
-  secondaryTagListRefs.delete(projectId);
-}
-
-watch(
-  secondaryProjects,
-  async () => {
-    await nextTick();
-    observeSecondaryTagLists();
-    scheduleSecondaryTagRecalculation();
-  },
-  { immediate: true, deep: true }
-);
-
-onMounted(() => {
-  scheduleSecondaryTagRecalculation();
-});
-
-onUnmounted(() => {
-  if (recalcRaf !== null) {
-    window.cancelAnimationFrame(recalcRaf);
-  }
-
-  resizeObserver?.disconnect();
-  secondaryTagListRefs.clear();
-
-  if (measureRoot?.parentNode) {
-    measureRoot.parentNode.removeChild(measureRoot);
-  }
-
-  measureRoot = null;
-  resizeObserver = null;
-});
+defineProps({ projects: { type: Array, default: () => [] } });
 </script>
 
 <style scoped>
-.tag-overflow-chip {
+.work {
+  background: var(--black);
+  color: var(--paper-cool);
+}
+
+.work__head {
+  display: grid;
+  grid-template-columns: 0.35fr 1fr auto;
+  gap: clamp(1.5rem, 4vw, 4rem);
+  align-items: start;
+  min-height: 26rem;
+  padding: clamp(4rem, 9vw, 9rem) clamp(1.25rem, 3vw, 3rem);
+}
+
+.work__head p,
+.work__head h2 {
+  margin: 0;
+}
+
+.work__head h2 {
+  max-width: 14ch;
+  color: var(--blue-soft);
+  font-size: clamp(3rem, 7vw, 7.5rem);
+  font-weight: 480;
+  letter-spacing: -0.075em;
+  line-height: 0.88;
+}
+
+.work__head > a {
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 0.2rem;
+  font-size: 0.72rem;
+}
+
+.work-project {
   position: relative;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  min-height: min(56rem, 86svh);
+  overflow: hidden;
+  padding: clamp(2rem, 5vw, 5rem) clamp(1.25rem, 3vw, 3rem);
+  isolation: isolate;
 }
 
-.tag-overflow-tooltip {
-  opacity: 0;
-  transform: translate(-50%, 2px);
-  transition: opacity 140ms ease, transform 140ms ease;
-  visibility: hidden;
+.work-project:nth-child(6n + 1) {
+  background: var(--paper);
+  color: var(--black);
 }
 
-.tag-overflow-chip:hover .tag-overflow-tooltip,
-.tag-overflow-chip:focus-within .tag-overflow-tooltip,
-.tag-overflow-chip:focus-visible .tag-overflow-tooltip {
-  opacity: 1;
-  transform: translate(-50%, 0);
-  visibility: visible;
+.work-project:nth-child(6n + 2) {
+  background: var(--blue);
+  color: var(--paper-cool);
+}
+
+.work-project:nth-child(6n + 3) {
+  background: var(--signal-red);
+  color: var(--black);
+}
+
+.work-project:nth-child(6n + 4) {
+  background: var(--sky);
+  color: var(--black);
+}
+
+.work-project:nth-child(6n + 5) {
+  background: var(--black);
+  color: var(--paper-cool);
+}
+
+.work-project:nth-child(6n) {
+  background: var(--acid);
+  color: var(--black);
+}
+
+.work-project__number {
+  position: absolute;
+  top: -0.11em;
+  left: -0.035em;
+  z-index: -1;
+  color: currentColor;
+  font-size: clamp(10rem, 26vw, 28rem);
+  font-weight: 700;
+  letter-spacing: -0.1em;
+  line-height: 0.75;
+  opacity: 0.12;
+}
+
+.work-project__media {
+  grid-column: 1 / span 8;
+  align-self: center;
+  height: min(66vh, 43rem);
+  background: var(--paper-cool);
+}
+
+.work-project__copy {
+  grid-column: 8 / -1;
+  align-self: end;
+  z-index: 2;
+  margin-left: -2rem;
+  padding-bottom: clamp(1rem, 5vw, 5rem);
+}
+
+.work-project:nth-child(even) .work-project__media {
+  grid-column: 5 / -1;
+}
+
+.work-project:nth-child(even) .work-project__copy {
+  grid-column: 1 / span 6;
+  grid-row: 1;
+  margin-right: -2rem;
+  margin-left: 0;
+}
+
+.work-project__copy p {
+  width: fit-content;
+  margin: 0 0 1rem;
+  background: currentColor;
+  padding: 0.3rem 0.45rem;
+  color: var(--paper-cool);
+}
+
+.work-project:nth-child(2) .work-project__copy p,
+.work-project:nth-child(5) .work-project__copy p {
+  background: var(--paper-cool);
+  color: var(--black);
+}
+
+.work-project__copy h3 {
+  max-width: 10ch;
+  margin: 0;
+  font-size: clamp(3rem, 7.2vw, 8rem);
+  font-weight: 630;
+  letter-spacing: -0.08em;
+  line-height: 0.78;
+}
+
+.work-project__copy > span {
+  display: inline-block;
+  margin-top: 1.5rem;
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 0.2rem;
+  font-size: 0.72rem;
+}
+
+@media (max-width: 760px) {
+  .work__head {
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+
+  .work__head h2 {
+    font-size: clamp(2.8rem, 13vw, 5rem);
+  }
+
+  .work__head > a {
+    justify-self: start;
+  }
+
+  .work-project {
+    display: block;
+    min-height: 0;
+    padding-block: 4rem;
+  }
+
+  .work-project__media,
+  .work-project:nth-child(even) .work-project__media {
+    width: 88%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    margin-left: auto;
+  }
+
+  .work-project:nth-child(even) .work-project__media {
+    margin-right: auto;
+    margin-left: 0;
+  }
+
+  .work-project__copy,
+  .work-project:nth-child(even) .work-project__copy {
+    margin: -1rem 0 0;
+    padding: 0;
+  }
+
+  .work-project__copy h3 {
+    font-size: clamp(3rem, 16vw, 5.5rem);
+  }
+
+  .work-project__number {
+    font-size: 14rem;
+  }
 }
 </style>
-

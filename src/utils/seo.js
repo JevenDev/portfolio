@@ -5,6 +5,8 @@ import postsData from '../../data/posts.json';
 import projectsData from '../../data/projects.json';
 import { normalizeAssetPath } from './portfolio';
 
+const allPortfolioItems = [...positionsData, ...projectsData, ...postsData, ...artworksData];
+
 function stripTrailingSlashes(value = '') {
   return String(value).replace(/\/+$/, '');
 }
@@ -93,9 +95,7 @@ function descriptionToText(description) {
 }
 
 function buildPortfolioItemList(siteUrl) {
-  const allItems = [...positionsData, ...projectsData, ...postsData, ...artworksData];
-
-  return allItems
+  return allPortfolioItems
     .filter((item) => item?.id && item?.title)
     .slice(0, 30)
     .map((item, index) => {
@@ -107,12 +107,12 @@ function buildPortfolioItemList(siteUrl) {
         name: item.title,
         description: descriptionToText(item.description) || undefined,
         image: itemImage ? toAbsoluteUrl(itemImage, siteUrl) : undefined,
-        url: `${siteUrl}/gallery#project=${encodeURIComponent(item.id)}`
+        url: `${siteUrl}/work/${encodeURIComponent(item.id)}`
       };
     });
 }
 
-function buildSchemas({ canonicalUrl, siteName, siteUrl, route }) {
+function buildSchemas({ canonicalUrl, project, siteName, siteUrl, route }) {
   const defaultDescription =
     configData.defaultDescription ||
     'Portfolio of Jeven Randhawa with design, branding, and music production projects.';
@@ -137,7 +137,7 @@ function buildSchemas({ canonicalUrl, siteName, siteUrl, route }) {
     description: defaultDescription
   };
 
-  if (route.path === '/gallery') {
+  if (route.name === 'archive') {
     const itemList = buildPortfolioItemList(siteUrl);
 
     return [
@@ -161,6 +161,27 @@ function buildSchemas({ canonicalUrl, siteName, siteUrl, route }) {
         name: 'Portfolio Gallery Items',
         numberOfItems: itemList.length,
         itemListElement: itemList
+      }
+    ];
+  }
+
+  if (project) {
+    return [
+      websiteSchema,
+      personSchema,
+      {
+        '@context': 'https://schema.org',
+        '@type': 'CreativeWork',
+        name: project.title,
+        description: descriptionToText(project.description) || undefined,
+        image: toAbsoluteUrl(normalizeAssetPath(project.thumb), siteUrl),
+        url: canonicalUrl,
+        creator: {
+          '@type': 'Person',
+          name: configData.personName || 'Jeven Randhawa'
+        },
+        dateCreated: project.year?.match(/\b\d{4}\b/)?.[0] || undefined,
+        keywords: project.tags?.join(', ') || undefined
       }
     ];
   }
@@ -191,14 +212,21 @@ function applySeo(route) {
   const siteName = configData.siteName || 'Portfolio';
   const siteUrl = getSiteUrl();
   const routePath = route.path || '/';
+  const project = route.name === 'project' ? allPortfolioItems.find((item) => item.id === route.params?.id) : null;
 
-  const pageTitle = route.meta?.seoTitle ? `${route.meta.seoTitle} | ${siteName}` : `${siteName} | Portfolio`;
-  const pageDescription = route.meta?.seoDescription || configData.defaultDescription || '';
-  const pageKeywords = route.meta?.seoKeywords || configData.seoKeywords || [];
+  const pageTitle = project
+    ? `${project.title} | ${siteName}`
+    : route.meta?.seoTitle
+      ? `${route.meta.seoTitle} | ${siteName}`
+      : `${siteName} | Portfolio`;
+  const pageDescription = project
+    ? descriptionToText(project.description) || `${project.title}, a selected output by Jeven Randhawa.`
+    : route.meta?.seoDescription || configData.defaultDescription || '';
+  const pageKeywords = project?.tags || route.meta?.seoKeywords || configData.seoKeywords || [];
   const canonicalUrl = buildCanonicalFromPath(routePath, siteUrl);
-  const imageUrl = toAbsoluteUrl(route.meta?.seoImage || configData.defaultOgImage, siteUrl);
+  const imageUrl = toAbsoluteUrl(project?.thumb || route.meta?.seoImage || configData.defaultOgImage, siteUrl);
   const robots = route.meta?.seoNoIndex ? 'noindex, nofollow' : 'index, follow';
-  const ogType = route.meta?.seoType === 'CollectionPage' ? 'website' : 'profile';
+  const ogType = project ? 'article' : route.meta?.seoType === 'CollectionPage' ? 'website' : 'profile';
 
   document.title = pageTitle;
 
@@ -221,6 +249,7 @@ function applySeo(route) {
 
   const schemas = buildSchemas({
     canonicalUrl,
+    project,
     route,
     siteName,
     siteUrl

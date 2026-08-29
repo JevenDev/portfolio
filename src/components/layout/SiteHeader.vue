@@ -1,118 +1,171 @@
 <template>
-  <header class="fixed inset-x-0 top-0 z-40 border-b border-line/90 bg-paper/95 backdrop-blur md:top-8">
-    <div class="relative h-14 md:h-[3.75rem]">
-      <div class="section-wrap flex h-full items-center justify-between">
-        <button
-          type="button"
-          class="focus-ring tap-target font-display text-sm font-semibold uppercase leading-none tracking-[0.14em] text-ink"
-          @click="onNavigate('hero')"
-        >
-          JVN Graphics
-        </button>
+  <header class="site-header">
+    <RouterLink to="/" class="site-header__brand" aria-label="JVN Graphics home">
+      <span aria-hidden="true">✣</span>
+      <strong>Jeven Randhawa</strong>
+    </RouterLink>
 
-        <div class="flex items-center gap-3">
-          <button
-            type="button"
-            class="focus-ring tap-target hidden h-11 items-center justify-center text-xs font-semibold uppercase leading-none tracking-[0.16em] text-muted transition hover:text-ink md:inline-flex"
-            @click="onNavigate('contact')"
-          >
-            Contact
-          </button>
-
-          <button
-            type="button"
-            class="focus-ring inline-flex h-11 w-11 items-center justify-center border border-line text-ink lg:hidden"
-            :aria-expanded="String(menuOpen)"
-            aria-controls="mobile-primary-nav"
-            aria-label="Toggle navigation"
-            @click="menuOpen = !menuOpen"
-          >
-            <span class="text-base leading-none">{{ menuOpen ? 'x' : '+' }}</span>
-          </button>
-        </div>
-      </div>
-
-      <nav
-        aria-label="Primary"
-        class="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 items-center gap-6 lg:flex"
+    <nav class="site-header__nav" aria-label="Primary navigation">
+      <RouterLink
+        v-for="item in navItems"
+        :key="item.label"
+        :to="item.to"
+        :class="{ 'site-header__nav-link--active': isActive(item) }"
       >
-        <button
-          v-for="item in navItems"
-          :key="item.id"
-          type="button"
-          class="focus-ring tap-target border-b border-transparent pb-[0.2rem] text-xs font-semibold uppercase leading-none tracking-[0.16em] transition"
-          :class="activeSection === item.id ? 'border-ink text-ink' : 'text-muted hover:text-ink'"
-          :aria-current="activeSection === item.id ? 'page' : undefined"
-          @click="onNavigate(item.id)"
-        >
-          {{ item.label }}
-        </button>
-      </nav>
-    </div>
+        {{ item.label }}
+      </RouterLink>
+    </nav>
 
-    <transition name="menu">
-      <nav id="mobile-primary-nav" v-if="menuOpen" class="border-t border-line bg-paper px-5 py-4 lg:hidden">
-        <ul class="space-y-2">
-          <li v-for="item in navItems" :key="`mobile-${item.id}`">
-            <button
-              type="button"
-              class="focus-ring tap-target w-full border border-line px-4 py-2.5 text-left text-xs font-semibold uppercase leading-none tracking-[0.16em] text-ink"
-              @click="onNavigate(item.id)"
-            >
-              {{ item.label }}
-            </button>
-          </li>
-          <li>
-            <button
-              type="button"
-              class="focus-ring tap-target w-full border border-ink px-4 py-2.5 text-left text-xs font-semibold uppercase leading-none tracking-[0.16em] text-ink"
-              @click="onNavigate('contact')"
-            >
-              Contact
-            </button>
-          </li>
-        </ul>
+    <p class="site-header__location meta-type">Design + sound<br />Ontario, Canada</p>
+
+    <button
+      type="button"
+      class="site-header__menu"
+      :aria-expanded="String(menuOpen)"
+      aria-controls="mobile-navigation"
+      @click="menuOpen = !menuOpen"
+    >
+      {{ menuOpen ? 'Close' : 'Menu' }}
+    </button>
+
+    <Transition name="menu-fade">
+      <nav v-if="menuOpen" id="mobile-navigation" class="site-header__mobile" aria-label="Mobile navigation">
+        <RouterLink v-for="item in navItems" :key="item.label" :to="item.to" @click="menuOpen = false">
+          {{ item.label }}
+        </RouterLink>
       </nav>
-    </transition>
+    </Transition>
   </header>
 </template>
 
 <script setup>
 import { ref } from 'vue';
+import { RouterLink, useRoute } from 'vue-router';
 
-defineProps({
-  activeSection: {
-    type: String,
-    default: 'hero'
-  }
-});
-
-const emit = defineEmits(['navigate']);
 const menuOpen = ref(false);
-
+const route = useRoute();
 const navItems = [
-  { id: 'about', label: 'About' },
-  { id: 'work', label: 'Selected Work' },
-  { id: 'projects', label: 'Featured Projects' },
-  { id: 'gallery', label: 'Full Gallery' },
-  { id: 'artists', label: 'Collaborators' }
+  { label: 'Work', to: '/#outputs' },
+  { label: 'About', to: '/#profile' },
+  { label: 'Archive', to: '/archive' },
+  { label: 'Contact', to: '/#contact' }
 ];
 
-function onNavigate(sectionId) {
-  emit('navigate', sectionId);
-  menuOpen.value = false;
+function isActive(item) {
+  if (item.to === '/archive') return route.path === '/archive';
+  if (route.path !== '/') return false;
+  const targetHash = item.to.includes('#') ? `#${item.to.split('#')[1]}` : '';
+  return route.hash ? route.hash === targetHash : item.label === 'Work';
 }
 </script>
 
 <style scoped>
-.menu-enter-active,
-.menu-leave-active {
-  transition: opacity 180ms ease;
+.site-header {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 80;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  height: var(--header-height);
+  border-bottom: 1px solid var(--rule);
+  background: rgba(255, 254, 248, 0.96);
+  padding-inline: clamp(1.25rem, 3vw, 3rem);
 }
 
-.menu-enter-from,
-.menu-leave-to {
+.site-header__brand {
+  display: flex;
+  width: fit-content;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 0.92rem;
+}
+
+.site-header__brand span {
+  color: var(--blue);
+  font-size: 1.1rem;
+}
+
+.site-header__brand strong {
+  font-weight: 560;
+}
+
+.site-header__nav {
+  display: flex;
+  gap: 1.8rem;
+  align-items: center;
+}
+
+.site-header__nav a {
+  border-bottom: 1px solid transparent;
+  padding-block: 0.25rem;
+  color: var(--ink-soft);
+  font-size: 0.78rem;
+  transition: border-color 150ms ease, color 150ms ease;
+}
+
+.site-header__nav a:hover,
+.site-header__nav a:focus-visible,
+.site-header__nav a.site-header__nav-link--active {
+  border-color: currentColor;
+  color: var(--black);
+}
+
+.site-header__location {
+  justify-self: end;
+  margin: 0;
+  color: var(--ink-soft);
+  text-align: right;
+}
+
+.site-header__menu {
+  display: none;
+  justify-self: end;
+  border: 0;
+  border-bottom: 1px solid currentColor;
+  background: transparent;
+  padding: 0.25rem 0;
+  color: var(--black);
+  font-size: 0.78rem;
+}
+
+.site-header__mobile {
+  position: absolute;
+  inset: 100% 0 auto;
+  display: grid;
+  border-bottom: 1px solid var(--rule);
+  background: var(--paper-cool);
+  padding: 1.25rem;
+}
+
+.site-header__mobile a {
+  border-bottom: 1px solid var(--rule);
+  padding: 0.8rem 0;
+  font-size: 1.35rem;
+}
+
+.menu-fade-enter-active,
+.menu-fade-leave-active {
+  transition: opacity 140ms ease;
+}
+
+.menu-fade-enter-from,
+.menu-fade-leave-to {
   opacity: 0;
 }
-</style>
 
+@media (max-width: 820px) {
+  .site-header {
+    grid-template-columns: 1fr auto;
+  }
+
+  .site-header__nav,
+  .site-header__location {
+    display: none;
+  }
+
+  .site-header__menu {
+    display: block;
+  }
+}
+</style>
