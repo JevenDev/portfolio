@@ -70,6 +70,7 @@
       </a>
     </nav>
 
+    <p class="sr-only" role="status" aria-live="polite">{{ galleryStatus }}</p>
     <div class="mods__stories">
       <article
         v-for="(mod, index) in mods"
@@ -108,16 +109,13 @@
         </header>
 
         <div class="mod-story__body">
-          <figure class="mod-story__media registered-media" data-poster-media>
-            <img
-              :src="mod.featuredImage"
-              :alt="mod.featuredImageAlt"
-              :class="{ 'mod-story__image--contain': mod.slug === 'toucan' }"
-              loading="lazy"
-              decoding="async"
-            />
-            <figcaption class="meta-type">Project view / {{ mod.title }}</figcaption>
-          </figure>
+          <ModMediaCarousel
+            class="mod-story__media registered-media"
+            :accent="mod.accent"
+            :items="mediaFor(mod)"
+            :label="mod.title"
+            data-poster-media
+          />
 
           <div class="mod-story__narrative">
             <section data-poster-copy>
@@ -160,11 +158,14 @@
 
 <script setup>
 import { computed } from 'vue';
+import { useModGallery } from '../../composables/useModGallery';
 import { useModMetrics } from '../../composables/useModMetrics';
+import ModMediaCarousel from '../ui/ModMediaCarousel.vue';
 import RegistrationStrip from '../ui/RegistrationStrip.vue';
 
 const props = defineProps({ mods: { type: Array, default: () => [] } });
 const modsSource = computed(() => props.mods);
+const { mediaFor, status: galleryStatus } = useModGallery(modsSource);
 const { metricsFor, status, totalDownloads } = useModMetrics(modsSource);
 
 function combinedDownloads(mod) {
@@ -576,26 +577,7 @@ function formatNumber(value) {
 
 .mod-story__media {
   grid-column: 1 / span 7;
-  margin: 0;
   background: var(--mod-accent);
-}
-
-.mod-story__media > img {
-  width: 100%;
-  aspect-ratio: 16 / 10;
-  object-fit: cover;
-}
-
-.mod-story__media > img.mod-story__image--contain {
-  object-fit: contain;
-  padding: 8%;
-}
-
-.mod-story__media figcaption {
-  border-top: 1px solid currentColor;
-  background: var(--story-background);
-  padding: 0.5rem 0 0;
-  color: var(--story-muted);
 }
 
 .mod-story__narrative {
