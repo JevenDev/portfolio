@@ -20,7 +20,7 @@
         v-for="(project, index) in heroProjects"
         :key="project.id"
         :class="`hero-print hero-print--${index + 1}`"
-        :to="`/work/${project.id}`"
+        :to="`/work/${project.id}/`"
         data-hero-print
       >
         <div class="hero-print__media registered-media">
@@ -43,7 +43,7 @@
       <p>Graphic design, art direction, web, and sound for artists, teams, and independent releases.</p>
       <nav aria-label="Introduction links">
         <RouterLink to="/#outputs">Selected work</RouterLink>
-        <RouterLink to="/archive">Complete archive</RouterLink>
+        <RouterLink to="/archive/">Complete archive</RouterLink>
         <a :href="`mailto:${email}`">Contact</a>
       </nav>
     </div>

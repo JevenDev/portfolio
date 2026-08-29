@@ -1,6 +1,6 @@
 <template>
   <article class="index-row" :class="{ 'index-row--active': active }" @mouseenter="activate" @focusin="activate">
-    <RouterLink :to="`/work/${project.id}`">
+    <RouterLink :to="`/work/${project.id}/`">
       <span class="index-row__number meta-type">{{ displayIndex }}</span>
       <strong>{{ project.title }}</strong>
       <span>{{ category }}</span>

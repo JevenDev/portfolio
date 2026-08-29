@@ -8,7 +8,7 @@
         </svg>
         <RegistrationStrip :index="displayIndex" label="Case study" :detail="`${category} / ${project.year}`" />
         <div class="project__top meta-type">
-          <RouterLink to="/archive">← Project archive</RouterLink>
+          <RouterLink to="/archive/">← Project archive</RouterLink>
           <span>{{ status }}</span>
         </div>
 
@@ -106,10 +106,10 @@
         </div>
 
         <nav class="project__next" aria-label="Project navigation">
-          <RouterLink v-if="previousProject" :to="`/work/${previousProject.id}`">
+          <RouterLink v-if="previousProject" :to="`/work/${previousProject.id}/`">
             <span class="meta-type">Previous project</span><strong>← {{ previousProject.title }}</strong>
           </RouterLink>
-          <RouterLink v-if="nextProject" :to="`/work/${nextProject.id}`">
+          <RouterLink v-if="nextProject" :to="`/work/${nextProject.id}/`">
             <span class="meta-type">Next project</span><strong>{{ nextProject.title }} →</strong>
           </RouterLink>
         </nav>
@@ -118,7 +118,7 @@
 
     <section v-else class="project__missing">
       <h1>Project not found</h1>
-      <RouterLink to="/archive">Return to archive →</RouterLink>
+      <RouterLink to="/archive/">Return to archive →</RouterLink>
     </section>
   </main>
 </template>

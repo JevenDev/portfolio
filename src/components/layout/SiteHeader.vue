@@ -55,15 +55,15 @@ const menuButton = ref(null);
 const route = useRoute();
 const navItems = [
   { label: 'Work', to: '/#outputs' },
-  { label: 'Mods', to: '/mods' },
+  { label: 'Mods', to: '/mods/' },
   { label: 'About', to: '/#profile' },
-  { label: 'Archive', to: '/archive' },
+  { label: 'Archive', to: '/archive/' },
   { label: 'Contact', to: '/#contact' }
 ];
 
 function isActive(item) {
-  if (item.to === '/mods') return route.name === 'mods';
-  if (item.to === '/archive') return route.name === 'archive';
+  if (item.to === '/mods/') return route.name === 'mods';
+  if (item.to === '/archive/') return route.name === 'archive';
   if (route.name === 'project') return item.label === 'Work';
   if (route.path !== '/') return false;
   const targetHash = item.to.includes('#') ? `#${item.to.split('#')[1]}` : '';

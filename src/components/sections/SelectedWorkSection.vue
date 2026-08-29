@@ -5,14 +5,14 @@
     <header class="work__head" data-motion-section>
       <p class="meta-type">Selected projects / 01–06</p>
       <h2 id="work-title" data-poster-heading>A working index of images, identities, interfaces, and sound.</h2>
-      <RouterLink to="/archive" data-poster-copy>Everything in the archive ↗</RouterLink>
+      <RouterLink to="/archive/" data-poster-copy>Everything in the archive ↗</RouterLink>
     </header>
 
     <div class="work__chapters">
       <RouterLink
         v-for="(project, index) in projects"
         :key="project.id"
-        :to="`/work/${project.id}`"
+        :to="`/work/${project.id}/`"
         class="work-project"
         data-motion-section
       >

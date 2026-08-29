@@ -61,7 +61,7 @@
       </p>
       <div v-if="filteredProjects.length && view === 'grid'" class="archive-grid">
         <article v-for="(project, index) in filteredProjects" :key="project.id" class="archive-item" data-motion-section>
-          <RouterLink :to="`/work/${project.id}`">
+          <RouterLink :to="`/work/${project.id}/`">
             <div class="archive-item__media registered-media" data-poster-media>
               <GlitchMedia :src="project.thumbCard || project.thumb" :alt="project.title" treatment="preview" />
             </div>

@@ -16,8 +16,7 @@ const router = createRouter({
         seoTitle: 'Graphic Design & Music Production Portfolio',
         seoDescription:
           'Portfolio of Jeven Randhawa (JVN) featuring brand identity work, cover art, web projects, and music production collaborations.',
-        seoType: 'ProfilePage',
-        seoKeywords: ['Jeven Randhawa', 'JVN Graphics', 'graphic designer', 'brand identity', 'album cover art', 'music producer']
+        seoType: 'ProfilePage'
       }
     },
     {
@@ -27,8 +26,7 @@ const router = createRouter({
       meta: {
         seoTitle: 'Minecraft Mods',
         seoDescription: 'Minecraft mods by Jeven Randhawa spanning combat, atmosphere, survival systems, utilities, and village mechanics.',
-        seoType: 'CollectionPage',
-        seoKeywords: ['Minecraft mods', 'JVN mods', 'Modrinth creator', 'NeoForge mods', 'Fabric mods']
+        seoType: 'CollectionPage'
       }
     },
     {
@@ -39,8 +37,7 @@ const router = createRouter({
       meta: {
         seoTitle: 'Output Archive',
         seoDescription: 'Search the complete JVN Graphics archive across visual identity, artwork, digital design, games, and audio.',
-        seoType: 'CollectionPage',
-        seoKeywords: ['creative archive', 'portfolio projects', 'graphic design gallery', 'cover art portfolio', 'motion design']
+        seoType: 'CollectionPage'
       }
     },
     {
