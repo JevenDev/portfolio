@@ -1,5 +1,8 @@
 import { nextTick, onBeforeUnmount, onMounted } from 'vue';
-import { SplitText, gsap } from '../utils/gsap';
+import { SplitText } from 'gsap/SplitText';
+import { gsap } from '../utils/gsap';
+
+gsap.registerPlugin(SplitText);
 
 function isDomElement(value) {
   return value instanceof Element || value instanceof HTMLDocument;

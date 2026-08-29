@@ -66,6 +66,12 @@ function toAbsoluteUrl(path = '') {
   return `${siteUrl}/${String(path).replace(/^\/+/, '')}`;
 }
 
+function toThumbnailPath(path = '') {
+  const normalized = String(path).replace(/^\/+/, '');
+  const match = normalized.match(/^assets\/images\/(.*)\.(?:jpg|jpeg|png|webp)$/i);
+  return match ? `/assets/images/thumbs/${match[1]}-thumb.webp` : `/${normalized}`;
+}
+
 function routeUrl(path = '/') {
   return path === '/' ? `${siteUrl}/` : `${siteUrl}${path.replace(/\/+$/, '')}/`;
 }
@@ -281,6 +287,10 @@ function renderHtml(page) {
   html = upsertMeta(html, 'name', 'twitter:image', page.image);
   html = upsertMeta(html, 'name', 'twitter:image:alt', page.imageAlt);
   html = html.replace(/<script[^>]+id=["']seo-schema["'][^>]*>[\s\S]*?<\/script>\s*/i, '');
+  html = html.replace(/\s*<link[^>]+data-page-preload[^>]*>/i, '');
+  if (page.preloadImage) {
+    html = html.replace('</head>', `    <link rel="preload" as="image" href="${escapeHtml(page.preloadImage)}" fetchpriority="high" data-page-preload />\n  </head>`);
+  }
   const schema = JSON.stringify(page.schemas).replaceAll('<', '\\u003c');
   html = html.replace('</head>', `    <script type="application/ld+json" id="seo-schema">${schema}</script>\n    ${staticStyle}\n  </head>`);
   return html.replace('<div id="app"></div>', `<div id="app">${page.content}</div>`);
@@ -293,6 +303,7 @@ const homePage = {
   description: truncateText('Portfolio of Jeven Randhawa featuring brand identity, cover art, web projects, game interfaces, and music production collaborations.'),
   image: defaultImage,
   imageAlt: defaultImageAlt,
+  preloadImage: toThumbnailPath(portfolioItems.find((item) => item.id === 'artwork-029')?.thumb || ''),
   ogType: 'profile',
   schemas: buildHomeSchemas(),
   content: renderHomeContent()
@@ -332,6 +343,7 @@ const projectPages = portfolioItems.map((item) => {
     description: truncateText(toPlainText(item.description) || `${item.title}, a selected output by Jeven Randhawa.`),
     image: item.thumb ? toAbsoluteUrl(item.thumb) : defaultImage,
     imageAlt: item.title,
+    preloadImage: toThumbnailPath(item.thumb),
     ogType: 'article',
     schemas: buildProjectSchemas(item, canonical),
     content: renderProjectContent(item)

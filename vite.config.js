@@ -9,7 +9,7 @@ export default defineConfig({
       output: {
         manualChunks: {
           framework: ['vue', 'vue-router'],
-          animation: ['gsap', 'gsap/ScrollTrigger', 'gsap/ScrollToPlugin', 'gsap/SplitText']
+          animation: ['gsap', 'gsap/ScrollTrigger']
         }
       }
     }

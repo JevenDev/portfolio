@@ -1,5 +1,4 @@
 import { nextTick, onBeforeUnmount, onMounted } from 'vue';
-import { gsap, ScrollTrigger } from '../utils/gsap';
 
 function resolveElement(target) {
   if (!target) return null;
@@ -9,7 +8,7 @@ function resolveElement(target) {
   return null;
 }
 
-function preparePath(path) {
+function preparePath(path, gsap) {
   if (!(path instanceof SVGGeometryElement) || typeof path.getTotalLength !== 'function') return;
   const length = path.getTotalLength();
   gsap.set(path, { strokeDasharray: length, strokeDashoffset: length });
@@ -26,9 +25,12 @@ export function usePosterMotion(scopeTarget, options = {}) {
     const scope = resolveElement(scopeTarget);
     if (!scope || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
+    const { gsap, ScrollTrigger } = await import('../utils/gsap');
+    if (!active) return;
+
     ctx = gsap.context(() => {
       const introPaths = gsap.utils.toArray('[data-motion-intro] [data-draw-path]', scope);
-      introPaths.forEach(preparePath);
+      introPaths.forEach((path) => preparePath(path, gsap));
 
       if (options.hero) {
         const heroTimeline = gsap.timeline({ defaults: { ease: 'power3.out' } });
@@ -72,7 +74,7 @@ export function usePosterMotion(scopeTarget, options = {}) {
 
       gsap.utils.toArray('[data-motion-section]', scope).forEach((section) => {
         const paths = gsap.utils.toArray('[data-draw-path]', section);
-        paths.forEach(preparePath);
+        paths.forEach((path) => preparePath(path, gsap));
 
         if (paths.length) {
           gsap.to(paths, {
