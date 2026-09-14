@@ -52,8 +52,8 @@
 
     <p class="hero__edition meta-type" data-hero-detail>Issue 01<br />Ontario, Canada<br />Available worldwide</p>
     <span class="hero__seal" data-hero-seal aria-hidden="true">J/R</span>
-    <span class="hero__coordinate hero__coordinate--a meta-type" data-hero-detail aria-hidden="true">43.6532° N</span>
-    <span class="hero__coordinate hero__coordinate--b meta-type" data-hero-detail aria-hidden="true">079.3832° W</span>
+    <span class="hero__side-note hero__side-note--a meta-type" data-hero-detail aria-hidden="true">Selected work / 01–03</span>
+    <span class="hero__side-note hero__side-note--b meta-type" data-hero-detail aria-hidden="true">Scroll to explore / ↓</span>
   </section>
 </template>
 
@@ -70,7 +70,7 @@ defineProps({
 <style scoped>
 .hero {
   position: relative;
-  min-height: max(52rem, calc(100svh - var(--header-height)));
+  min-height: max(64rem, calc(100svh - var(--header-height)));
   overflow: hidden;
   background: var(--paper-cool);
   color: var(--black);
@@ -92,7 +92,8 @@ defineProps({
 .hero__identity {
   position: absolute;
   inset: clamp(2rem, 5vw, 5rem) auto auto clamp(1.25rem, 3vw, 3rem);
-  z-index: -1;
+  z-index: 2;
+  pointer-events: none;
 }
 
 .hero__identity p {
@@ -102,7 +103,7 @@ defineProps({
 
 .hero h1 {
   margin: clamp(1rem, 3vw, 3rem) 0 0;
-  font-size: clamp(8rem, 19vw, 20rem);
+  font-size: clamp(8rem, 16.5vw, 18rem);
   font-weight: 680;
   letter-spacing: -0.095em;
   line-height: 0.6;
@@ -126,6 +127,7 @@ defineProps({
 .hero__gallery {
   position: absolute;
   inset: 0;
+  z-index: 1;
 }
 
 .hero-print {
@@ -137,10 +139,10 @@ defineProps({
 }
 
 .hero-print--1 {
-  top: 20%;
+  top: 46%;
   left: 38%;
   z-index: 3;
-  width: min(38vw, 36rem);
+  width: min(32vw, 32rem);
   transform: rotate(-2.2deg);
 }
 
@@ -148,26 +150,25 @@ defineProps({
   bottom: 4%;
   left: 10%;
   z-index: 4;
-  width: min(26vw, 24rem);
+  width: min(25vw, 24rem);
   transform: rotate(4deg);
 }
 
 .hero-print--3 {
   right: 3%;
-  bottom: 13%;
+  bottom: 7%;
   z-index: 2;
-  width: min(27vw, 25rem);
+  width: min(24vw, 23rem);
   transform: rotate(-4deg);
 }
 
 .hero-print__media {
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 1;
   overflow: hidden;
 }
 
-.hero-print--2 .hero-print__media,
-.hero-print--3 .hero-print__media {
-  aspect-ratio: 1;
+.hero-print--2 .hero-print__media {
+  aspect-ratio: 16 / 9;
 }
 
 .hero-print__caption {
@@ -257,7 +258,7 @@ defineProps({
   transform: rotate(10deg);
 }
 
-.hero__coordinate {
+.hero__side-note {
   position: absolute;
   z-index: 5;
   margin: 0;
@@ -265,19 +266,19 @@ defineProps({
   writing-mode: vertical-rl;
 }
 
-.hero__coordinate--a {
+.hero__side-note--a {
   top: 38%;
   left: 1rem;
 }
 
-.hero__coordinate--b {
+.hero__side-note--b {
   top: 45%;
   right: 0.75rem;
 }
 
 @media (max-width: 820px) {
   .hero {
-    min-height: 58rem;
+    min-height: 64rem;
   }
 
   .hero h1 {
@@ -289,33 +290,33 @@ defineProps({
   }
 
   .hero__role {
-    top: 25%;
+    top: 28%;
     right: 1.25rem;
     width: min(22rem, 44vw);
   }
 
   .hero-print--1 {
-    top: 38%;
+    top: 48%;
     left: 26%;
-    width: 52vw;
+    width: 50vw;
   }
 
   .hero-print--2 {
-    bottom: 4%;
+    bottom: 3%;
     left: 3%;
     width: 34vw;
   }
 
   .hero-print--3 {
     right: 2%;
-    bottom: 9%;
-    width: 32vw;
+    bottom: 7%;
+    width: 31vw;
   }
 }
 
 @media (max-width: 560px) {
   .hero {
-    min-height: 54rem;
+    min-height: 64rem;
   }
 
   .hero__identity {
@@ -334,7 +335,7 @@ defineProps({
   }
 
   .hero__role {
-    top: 25%;
+    top: 22%;
     right: -0.35rem;
     width: 72vw;
   }
@@ -348,21 +349,21 @@ defineProps({
   }
 
   .hero-print--1 {
-    top: 43%;
+    top: 42%;
     left: 13%;
-    width: 76vw;
+    width: 72vw;
   }
 
   .hero-print--2 {
     bottom: 2%;
     left: -7%;
-    width: 44vw;
+    width: 48vw;
   }
 
   .hero-print--3 {
     right: -7%;
-    bottom: 4%;
-    width: 42vw;
+    bottom: 8%;
+    width: 43vw;
   }
 
   .hero__seal {
