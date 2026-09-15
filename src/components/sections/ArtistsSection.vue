@@ -26,7 +26,7 @@
         </div>
         <p class="artist__period meta-type">{{ artist.yearRange }}</p>
         <div class="artist__credits">
-          <p>{{ artist.notableWorks[0] }}</p>
+          <p>{{ artist.preview || artist.notableWorks[0] }}</p>
           <button
             v-if="artist.notableWorks.length > 1"
             type="button"
