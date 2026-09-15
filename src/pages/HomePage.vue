@@ -56,9 +56,9 @@ const selectedWorks = computed(() => {
 });
 
 const heroProjects = computed(() => {
-  const preferredIds = ['artwork-001', 'artwork-025', 'artwork-003'];
+  const preferredIds = ['artwork-001', 'artwork-025', 'artwork-003', 'artwork-004', 'artwork-008'];
   const preferred = preferredIds.map(findProject).filter(Boolean);
   const fallback = props.featuredProjects.filter((project) => !preferred.includes(project));
-  return [...preferred, ...fallback].slice(0, 3);
+  return [...preferred, ...fallback].slice(0, 5);
 });
 </script>

@@ -15,30 +15,49 @@
       </h1>
     </div>
 
-    <div class="hero__gallery" aria-label="Featured projects">
-      <RouterLink
+    <div
+      ref="gallery"
+      class="hero__gallery"
+      role="region"
+      aria-roledescription="carousel"
+      aria-label="Selected works"
+      @pointerenter="hovered = $event.pointerType === 'mouse'"
+      @pointerleave="hovered = false"
+      @focusin="focused = true"
+      @focusout="onFocusOut"
+    >
+      <div
         v-for="(project, index) in heroProjects"
         :key="project.id"
-        :class="`hero-print hero-print--${index + 1}`"
-        :to="`/work/${project.id}/`"
-        data-hero-print
+        class="hero__orbit-item"
+        :style="orbitStyle(index)"
       >
-        <div class="hero-print__media registered-media">
-          <GlitchMedia
-            :src="project.thumbDisplay || project.thumbCard || project.thumb"
-            :mobile-src="project.thumbCard"
-            :alt="project.title"
-            :eager="index === 0"
-            fit="contain"
-            treatment="full"
-          />
-        </div>
-        <div class="hero-print__caption">
-          <span class="meta-type">0{{ index + 1 }}</span>
-          <strong>{{ project.title }}</strong>
-          <span aria-hidden="true">↗</span>
-        </div>
-      </RouterLink>
+        <RouterLink class="hero-print" :to="`/work/${project.id}/`" data-hero-print @focus="onProjectFocus($event, index)">
+          <div class="hero-print__media registered-media">
+            <GlitchMedia
+              :src="project.thumbDisplay || project.thumbCard || project.thumb"
+              :mobile-src="project.thumbCard"
+              :alt="project.title"
+              :eager="index === 0"
+              fit="contain"
+              treatment="full"
+            />
+          </div>
+          <div class="hero-print__caption">
+            <span class="meta-type">0{{ index + 1 }}</span>
+            <strong>{{ project.title }}</strong>
+            <span aria-hidden="true">↗</span>
+          </div>
+        </RouterLink>
+      </div>
+      <div class="hero__gallery-controls meta-type">
+        <button type="button" aria-label="Previous selected work" @click="stepProject(-1)">←</button>
+        <span aria-live="off">{{ String(frontIndex + 1).padStart(2, '0') }} / {{ String(heroProjects.length).padStart(2, '0') }}</span>
+        <button type="button" aria-label="Next selected work" @click="stepProject(1)">→</button>
+        <button type="button" :aria-label="paused ? 'Play carousel' : 'Pause carousel'" @click="togglePlayback">
+          {{ paused ? 'Play' : 'Pause' }}
+        </button>
+      </div>
     </div>
 
     <div class="hero__role" data-hero-note>
@@ -52,18 +71,114 @@
 
     <p class="hero__edition meta-type" data-hero-detail>Issue 01<br />Ontario, Canada<br />Available worldwide</p>
     <span class="hero__seal" data-hero-seal aria-hidden="true">J/R</span>
-    <span class="hero__side-note hero__side-note--a meta-type" data-hero-detail aria-hidden="true">Selected work / 01–03</span>
+    <span class="hero__side-note hero__side-note--a meta-type" data-hero-detail aria-hidden="true">Selected work / 01–{{ String(heroProjects.length).padStart(2, '0') }}</span>
     <span class="hero__side-note hero__side-note--b meta-type" data-hero-detail aria-hidden="true">Scroll to explore / ↓</span>
   </section>
 </template>
 
 <script setup>
+import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
 import { RouterLink } from 'vue-router';
 import GlitchMedia from '../ui/GlitchMedia.vue';
 
-defineProps({
+const props = defineProps({
   email: { type: String, default: '' },
   heroProjects: { type: Array, default: () => [] }
+});
+
+const gallery = ref(null);
+const angle = ref(0);
+const hovered = ref(false);
+const focused = ref(false);
+const paused = ref(false);
+const fullTurn = Math.PI * 2;
+const spacing = computed(() => fullTurn / Math.max(props.heroProjects.length, 1));
+const frontIndex = computed(() => {
+  const count = props.heroProjects.length;
+  return count ? ((Math.round(-angle.value / spacing.value) % count) + count) % count : 0;
+});
+let frame = 0;
+let lastTime = 0;
+let visible = false;
+let observer;
+let motionPreference;
+
+function orbitStyle(index) {
+  const position = angle.value + index * spacing.value;
+  const depth = (Math.cos(position) + 1) / 2;
+  return {
+    '--orbit-x': Math.sin(position),
+    '--orbit-y': Math.cos(position),
+    '--orbit-scale': 0.64 + depth * 0.36,
+    '--orbit-tilt': `${-Math.sin(position) * 14}deg`,
+    opacity: 0.48 + depth * 0.52,
+    zIndex: Math.round(depth * 100)
+  };
+}
+
+function showProject(index) {
+  angle.value = -index * spacing.value;
+}
+
+function onProjectFocus(event, index) {
+  if (event.target.matches(':focus-visible')) showProject(index);
+}
+
+function stepProject(direction) {
+  const count = props.heroProjects.length;
+  if (!count) return;
+  paused.value = true;
+  showProject((frontIndex.value + direction + count) % count);
+}
+
+function togglePlayback() {
+  paused.value = !paused.value;
+  if (!paused.value) {
+    hovered.value = false;
+    focused.value = false;
+  }
+}
+
+function onFocusOut(event) {
+  focused.value = gallery.value?.contains(event.relatedTarget) ?? false;
+}
+
+function animate(time) {
+  const elapsed = lastTime ? Math.min(time - lastTime, 64) : 0;
+  lastTime = time;
+  if (!paused.value && !hovered.value && !focused.value) {
+    angle.value = (angle.value - elapsed * fullTurn / 60000) % fullTurn;
+  }
+  frame = requestAnimationFrame(animate);
+}
+
+function syncAnimation() {
+  cancelAnimationFrame(frame);
+  lastTime = 0;
+  if (visible && !document.hidden) frame = requestAnimationFrame(animate);
+}
+
+function onMotionPreferenceChange() {
+  paused.value = motionPreference.matches;
+}
+
+onMounted(() => {
+  motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
+  onMotionPreferenceChange();
+  motionPreference.addEventListener('change', onMotionPreferenceChange);
+  observer = new IntersectionObserver(([entry]) => {
+    visible = entry.isIntersecting;
+    syncAnimation();
+  });
+  observer.observe(gallery.value);
+  document.addEventListener('visibilitychange', syncAnimation);
+});
+
+onBeforeUnmount(() => {
+  cancelAnimationFrame(frame);
+  observer?.disconnect();
+  motionPreference?.removeEventListener('change', onMotionPreferenceChange);
+  document.removeEventListener('visibilitychange', syncAnimation);
 });
 </script>
 
@@ -128,41 +243,33 @@ defineProps({
 }
 
 .hero__gallery {
+  --orbit-radius: clamp(12rem, 20vw, 22rem);
+  --orbit-rise: clamp(4rem, 7vw, 7rem);
   position: absolute;
-  inset: 0;
+  top: 43%;
+  right: 2%;
+  bottom: 8%;
+  width: 69%;
   z-index: 1;
 }
 
-.hero-print {
+.hero__orbit-item {
   position: absolute;
+  top: 46%;
+  left: 50%;
+  width: min(28vw, 28rem);
+  transform: translate(-50%, -50%)
+    translateX(calc(var(--orbit-x) * var(--orbit-radius)))
+    translateY(calc(var(--orbit-y) * var(--orbit-rise)))
+    scale(var(--orbit-scale)) perspective(60rem) rotateY(var(--orbit-tilt));
+  will-change: transform, opacity;
+}
+
+.hero-print {
   display: block;
   border: 0.5rem solid var(--paper-cool);
   background: var(--paper-cool);
   box-shadow: 0 0 0 1px var(--black);
-}
-
-.hero-print--1 {
-  top: 43%;
-  left: 37%;
-  z-index: 3;
-  width: min(32vw, 32rem);
-  transform: rotate(-3deg);
-}
-
-.hero-print--2 {
-  bottom: 10%;
-  left: 6%;
-  z-index: 4;
-  width: min(29vw, 28rem);
-  transform: rotate(2deg);
-}
-
-.hero-print--3 {
-  right: 4%;
-  bottom: 11%;
-  z-index: 2;
-  width: min(23vw, 23rem);
-  transform: rotate(3deg);
 }
 
 .hero-print__media {
@@ -170,8 +277,33 @@ defineProps({
   overflow: hidden;
 }
 
-.hero-print--2 .hero-print__media {
-  aspect-ratio: 16 / 9;
+.hero__gallery-controls {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  z-index: 101;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.hero__gallery-controls button {
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  padding: 0.25rem;
+  border: 0;
+  background: transparent;
+  color: var(--black);
+  cursor: pointer;
+}
+
+.hero__gallery-controls button:last-child {
+  min-width: 4rem;
+  margin-left: 0.5rem;
+}
+
+.hero__gallery-controls button:hover {
+  color: var(--blue);
 }
 
 .hero-print__caption {
@@ -246,8 +378,8 @@ defineProps({
 
 .hero__seal {
   position: absolute;
-  top: 43%;
-  left: 72%;
+  top: 49%;
+  left: 18%;
   z-index: 5;
   display: grid;
   width: clamp(4rem, 6vw, 6rem);
@@ -299,22 +431,17 @@ defineProps({
     width: 42%;
   }
 
-  .hero-print--1 {
-    top: 54%;
-    left: 28%;
-    width: 43%;
+  .hero__gallery {
+    --orbit-radius: 25vw;
+    --orbit-rise: 5rem;
+    top: 51%;
+    right: 3%;
+    bottom: 9%;
+    width: 90%;
   }
 
-  .hero-print--2 {
-    bottom: 8%;
-    left: 5%;
-    width: 35%;
-  }
-
-  .hero-print--3 {
-    right: 5%;
-    bottom: 7%;
-    width: 29%;
+  .hero__orbit-item {
+    width: 36vw;
   }
 
   .hero__seal {
@@ -364,33 +491,22 @@ defineProps({
   }
 
   .hero__gallery {
-    position: relative;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.5rem 1rem;
-    padding-block: 2.5rem;
-  }
-
-  .hero-print {
+    --orbit-radius: 26vw;
+    --orbit-rise: 3.5rem;
     position: relative;
     inset: auto;
     width: 100%;
+    height: clamp(23rem, 105vw, 34rem);
+    margin-block: 1.5rem;
+  }
+
+  .hero__orbit-item {
+    top: 45%;
+    width: 52vw;
+  }
+
+  .hero-print {
     border-width: 0.3rem;
-  }
-
-  .hero-print--1 {
-    grid-column: 1 / -1;
-    width: 78%;
-    margin-inline: auto;
-  }
-
-  .hero-print--2 {
-    align-self: center;
-    transform: rotate(-3deg);
-  }
-
-  .hero-print--3 {
-    transform: rotate(4deg);
   }
 
   .hero-print__caption {

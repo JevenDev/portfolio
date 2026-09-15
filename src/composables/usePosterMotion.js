@@ -48,19 +48,6 @@ export function usePosterMotion(scopeTarget, options = {}) {
           }, 0.32)
           .from('[data-hero-detail]', { autoAlpha: 0, y: 18, duration: 0.45, stagger: 0.07 }, 0.7);
 
-        gsap.utils.toArray('[data-hero-print]', scope).forEach((print, index) => {
-          gsap.to(print, {
-            yPercent: index === 0 ? -8 : index === 1 ? -16 : -11,
-            ease: 'none',
-            scrollTrigger: {
-              trigger: scope,
-              start: 'top top',
-              end: 'bottom top',
-              scrub: 0.7
-            }
-          });
-        });
-
         const seal = scope.querySelector('[data-hero-seal]');
         if (seal) {
           gsap.to(seal, {
