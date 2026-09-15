@@ -9,6 +9,18 @@
         <RegistrationStrip :index="displayIndex" label="Case study" :detail="`${category} / ${project.year}`" />
         <div class="project__top meta-type">
           <RouterLink to="/archive/">← Project archive</RouterLink>
+          <nav class="project__top-navigation" aria-label="Project navigation">
+            <RouterLink
+              v-if="previousProject"
+              :to="`/work/${previousProject.id}/`"
+              :aria-label="`Previous project: ${previousProject.title}`"
+            >← Previous project</RouterLink>
+            <RouterLink
+              v-if="nextProject"
+              :to="`/work/${nextProject.id}/`"
+              :aria-label="`Next project: ${nextProject.title}`"
+            >Next project →</RouterLink>
+          </nav>
           <span>{{ status }}</span>
         </div>
 
@@ -215,14 +227,24 @@ const nextProject = computed(() => projectIndex.value < 0 ? null : props.project
   position: relative;
   z-index: 3;
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
   gap: 1rem;
   margin-top: 1.3rem;
   padding-top: 0;
   color: var(--ink-soft);
 }
 
-.project__top span:last-child {
+.project__top-navigation {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.project__top .project__top-navigation a {
+  min-height: 2.75rem;
+}
+
+.project__top > span {
   text-align: right;
 }
 
@@ -645,6 +667,23 @@ const nextProject = computed(() => projectIndex.value < 0 ? null : props.project
 }
 
 @media (max-width: 650px) {
+  .project__top {
+    grid-template-columns: 1fr auto;
+  }
+
+  .project__top > span {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .project__top-navigation {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+  }
+
   .project__cover {
     height: 26rem;
   }
