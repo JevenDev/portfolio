@@ -303,7 +303,7 @@ function applySeo(route) {
   const canonicalUrl = buildCanonicalFromPath(canonicalPath, siteUrl);
   const collectionImage = route.name === 'mods' ? modsData[0]?.featuredImage : route.meta?.seoImage;
   const imageUrl = toAbsoluteUrl(project?.thumb || collectionImage || configData.defaultOgImage, siteUrl);
-  const imageAlt = project?.title || (route.name === 'mods' ? modsData[0]?.featuredImageAlt : route.meta?.seoImageAlt) || 'Selected work from the JVN Graphics portfolio';
+  const imageAlt = project?.title || (route.name === 'mods' ? modsData[0]?.featuredImageAlt : route.meta?.seoImageAlt) || 'Jeven Randhawa, graphic designer and producer, JVN Graphics homepage';
   const robots = missingProject || route.meta?.seoNoIndex ? 'noindex, nofollow' : 'index, follow';
   const ogType = missingProject
     ? 'website'

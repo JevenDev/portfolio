@@ -32,7 +32,7 @@ const siteName = config.siteName || 'JVN Graphics';
 const siteUrl = String(config.siteUrl || 'https://jvn.graphics').replace(/\/+$/, '');
 const defaultDescription = config.defaultDescription || 'Portfolio of Jeven Randhawa with design, branding, and music production projects.';
 const defaultImage = toAbsoluteUrl(config.defaultOgImage);
-const defaultImageAlt = 'Selected work from the JVN Graphics portfolio';
+const defaultImageAlt = 'Jeven Randhawa, graphic designer and producer, JVN Graphics homepage';
 
 function escapeHtml(value = '') {
   return String(value)
