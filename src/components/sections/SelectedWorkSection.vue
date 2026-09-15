@@ -23,7 +23,7 @@
             :src="project.thumbDisplay || project.thumb"
             :mobile-src="project.thumbCard"
             :alt="project.title"
-            fit="natural"
+            fit="cover"
             treatment="full"
           />
         </div>
@@ -149,6 +149,7 @@ defineProps({ projects: { type: Array, default: () => [] } });
   grid-column: 1 / span 7;
   align-self: center;
   height: auto;
+  aspect-ratio: 21 / 9;
   border: 0.5rem solid var(--paper-cool);
   transform: rotate(-1.5deg);
   background: var(--paper-cool);
