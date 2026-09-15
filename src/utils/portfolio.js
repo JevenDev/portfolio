@@ -1,3 +1,5 @@
+import imageVariants from '../../data/image-variants.json';
+
 const MONTHS = {
   january: 0,
   february: 1,
@@ -207,17 +209,22 @@ export function filterProjects(projects, activeTags = []) {
   });
 }
 
+function displayAssetPath(path = '') {
+  if (!path || typeof path !== 'string') return '';
+  return normalizeAssetPath(imageVariants[path.replace(/^\/+/, '')] || path);
+}
+
 export function normalizeProject(project) {
   return {
     ...project,
     thumbCard: buildThumbPath(project.thumb),
-    thumbDisplay: normalizeAssetPath(project.thumbDisplay),
+    thumbDisplay: normalizeAssetPath(project.thumbDisplay) || displayAssetPath(project.thumb),
     thumb: normalizeAssetPath(project.thumb),
     gallery: (project.gallery || []).map((item) => {
-      if (typeof item === 'string') return normalizeAssetPath(item);
+      if (typeof item === 'string') return displayAssetPath(item);
       return {
         ...item,
-        url: normalizeAssetPath(item.url)
+        url: displayAssetPath(item.url)
       };
     }),
     audio: project.audio

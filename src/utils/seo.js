@@ -261,7 +261,7 @@ function buildSchemas({ canonicalUrl, project, siteName, siteUrl, route }) {
     personSchema,
     {
       '@context': 'https://schema.org',
-      '@type': 'ProfilePage',
+      '@type': route.meta?.seoType || 'WebPage',
       name: route.meta?.seoTitle || siteName,
       description: route.meta?.seoDescription || defaultDescription,
       url: canonicalUrl,
@@ -309,9 +309,9 @@ function applySeo(route) {
     ? 'website'
     : project
       ? 'article'
-      : route.meta?.seoType === 'CollectionPage'
-        ? 'website'
-        : 'profile';
+      : route.meta?.seoType === 'ProfilePage'
+        ? 'profile'
+        : 'website';
 
   document.title = pageTitle;
 

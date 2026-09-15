@@ -26,6 +26,7 @@ const [
   readJson('data/mods.json')
 ]);
 
+const imageVariants = await readJson('data/image-variants.json');
 const portfolioItems = [...posts, ...projects, ...positions, ...artworks];
 const siteName = config.siteName || 'JVN Graphics';
 const siteUrl = String(config.siteUrl || 'https://jvn.graphics').replace(/\/+$/, '');
@@ -305,7 +306,7 @@ const homePage = {
   image: defaultImage,
   imageAlt: defaultImageAlt,
   preloadImage: (() => {
-    const feature = portfolioItems.find((item) => item.id === 'artwork-029');
+    const feature = portfolioItems.find((item) => item.id === 'artwork-001');
     return feature?.thumbDisplay ? `/${feature.thumbDisplay.replace(/^\/+/, '')}` : toThumbnailPath(feature?.thumb || '');
   })(),
   preloadMedia: '(min-width: 761px)',
@@ -348,9 +349,7 @@ const projectPages = portfolioItems.map((item) => {
     description: truncateText(toPlainText(item.description) || `${item.title}, a selected output by Jeven Randhawa.`),
     image: item.thumb ? toAbsoluteUrl(item.thumb) : defaultImage,
     imageAlt: item.title,
-    preloadImage: item.thumbDisplay
-      ? `/${item.thumbDisplay.replace(/^\/+/, '')}`
-      : item.thumb ? `/${item.thumb.replace(/^\/+/, '')}` : '',
+    preloadImage: item.thumb ? toAbsoluteUrl(item.thumbDisplay || imageVariants[item.thumb] || item.thumb) : '',
     preloadMedia: '(min-width: 761px)',
     ogType: 'article',
     schemas: buildProjectSchemas(item, canonical),
@@ -365,7 +364,7 @@ const galleryPage = {
 
 const notFoundPage = {
   path: '/404',
-  canonical: routeUrl('/'),
+  canonical: routeUrl('/404'),
   title: `Page Not Found | ${siteName}`,
   description: 'The requested page could not be found.',
   image: defaultImage,

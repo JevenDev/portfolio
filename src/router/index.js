@@ -52,7 +52,14 @@ const router = createRouter({
     },
     {
       path: '/:pathMatch(.*)*',
-      redirect: '/'
+      name: 'not-found',
+      component: () => import('../pages/NotFoundPage.vue'),
+      meta: {
+        seoTitle: 'Page Not Found',
+        seoDescription: 'The requested page could not be found. Browse the JVN Graphics portfolio or get in touch.',
+        seoType: 'WebPage',
+        seoNoIndex: true
+      }
     }
   ],
   scrollBehavior(to, from, savedPosition) {

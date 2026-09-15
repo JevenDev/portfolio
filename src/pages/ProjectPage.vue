@@ -83,7 +83,7 @@
             <video
               v-else-if="media.type === 'video'"
               :src="media.url"
-              :poster="project.thumb"
+              :poster="project.thumbDisplay || project.thumb"
               :aria-label="media.label || `${project.title} video`"
               controls
               playsinline
@@ -172,7 +172,7 @@ const resultText = computed(() => status.value === 'Active'
   ? `The ${category.value.toLowerCase()} system remains active and continues to expand through the outputs currently available.`
   : `The completed ${category.value.toLowerCase()} system is preserved as a released output from ${project.value?.year}.`);
 const mediaItems = computed(() => {
-  const gallery = project.value?.gallery?.length ? project.value.gallery : [{ label: project.value?.title, url: project.value?.thumb }];
+  const gallery = project.value?.gallery?.length ? project.value.gallery : [{ label: project.value?.title, url: project.value?.thumbDisplay || project.value?.thumb }];
   return gallery
     .map((item) => typeof item === 'string' ? { label: '', url: item } : item)
     .filter((item) => item?.url)

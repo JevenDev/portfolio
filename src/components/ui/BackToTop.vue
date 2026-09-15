@@ -57,10 +57,15 @@ defineEmits(['to-top']);
   opacity: 0;
 }
 
+@media (max-width: 820px) {
+  .back-to-top {
+    bottom: calc(4.25rem + env(safe-area-inset-bottom));
+  }
+}
+
 @media (max-width: 560px) {
   .back-to-top {
     right: 0.65rem;
-    bottom: max(0.65rem, env(safe-area-inset-bottom));
     width: 2.9rem;
     font-size: 0.52rem;
   }
