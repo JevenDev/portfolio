@@ -56,6 +56,16 @@ const priority = props.eager ? 'high' : 'auto';
   object-fit: contain;
 }
 
+.project-media--natural,
+.project-media--natural picture,
+.project-media--natural img {
+  height: auto;
+}
+
+.project-media--natural {
+  background: transparent;
+}
+
 .project-media--preview img {
   filter: saturate(0.78) contrast(1.04);
 }

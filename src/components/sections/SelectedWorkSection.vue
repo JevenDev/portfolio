@@ -18,20 +18,20 @@
         class="work-project"
         data-motion-section
       >
-        <span class="work-project__number" data-poster-drift>{{ String(index + 1).padStart(2, '0') }}</span>
         <div class="work-project__media registered-media" data-poster-media>
           <GlitchMedia
             :src="project.thumbDisplay || project.thumb"
             :mobile-src="project.thumbCard"
             :alt="project.title"
-            fit="contain"
+            fit="natural"
             treatment="full"
           />
         </div>
         <div class="work-project__copy">
+          <span class="work-project__number">{{ String(index + 1).padStart(2, '0') }}</span>
           <p class="meta-type" data-poster-copy>{{ getProjectCategory(project) }} / {{ project.year }}</p>
           <h3 data-poster-heading>{{ project.title }}</h3>
-          <span data-poster-copy>Open project ↗</span>
+          <span class="work-project__link" data-poster-copy>Open project ↗</span>
         </div>
       </RouterLink>
     </div>
@@ -135,23 +135,20 @@ defineProps({ projects: { type: Array, default: () => [] } });
 }
 
 .work-project__number {
-  position: absolute;
-  top: 0.08em;
-  left: 0.06em;
-  z-index: -1;
+  display: block;
+  margin-bottom: 2rem;
   color: currentColor;
-  font-size: clamp(10rem, 26vw, 28rem);
+  font-size: clamp(4rem, 10vw, 10rem);
   font-weight: 700;
-  letter-spacing: -0.1em;
-  line-height: 0.75;
-  opacity: 0.09;
+  letter-spacing: var(--display-tracking);
+  line-height: 1;
+  opacity: 0.6;
 }
 
 .work-project__media {
   grid-column: 1 / span 7;
   align-self: center;
   height: auto;
-  aspect-ratio: 4 / 3;
   border: 0.5rem solid var(--paper-cool);
   transform: rotate(-1.5deg);
   background: var(--paper-cool);
@@ -202,7 +199,7 @@ defineProps({ projects: { type: Array, default: () => [] } });
   line-height: 0.98;
 }
 
-.work-project__copy > span {
+.work-project__link {
   display: inline-block;
   margin-top: 1.5rem;
   border-bottom: 1px solid currentColor;
@@ -234,7 +231,6 @@ defineProps({ projects: { type: Array, default: () => [] } });
   .work-project:nth-child(even) .work-project__media {
     width: 94%;
     height: auto;
-    aspect-ratio: 4 / 3;
     margin-left: auto;
   }
 
@@ -255,7 +251,8 @@ defineProps({ projects: { type: Array, default: () => [] } });
   }
 
   .work-project__number {
-    font-size: 14rem;
+    margin-bottom: 1.5rem;
+    font-size: 4rem;
   }
 }
 </style>
