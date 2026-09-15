@@ -25,6 +25,8 @@
       @pointerleave="hovered = false"
       @focusin="focused = true"
       @focusout="onFocusOut"
+      @keydown.left.prevent="stepProject(-1)"
+      @keydown.right.prevent="stepProject(1)"
     >
       <div
         v-for="(project, index) in heroProjects"
@@ -52,7 +54,7 @@
       </div>
       <div class="hero__gallery-controls meta-type">
         <button type="button" aria-label="Previous selected work" @click="stepProject(-1)">←</button>
-        <span aria-live="off">{{ String(frontIndex + 1).padStart(2, '0') }} / {{ String(heroProjects.length).padStart(2, '0') }}</span>
+        <span :aria-live="paused ? 'polite' : 'off'">{{ String(frontIndex + 1).padStart(2, '0') }} / {{ String(heroProjects.length).padStart(2, '0') }}</span>
         <button type="button" aria-label="Next selected work" @click="stepProject(1)">→</button>
         <button type="button" :aria-label="paused ? 'Play carousel' : 'Pause carousel'" @click="togglePlayback">
           {{ paused ? 'Play' : 'Pause' }}
@@ -102,6 +104,7 @@ let lastTime = 0;
 let visible = false;
 let observer;
 let motionPreference;
+let selectionMotion = null;
 
 function orbitStyle(index) {
   const position = angle.value + index * spacing.value;
@@ -109,26 +112,38 @@ function orbitStyle(index) {
   return {
     '--orbit-x': Math.sin(position),
     '--orbit-y': Math.cos(position),
-    '--orbit-scale': 0.64 + depth * 0.36,
-    '--orbit-tilt': `${-Math.sin(position) * 14}deg`,
-    opacity: 0.48 + depth * 0.52,
+    '--orbit-scale': 0.6 + depth * 0.4,
+    '--orbit-tilt': `${-Math.sin(position) * 20}deg`,
+    '--orbit-fade': (1 - depth) * 0.42,
     zIndex: Math.round(depth * 100)
   };
 }
 
-function showProject(index) {
-  angle.value = -index * spacing.value;
+function moveToAngle(target, immediate = false) {
+  if (immediate || motionPreference?.matches) {
+    selectionMotion = null;
+    angle.value = target;
+    return;
+  }
+  selectionMotion = { from: angle.value, to: target, elapsed: 0 };
+}
+
+function showProject(index, immediate = false) {
+  const destination = -index * spacing.value;
+  const offset = ((destination - angle.value + Math.PI) % fullTurn + fullTurn) % fullTurn - Math.PI;
+  moveToAngle(angle.value + offset, immediate);
 }
 
 function onProjectFocus(event, index) {
-  if (event.target.matches(':focus-visible')) showProject(index);
+  if (event.target.matches(':focus-visible')) showProject(index, true);
 }
 
 function stepProject(direction) {
   const count = props.heroProjects.length;
   if (!count) return;
   paused.value = true;
-  showProject((frontIndex.value + direction + count) % count);
+  const current = selectionMotion?.to ?? Math.round(angle.value / spacing.value) * spacing.value;
+  moveToAngle(current - direction * spacing.value);
 }
 
 function togglePlayback() {
@@ -146,8 +161,14 @@ function onFocusOut(event) {
 function animate(time) {
   const elapsed = lastTime ? Math.min(time - lastTime, 64) : 0;
   lastTime = time;
-  if (!paused.value && !hovered.value && !focused.value) {
-    angle.value = (angle.value - elapsed * fullTurn / 60000) % fullTurn;
+  if (selectionMotion) {
+    selectionMotion.elapsed += elapsed;
+    const progress = Math.min(selectionMotion.elapsed / 700, 1);
+    const eased = progress * progress * (3 - 2 * progress);
+    angle.value = selectionMotion.from + (selectionMotion.to - selectionMotion.from) * eased;
+    if (progress === 1) selectionMotion = null;
+  } else if (!paused.value && !hovered.value && !focused.value) {
+    angle.value = (angle.value - elapsed * fullTurn / 72000) % fullTurn;
   }
   frame = requestAnimationFrame(animate);
 }
@@ -160,6 +181,10 @@ function syncAnimation() {
 
 function onMotionPreferenceChange() {
   paused.value = motionPreference.matches;
+  if (motionPreference.matches && selectionMotion) {
+    angle.value = selectionMotion.to;
+    selectionMotion = null;
+  }
 }
 
 onMounted(() => {
@@ -243,33 +268,43 @@ onBeforeUnmount(() => {
 }
 
 .hero__gallery {
-  --orbit-radius: clamp(12rem, 20vw, 22rem);
+  --orbit-radius: clamp(12rem, 21vw, 24rem);
   --orbit-rise: clamp(4rem, 7vw, 7rem);
   position: absolute;
   top: 43%;
   right: 2%;
-  bottom: 8%;
+  bottom: 3%;
   width: 69%;
   z-index: 1;
 }
 
 .hero__orbit-item {
   position: absolute;
-  top: 46%;
+  top: 38%;
   left: 50%;
-  width: min(28vw, 28rem);
+  width: min(26vw, 26rem);
   transform: translate(-50%, -50%)
     translateX(calc(var(--orbit-x) * var(--orbit-radius)))
     translateY(calc(var(--orbit-y) * var(--orbit-rise)))
     scale(var(--orbit-scale)) perspective(60rem) rotateY(var(--orbit-tilt));
-  will-change: transform, opacity;
+  will-change: transform;
 }
 
 .hero-print {
+  position: relative;
   display: block;
   border: 0.5rem solid var(--paper-cool);
   background: var(--paper-cool);
   box-shadow: 0 0 0 1px var(--black);
+}
+
+.hero-print::after {
+  position: absolute;
+  inset: -1px;
+  background: var(--paper-cool);
+  opacity: var(--orbit-fade);
+  pointer-events: none;
+  content: '';
 }
 
 .hero-print__media {
@@ -285,6 +320,8 @@ onBeforeUnmount(() => {
   display: flex;
   align-items: center;
   gap: 0.75rem;
+  border-top: 1px solid var(--rule);
+  padding-top: 0.35rem;
 }
 
 .hero__gallery-controls button {
@@ -369,11 +406,11 @@ onBeforeUnmount(() => {
 
 .hero__edition {
   position: absolute;
-  right: clamp(1.25rem, 3vw, 3rem);
+  left: var(--page-gutter);
   bottom: 1.5rem;
   z-index: 5;
   margin: 0;
-  text-align: right;
+  text-align: left;
 }
 
 .hero__seal {
@@ -433,10 +470,10 @@ onBeforeUnmount(() => {
 
   .hero__gallery {
     --orbit-radius: 25vw;
-    --orbit-rise: 5rem;
+    --orbit-rise: 4rem;
     top: 51%;
     right: 3%;
-    bottom: 9%;
+    bottom: 5%;
     width: 90%;
   }
 
@@ -492,7 +529,7 @@ onBeforeUnmount(() => {
 
   .hero__gallery {
     --orbit-radius: 26vw;
-    --orbit-rise: 3.5rem;
+    --orbit-rise: 3rem;
     position: relative;
     inset: auto;
     width: 100%;
@@ -501,8 +538,8 @@ onBeforeUnmount(() => {
   }
 
   .hero__orbit-item {
-    top: 45%;
-    width: 52vw;
+    top: 40%;
+    width: 49vw;
   }
 
   .hero-print {
@@ -510,12 +547,8 @@ onBeforeUnmount(() => {
   }
 
   .hero-print__caption {
-    grid-template-columns: 1fr auto;
+    grid-template-columns: 1rem 1fr auto;
     gap: 0.35rem;
-  }
-
-  .hero-print__caption .meta-type {
-    grid-column: 1 / -1;
   }
 
   .hero-print__caption strong {
@@ -527,6 +560,7 @@ onBeforeUnmount(() => {
     inset: auto;
     border-top: 1px solid var(--rule);
     padding-top: 1rem;
+    text-align: right;
   }
 
   .hero__seal {
