@@ -17,7 +17,7 @@
       </div>
 
       <div class="mods__intro" data-poster-copy>
-        <p>Independent systems for combat, atmosphere, survival, navigation, villagers, and the shared code underneath them.</p>
+        <p>Exploring game design through Minecraft, from subtle visual improvements to deeper gameplay experiences.</p>
         <a href="https://modrinth.com/user/jvn" target="_blank" rel="noreferrer">Browse the Modrinth profile ↗</a>
       </div>
 
@@ -130,8 +130,8 @@
         </div>
 
         <div class="mod-story__lower">
-          <section class="mod-story__features" aria-label="Selected features" data-poster-copy>
-            <h3 class="meta-type">Selected systems</h3>
+          <section class="mod-story__features" aria-label="Key features" data-poster-copy>
+            <h3 class="meta-type">Key features</h3>
             <ol>
               <li v-for="(feature, featureIndex) in mod.features" :key="feature">
                 <span class="meta-type">{{ String(featureIndex + 1).padStart(2, '0') }}</span>
