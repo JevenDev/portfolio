@@ -1,9 +1,13 @@
 import artworksData from '../../data/artworks.json';
 import configData from '../../data/config.json';
+import modsData from '../../data/mods.json';
 import positionsData from '../../data/positions.json';
 import postsData from '../../data/posts.json';
 import projectsData from '../../data/projects.json';
 import { normalizeAssetPath } from './portfolio';
+
+const allPortfolioItems = [...positionsData, ...projectsData, ...postsData, ...artworksData];
+const MAX_META_DESCRIPTION_LENGTH = 160;
 
 function stripTrailingSlashes(value = '') {
   return String(value).replace(/\/+$/, '');
@@ -92,27 +96,52 @@ function descriptionToText(description) {
   return '';
 }
 
-function buildPortfolioItemList(siteUrl) {
-  const allItems = [...positionsData, ...projectsData, ...postsData, ...artworksData];
+function truncateText(value, maxLength = MAX_META_DESCRIPTION_LENGTH) {
+  const normalized = String(value || '').replace(/\s+/g, ' ').trim();
+  if (normalized.length <= maxLength) return normalized;
 
-  return allItems
+  const shortened = normalized.slice(0, maxLength - 1);
+  const lastSpace = shortened.lastIndexOf(' ');
+  return `${shortened.slice(0, lastSpace > maxLength * 0.7 ? lastSpace : shortened.length).trim()}…`;
+}
+
+function buildPortfolioItemList(siteUrl) {
+  return allPortfolioItems
     .filter((item) => item?.id && item?.title)
     .slice(0, 30)
     .map((item, index) => {
       const itemImage = normalizeAssetPath(item.thumb || '');
 
       return {
-        '@type': 'CreativeWork',
+        '@type': 'ListItem',
         position: index + 1,
-        name: item.title,
-        description: descriptionToText(item.description) || undefined,
-        image: itemImage ? toAbsoluteUrl(itemImage, siteUrl) : undefined,
-        url: `${siteUrl}/gallery#project=${encodeURIComponent(item.id)}`
+        url: `${siteUrl}/work/${encodeURIComponent(item.id)}/`,
+        item: {
+          '@type': 'CreativeWork',
+          name: item.title,
+          description: descriptionToText(item.description) || undefined,
+          image: itemImage ? toAbsoluteUrl(itemImage, siteUrl) : undefined
+        }
       };
     });
 }
 
-function buildSchemas({ canonicalUrl, siteName, siteUrl, route }) {
+function buildModItemList() {
+  return modsData.map((mod, index) => ({
+    '@type': 'ListItem',
+    position: index + 1,
+    url: `https://modrinth.com/mod/${mod.slug}`,
+    item: {
+      '@type': 'SoftwareApplication',
+      name: mod.title,
+      description: mod.overview || mod.description,
+      applicationCategory: 'GameApplication',
+      operatingSystem: 'Minecraft Java Edition'
+    }
+  }));
+}
+
+function buildSchemas({ canonicalUrl, project, siteName, siteUrl, route }) {
   const defaultDescription =
     configData.defaultDescription ||
     'Portfolio of Jeven Randhawa with design, branding, and music production projects.';
@@ -120,6 +149,7 @@ function buildSchemas({ canonicalUrl, siteName, siteUrl, route }) {
 
   const personSchema = {
     '@context': 'https://schema.org',
+    '@id': `${siteUrl}/#person`,
     '@type': 'Person',
     name: configData.personName || 'Jeven Randhawa',
     jobTitle: configData.jobTitle || 'Graphic Designer and Music Producer',
@@ -131,16 +161,21 @@ function buildSchemas({ canonicalUrl, siteName, siteUrl, route }) {
 
   const websiteSchema = {
     '@context': 'https://schema.org',
+    '@id': `${siteUrl}/#website`,
     '@type': 'WebSite',
     name: siteName,
+    alternateName: 'JVN',
     url: siteUrl,
-    description: defaultDescription
+    description: defaultDescription,
+    inLanguage: 'en-CA'
   };
 
-  if (route.path === '/gallery') {
-    const itemList = buildPortfolioItemList(siteUrl);
+  if (route.name === 'project' && !project) {
+    return [websiteSchema, personSchema];
+  }
 
-    return [
+  if (route.meta?.seoType === 'CollectionPage') {
+    const schemas = [
       websiteSchema,
       personSchema,
       {
@@ -150,17 +185,73 @@ function buildSchemas({ canonicalUrl, siteName, siteUrl, route }) {
         description: route.meta?.seoDescription || defaultDescription,
         url: canonicalUrl,
         isPartOf: {
-          '@type': 'WebSite',
-          name: siteName,
-          url: siteUrl
+          '@id': `${siteUrl}/#website`
         }
-      },
-      {
+      }
+    ];
+
+    if (route.name === 'archive') {
+      const itemList = buildPortfolioItemList(siteUrl);
+      schemas.push({
         '@context': 'https://schema.org',
         '@type': 'ItemList',
         name: 'Portfolio Gallery Items',
         numberOfItems: itemList.length,
         itemListElement: itemList
+      });
+    }
+
+    if (route.name === 'mods') {
+      const itemList = buildModItemList();
+      schemas.push({
+        '@context': 'https://schema.org',
+        '@type': 'ItemList',
+        name: 'Minecraft mods by Jeven Randhawa',
+        numberOfItems: itemList.length,
+        itemListElement: itemList
+      });
+    }
+
+    return schemas;
+  }
+
+  if (project) {
+    return [
+      websiteSchema,
+      personSchema,
+      {
+        '@context': 'https://schema.org',
+        '@type': 'CreativeWork',
+        name: project.title,
+        description: descriptionToText(project.description) || undefined,
+        image: toAbsoluteUrl(normalizeAssetPath(project.thumb), siteUrl),
+        url: canonicalUrl,
+        creator: {
+          '@id': `${siteUrl}/#person`
+        },
+        dateCreated: project.year?.match(/\b\d{4}\b/)?.[0] || undefined,
+        keywords: project.tags?.join(', ') || undefined,
+        isPartOf: {
+          '@id': `${siteUrl}/#website`
+        }
+      },
+      {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: 'Archive',
+            item: `${siteUrl}/archive/`
+          },
+          {
+            '@type': 'ListItem',
+            position: 2,
+            name: project.title,
+            item: canonicalUrl
+          }
+        ]
       }
     ];
   }
@@ -170,41 +261,62 @@ function buildSchemas({ canonicalUrl, siteName, siteUrl, route }) {
     personSchema,
     {
       '@context': 'https://schema.org',
-      '@type': 'ProfilePage',
+      '@type': route.meta?.seoType || 'WebPage',
       name: route.meta?.seoTitle || siteName,
       description: route.meta?.seoDescription || defaultDescription,
       url: canonicalUrl,
       mainEntity: {
-        '@type': 'Person',
-        name: configData.personName || 'Jeven Randhawa'
+        '@id': `${siteUrl}/#person`
+      },
+      isPartOf: {
+        '@id': `${siteUrl}/#website`
       }
     }
   ];
 }
 
 function buildCanonicalFromPath(path, siteUrl) {
-  if (!path || path === '/') return siteUrl;
-  return `${siteUrl}${path}`;
+  if (!path || path === '/') return `${siteUrl}/`;
+  return `${siteUrl}${path.replace(/\/+$/, '')}/`;
 }
 
 function applySeo(route) {
   const siteName = configData.siteName || 'Portfolio';
   const siteUrl = getSiteUrl();
   const routePath = route.path || '/';
+  const project = route.name === 'project' ? allPortfolioItems.find((item) => item.id === route.params?.id) : null;
+  const missingProject = route.name === 'project' && !project;
 
-  const pageTitle = route.meta?.seoTitle ? `${route.meta.seoTitle} | ${siteName}` : `${siteName} | Portfolio`;
-  const pageDescription = route.meta?.seoDescription || configData.defaultDescription || '';
-  const pageKeywords = route.meta?.seoKeywords || configData.seoKeywords || [];
-  const canonicalUrl = buildCanonicalFromPath(routePath, siteUrl);
-  const imageUrl = toAbsoluteUrl(route.meta?.seoImage || configData.defaultOgImage, siteUrl);
-  const robots = route.meta?.seoNoIndex ? 'noindex, nofollow' : 'index, follow';
-  const ogType = route.meta?.seoType === 'CollectionPage' ? 'website' : 'profile';
+  const pageTitle = missingProject
+    ? `Project Not Found | ${siteName}`
+    : project
+    ? `${project.title} | ${siteName}`
+    : route.meta?.seoTitle
+      ? `${route.meta.seoTitle} | ${siteName}`
+      : `${siteName} | Portfolio`;
+  const pageDescription = truncateText(missingProject
+    ? 'The requested portfolio project could not be found.'
+    : project
+    ? descriptionToText(project.description) || `${project.title}, a selected output by Jeven Randhawa.`
+    : route.meta?.seoDescription || configData.defaultDescription || '');
+  const canonicalPath = route.name === 'archive' ? '/archive/' : routePath;
+  const canonicalUrl = buildCanonicalFromPath(canonicalPath, siteUrl);
+  const collectionImage = route.name === 'mods' ? modsData[0]?.featuredImage : route.meta?.seoImage;
+  const imageUrl = toAbsoluteUrl(project?.thumb || collectionImage || configData.defaultOgImage, siteUrl);
+  const imageAlt = project?.title || (route.name === 'mods' ? modsData[0]?.featuredImageAlt : route.meta?.seoImageAlt) || 'Selected work from the JVN Graphics portfolio';
+  const robots = missingProject || route.meta?.seoNoIndex ? 'noindex, nofollow' : 'index, follow';
+  const ogType = missingProject
+    ? 'website'
+    : project
+      ? 'article'
+      : route.meta?.seoType === 'ProfilePage'
+        ? 'profile'
+        : 'website';
 
   document.title = pageTitle;
 
   setCanonical(canonicalUrl);
   setMetaTag({ name: 'description' }, pageDescription);
-  setMetaTag({ name: 'keywords' }, Array.isArray(pageKeywords) ? pageKeywords.join(', ') : String(pageKeywords));
   setMetaTag({ name: 'robots' }, robots);
 
   setMetaTag({ property: 'og:title' }, pageTitle);
@@ -212,15 +324,20 @@ function applySeo(route) {
   setMetaTag({ property: 'og:type' }, ogType);
   setMetaTag({ property: 'og:url' }, canonicalUrl);
   setMetaTag({ property: 'og:site_name' }, siteName);
+  setMetaTag({ property: 'og:locale' }, 'en_CA');
   setMetaTag({ property: 'og:image' }, imageUrl);
+  setMetaTag({ property: 'og:image:secure_url' }, imageUrl);
+  setMetaTag({ property: 'og:image:alt' }, imageAlt);
 
   setMetaTag({ name: 'twitter:card' }, 'summary_large_image');
   setMetaTag({ name: 'twitter:title' }, pageTitle);
   setMetaTag({ name: 'twitter:description' }, pageDescription);
   setMetaTag({ name: 'twitter:image' }, imageUrl);
+  setMetaTag({ name: 'twitter:image:alt' }, imageAlt);
 
   const schemas = buildSchemas({
     canonicalUrl,
+    project,
     route,
     siteName,
     siteUrl

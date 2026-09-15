@@ -1,3 +1,5 @@
+import imageVariants from '../../data/image-variants.json';
+
 const MONTHS = {
   january: 0,
   february: 1,
@@ -13,14 +15,7 @@ const MONTHS = {
   december: 11
 };
 
-const TYPE_LABELS = {
-  project: 'Project',
-  position: 'Position',
-  post: 'Post',
-  artwork: 'Artwork'
-};
-
-export const PRIMARY_FILTER_TAGS = ['Projects', 'Positions', 'Design', 'Music Production', 'Motion / Editing'];
+export const ARCHIVE_CATEGORIES = ['ALL', 'IDENTITY', 'ARTWORK', 'DIGITAL', 'RELEASES', 'GAMES', 'AUDIO', 'EXPERIMENTS'];
 
 function joinWithBase(path = '') {
   const base = import.meta.env.BASE_URL || '/';
@@ -128,62 +123,53 @@ export function hasProjectType(project, targetType) {
   return project.type === targetType;
 }
 
-export function getProjectTypeLabels(project) {
-  if (!project) return [];
+export function getProjectCategory(project) {
+  if (!project) return 'EXPERIMENT';
 
-  const rawTypes = Array.isArray(project.type) ? project.type : [project.type];
-  const labels = [];
-  const seen = new Set();
+  const tags = project.tags || [];
+  const title = String(project.title || '').toLowerCase();
 
-  rawTypes.forEach((rawType) => {
-    if (typeof rawType !== 'string') return;
-
-    const label = TYPE_LABELS[rawType.toLowerCase()];
-    if (!label || seen.has(label)) return;
-
-    seen.add(label);
-    labels.push(label);
-  });
-
-  return labels;
+  if (title.includes('game') || tags.some((tag) => /game|asset artist|sound design/i.test(tag))) return 'GAME / AUDIO';
+  if (hasProjectType(project, 'post') || tags.includes('Music Production')) return 'AUDIO / RELEASE';
+  if (tags.includes('Brand Identity')) return 'VISUAL IDENTITY';
+  if (tags.some((tag) => /web|ui\/ux|frontend/i.test(tag))) return 'DIGITAL DESIGN';
+  if (hasProjectType(project, 'artwork') || tags.some((tag) => /cover art|digital art/i.test(tag))) return 'ARTWORK';
+  if (tags.some((tag) => /motion|video|campaign/i.test(tag))) return 'MOTION / CAMPAIGN';
+  return 'EXPERIMENT';
 }
 
-export function filterProjects(projects, activeTags = []) {
-  if (!Array.isArray(activeTags) || activeTags.length === 0) return projects;
+export function projectMatchesArchiveCategory(project, category) {
+  if (!project || !category || category === 'ALL') return true;
 
-  const categoryTags = activeTags.filter((tag) => tag === 'Projects' || tag === 'Positions');
-  const contentTags = activeTags.filter((tag) => !categoryTags.includes(tag));
+  const tags = project.tags || [];
+  const title = String(project.title || '').toLowerCase();
 
-  return projects.filter((project) => {
-    const isProject = hasProjectType(project, 'project');
-    const isPosition =
-      hasProjectType(project, 'position') ||
-      project.cardTypeLabel === 'Position' ||
-      project.modalTypeLabel === 'Position';
-    const matchesCategory =
-      categoryTags.length === 0 ||
-      categoryTags.some((tag) => {
-        if (tag === 'Positions') return isPosition;
-        if (tag === 'Projects') return isProject;
-        return false;
-      });
+  if (category === 'IDENTITY') return tags.includes('Brand Identity');
+  if (category === 'ARTWORK') return hasProjectType(project, 'artwork') || tags.some((tag) => /cover art|digital art/i.test(tag));
+  if (category === 'DIGITAL') return tags.some((tag) => /web|ui\/ux|frontend|javascript|vue/i.test(tag));
+  if (category === 'RELEASES') return tags.some((tag) => /cover art|promotional material|campaign/i.test(tag));
+  if (category === 'GAMES') return title.includes('game') || tags.some((tag) => /asset artist|sound design/i.test(tag));
+  if (category === 'AUDIO') return hasProjectType(project, 'post') || tags.includes('Music Production');
+  if (category === 'EXPERIMENTS') return hasProjectType(project, 'artwork') && !tags.includes('Cover Art');
+  return true;
+}
 
-    const matchesTags = contentTags.every((tag) => project.tags?.includes(tag));
-
-    return matchesCategory && matchesTags;
-  });
+function displayAssetPath(path = '') {
+  if (!path || typeof path !== 'string') return '';
+  return normalizeAssetPath(imageVariants[path.replace(/^\/+/, '')] || path);
 }
 
 export function normalizeProject(project) {
   return {
     ...project,
     thumbCard: buildThumbPath(project.thumb),
+    thumbDisplay: normalizeAssetPath(project.thumbDisplay) || displayAssetPath(project.thumb),
     thumb: normalizeAssetPath(project.thumb),
     gallery: (project.gallery || []).map((item) => {
-      if (typeof item === 'string') return normalizeAssetPath(item);
+      if (typeof item === 'string') return displayAssetPath(item);
       return {
         ...item,
-        url: normalizeAssetPath(item.url)
+        url: displayAssetPath(item.url)
       };
     }),
     audio: project.audio
@@ -216,8 +202,4 @@ export function getFeaturedProjects(projects, featuredIds = []) {
 
   const remainder = projects.filter((project) => !selected.includes(project));
   return [...selected, ...remainder].slice(0, 3);
-}
-
-export function hasMusicRole(project) {
-  return project.tags?.includes('Music Production');
 }

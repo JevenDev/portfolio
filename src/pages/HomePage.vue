@@ -1,59 +1,29 @@
 <template>
-  <main id="main-content" tabindex="-1" class="pt-14 md:pt-[5.5rem] focus-visible:outline-none">
-    <HeroSection
-      :name="'Jeven Randhawa'"
-      :tagline="config.tagline"
-      :email="config.email"
-      :location="config.location"
-      :hero-project="heroProject"
-      @navigate="emit('navigate', $event)"
-      @open-project="emit('open-project', $event)"
-    />
-
+  <main id="main-content" ref="page" tabindex="-1" class="page-shell">
+    <HeroSection :email="config.email" :hero-projects="heroProjects" />
+    <SelectedWorkSection :projects="selectedWorks" />
     <AboutSection
-      :headline="config.aboutHeadline"
       :body="config.aboutBody"
+      :headline="config.aboutHeadline"
       :location="config.location"
       :skills="config.skills"
     />
-
-    <SelectedWorkSection
-      section-id="work"
-      eyebrow="Portfolio"
-      title="Selected Works"
-      description="Curated visual and cross-disciplinary highlights presented in an editorial format."
-      cta-label="View All Works"
-      :projects="selectedWorks"
-      :show-view-all-button="true"
-      @navigate="emit('navigate', 'gallery')"
-      @open="emit('open-project', $event)"
-    />
-
-    <SelectedWorkSection
-      section-id="projects"
-      eyebrow="Featured"
-      title="Project Highlights"
-      description="Focused case studies across identity systems, release visuals, and digital product work."
-      :projects="projectHighlights"
-      :show-view-all-button="false"
-      @open="emit('open-project', $event)"
-    />
-
-    <ArtistsSection :artists="artists" @open="emit('open-artist', $event)" />
-
+    <ArtistsSection :artists="artists" />
     <ContactSection :email="config.email" :socials="config.socials" />
   </main>
 </template>
 
 <script setup>
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import AboutSection from '../components/sections/AboutSection.vue';
 import ArtistsSection from '../components/sections/ArtistsSection.vue';
 import ContactSection from '../components/sections/ContactSection.vue';
 import HeroSection from '../components/sections/HeroSection.vue';
 import SelectedWorkSection from '../components/sections/SelectedWorkSection.vue';
+import { usePosterMotion } from '../composables/usePosterMotion';
 
-const emit = defineEmits(['navigate', 'open-artist', 'open-project']);
+const page = ref(null);
+usePosterMotion(page, { hero: true });
 
 const props = defineProps({
   artists: {
@@ -71,38 +41,24 @@ const props = defineProps({
   projects: {
     type: Array,
     default: () => []
-  },
-  topProjects: {
-    type: Array,
-    default: () => []
   }
 });
 
-const heroProject = computed(() => props.featuredProjects[0] || props.topProjects[0] || null);
-
-function findById(id) {
+function findProject(id) {
   return props.projects.find((project) => project.id === id);
 }
 
 const selectedWorks = computed(() => {
-  const preferredIds = ['artwork-001', 'artwork-029', 'artwork-025', 'artwork-003'];
-  const selected = preferredIds.map(findById).filter(Boolean);
-
-  if (selected.length >= 4) return selected.slice(0, 4);
-
-  const fallback = props.featuredProjects.filter((project) => !selected.includes(project) && project.id !== 'project-002');
-  return [...selected, ...fallback].slice(0, 4);
+  const preferredIds = ['project-001', 'project-002', 'artwork-029', 'project-005', 'project-017'];
+  const preferred = preferredIds.map(findProject).filter(Boolean);
+  const fallback = props.projects.filter((project) => !preferred.includes(project));
+  return [...preferred, ...fallback].slice(0, 5);
 });
 
-const projectHighlights = computed(() => {
-  const preferredIds = ['project-005', 'project-001', 'project-014', 'project-002'];
-  const selected = preferredIds.map(findById).filter(Boolean);
-
-  if (selected.length >= 4) {
-    return selected.slice(0, 4);
-  }
-
-  const fallback = props.topProjects.filter((project) => !selected.includes(project) && project.id !== 'project-003');
-  return [...selected, ...fallback].slice(0, 4);
+const heroProjects = computed(() => {
+  const preferredIds = ['artwork-001', 'artwork-025', 'artwork-003', 'artwork-004', 'artwork-007'];
+  const preferred = preferredIds.map(findProject).filter(Boolean);
+  const fallback = props.featuredProjects.filter((project) => !preferred.includes(project));
+  return [...preferred, ...fallback].slice(0, 5);
 });
 </script>

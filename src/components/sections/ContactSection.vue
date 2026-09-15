@@ -1,69 +1,180 @@
 <template>
-  <section id="contact" class="section-shell border-b-0">
-    <div ref="root" class="section-wrap">
-      <article class="frame-block overflow-hidden">
-        <div class="grid gap-8 border-b border-line p-6 md:grid-cols-[minmax(0,1fr)_auto] md:items-end md:p-8">
-          <div class="space-y-4">
-            <p class="eyebrow-label" data-reveal>Contact</p>
-            <h2 class="max-w-4xl font-display text-4xl font-semibold leading-[1.05] tracking-[-0.04em] text-ink md:text-7xl">
-              Let's Build Work That Looks and Sounds Distinct.
-            </h2>
-            <p class="editorial-lead" data-reveal>
-              Available for visual identity, cover art direction, and production support.
-            </p>
-          </div>
+  <section id="contact" class="contact" aria-labelledby="contact-title" data-motion-section>
+    <svg class="contact__web" viewBox="0 0 1000 600" aria-hidden="true">
+      <path data-draw-path d="M-50 480C170 270 370 360 520 210S760 -60 1060 160" />
+      <path data-draw-path d="M100 -40C220 180 330 150 520 210S800 440 940 680" />
+    </svg>
 
-          <a
-            :href="`mailto:${email}`"
-            class="focus-ring tap-target inline-flex h-11 items-center justify-center border border-ink bg-ink px-6 text-xs font-semibold uppercase leading-none tracking-[0.16em] text-paper transition hover:bg-paper hover:text-ink"
-            data-reveal
-          >
-            Email Me Directly
-          </a>
-        </div>
+    <RegistrationStrip index="04" label="Contact" detail="Available for selected projects" tone="light" />
 
-        <div class="space-y-5 p-6 md:p-8">
-          <div class="space-y-2" data-reveal>
-            <p class="text-base leading-relaxed text-ink/90 md:text-lg">
-              For commissions, collaborations, or role opportunities, email directly or connect through socials.
-            </p>
-            <p class="text-base text-muted">Typically respond within 24 to 48 hours.</p>
-            <ul class="pt-1 flex flex-wrap gap-3" data-reveal>
-              <li v-for="social in socials" :key="social.url">
-                <a
-                  :href="social.url"
-                  target="_blank"
-                  rel="noreferrer"
-                  :aria-label="`${social.label} (opens in a new tab)`"
-                  class="focus-ring tap-target inline-flex h-11 items-center justify-center border border-line px-4 text-xs font-semibold uppercase leading-none tracking-[0.14em] text-ink transition hover:border-ink/40"
-                >
-                  {{ social.label }}
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </article>
+    <div class="contact__main">
+      <p class="section-kicker">Contact / New work</p>
+      <h2 id="contact-title" data-poster-heading>Let’s make something worth keeping.</h2>
+      <div class="contact__copy" data-poster-copy>
+        <p>For identity, artwork, web, production, or a project that crosses those lines, send a note with the essentials.</p>
+        <a :href="`mailto:${email}`">{{ email }} ↗</a>
+      </div>
     </div>
+
+    <ul class="contact__links">
+      <li v-for="social in socials" :key="social.url">
+        <a :href="social.url" target="_blank" rel="noreferrer">{{ social.label }} ↗</a>
+      </li>
+    </ul>
+    <span class="contact__disc" data-poster-drift aria-hidden="true"></span>
   </section>
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import { useScrollReveal } from '../../composables/useScrollReveal';
+import RegistrationStrip from '../ui/RegistrationStrip.vue';
 
-defineProps({
-  email: {
-    type: String,
-    default: ''
-  },
-  socials: {
-    type: Array,
-    default: () => []
-  }
-});
-
-const root = ref(null);
-useScrollReveal(root);
+defineProps({ email: { type: String, default: '' }, socials: { type: Array, default: () => [] } });
 </script>
 
+<style scoped>
+.contact {
+  position: relative;
+  min-height: 52rem;
+  overflow: hidden;
+  background: var(--blue);
+  color: var(--paper-cool);
+  padding: var(--section-space) var(--page-gutter);
+  isolation: isolate;
+}
+
+.contact__web {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: var(--paper-cool);
+  stroke-width: 0.8;
+  opacity: 0.2;
+}
+
+.contact__main,
+.contact__links {
+  position: relative;
+  z-index: 2;
+  width: min(100%, 90rem);
+  margin-inline: auto;
+}
+
+.contact__main {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr);
+  gap: clamp(2rem, 5vw, 5rem);
+  align-items: start;
+  padding-top: clamp(3rem, 7vw, 7rem);
+}
+
+.contact__main .section-kicker {
+  grid-column: 1 / -1;
+  margin: 0;
+}
+
+.contact h2 {
+  max-width: 14ch;
+  margin: 0;
+  font-size: clamp(4rem, 8vw, 9rem);
+  font-weight: 610;
+  letter-spacing: var(--display-tracking);
+  line-height: 0.97;
+}
+
+.contact__copy {
+  align-self: end;
+  margin-top: 2rem;
+  padding-bottom: 0.5rem;
+}
+
+.contact__copy p {
+  max-width: 28rem;
+  margin: 0 0 2.5rem;
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+.contact__copy a {
+  display: block;
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 0.45rem;
+  font-size: clamp(1.05rem, 1.9vw, 2rem);
+  letter-spacing: -0.04em;
+  overflow-wrap: anywhere;
+}
+
+.contact__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 1.4rem;
+  margin-top: clamp(4rem, 8vw, 8rem);
+  border-top: 1px solid var(--rule-white);
+  background: var(--blue);
+  padding: 0.7rem 0 0;
+  list-style: none;
+  font-size: 0.875rem;
+}
+
+.contact__links a:hover,
+.contact__links a:focus-visible,
+.contact__copy a:hover,
+.contact__copy a:focus-visible {
+  color: var(--blue-soft);
+  text-decoration: underline;
+  text-underline-offset: 0.25rem;
+}
+
+.contact__links a {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+}
+
+.contact__disc {
+  position: absolute;
+  left: -10vw;
+  bottom: -31vw;
+  z-index: -1;
+  width: min(44vw, 42rem);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--signal-red);
+}
+
+.contact__disc::after {
+  position: absolute;
+  inset: 33%;
+  border-radius: 50%;
+  background: var(--blue);
+  content: '';
+}
+
+@media (max-width: 800px) {
+  .contact__main {
+    grid-template-columns: 1fr;
+  }
+
+  .contact__copy {
+    margin-top: 3rem;
+  }
+}
+
+@media (max-width: 560px) {
+  .contact {
+    min-height: 48rem;
+  }
+
+  .contact h2 {
+    font-size: clamp(3.5rem, 16vw, 6rem);
+  }
+
+  .contact__disc {
+    width: 22rem;
+    left: -15rem;
+    bottom: -12rem;
+  }
+}
+</style>

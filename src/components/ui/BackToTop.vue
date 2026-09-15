@@ -1,35 +1,77 @@
 <template>
-  <transition name="fade">
-    <button
-      v-if="visible"
-      type="button"
-      class="focus-ring tap-target fixed bottom-5 right-5 z-30 border border-line bg-paper px-3 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-ink shadow-card"
-      @click="$emit('to-top')"
-    >
-      Top
+  <Transition name="top-fade">
+    <button v-if="visible" type="button" class="back-to-top" aria-label="Back to top" @click="$emit('to-top')">
+      <span aria-hidden="true">↑</span>
+      <span>Top</span>
     </button>
-  </transition>
+  </Transition>
 </template>
 
 <script setup>
-defineProps({
-  visible: {
-    type: Boolean,
-    default: false
-  }
-});
-
+defineProps({ visible: { type: Boolean, default: false } });
 defineEmits(['to-top']);
 </script>
 
 <style scoped>
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 180ms ease;
+.back-to-top {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 60;
+  display: grid;
+  width: 3.6rem;
+  aspect-ratio: 1;
+  place-content: center;
+  gap: 0.05rem;
+  border: 1px solid var(--black);
+  border-radius: 50%;
+  background: var(--paper-cool);
+  color: var(--black);
+  padding: 0;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.58rem;
+  line-height: 1;
+  text-align: center;
+  cursor: pointer;
+  transform: rotate(2deg);
 }
 
-.fade-enter-from,
-.fade-leave-to {
+.back-to-top:hover,
+.back-to-top:focus-visible {
+  border-color: var(--blue);
+  background: var(--blue);
+  color: var(--paper-cool);
+}
+
+.back-to-top span:first-child {
+  font-size: 1rem;
+}
+
+.top-fade-enter-active,
+.top-fade-leave-active {
+  transition: opacity 140ms ease;
+}
+
+.top-fade-enter-from,
+.top-fade-leave-to {
   opacity: 0;
+}
+
+@media (max-width: 820px) {
+  .back-to-top {
+    bottom: calc(4.25rem + env(safe-area-inset-bottom));
+  }
+}
+
+@media (max-width: 560px) {
+  .back-to-top {
+    right: 0.65rem;
+    width: 2.9rem;
+    font-size: 0.52rem;
+  }
+
+  .back-to-top span:first-child {
+    font-size: 0.85rem;
+  }
 }
 </style>
