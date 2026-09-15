@@ -40,8 +40,8 @@ const props = defineProps({
 });
 
 const skillGroups = computed(() => [
-  { label: 'Design', items: props.skills.filter((skill) => /brand|cover|ui|web design|creative suite|photoshop|illustrator|indesign|figma|canva/i.test(skill)) },
-  { label: 'Digital', items: props.skills.filter((skill) => /html|css|javascript|java$|vue|vite|tailwind/i.test(skill)) },
+  { label: 'Design', items: props.skills.filter((skill) => /brand|cover|ui|web design|photoshop|illustrator|indesign|figma|canva/i.test(skill)) },
+  { label: 'Digital', items: props.skills.filter((skill) => /game development|modding|html|css|javascript|java$|c#|vue|vite|tailwind|godot|unity/i.test(skill)) },
   { label: 'Sound', items: props.skills.filter((skill) => /mixing|beat|fl studio|music/i.test(skill)) }
 ]);
 </script>
