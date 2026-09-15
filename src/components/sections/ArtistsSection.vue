@@ -12,7 +12,12 @@
     </header>
 
     <div class="artists__list">
-      <article v-for="(artist, index) in artists" :key="artist.name" class="artist" data-motion-section>
+      <article
+        v-for="(artist, index) in artists"
+        :key="artist.name"
+        class="artist"
+        data-motion-section
+      >
         <span class="artist__index meta-type">{{ String(index + 1).padStart(2, '0') }}</span>
         <img :src="artist.imageThumb || artist.image" :alt="artist.name" loading="lazy" decoding="async" data-poster-media />
         <div class="artist__identity" data-poster-copy>
@@ -22,9 +27,33 @@
         <p class="artist__period meta-type">{{ artist.yearRange }}</p>
         <div class="artist__credits">
           <p>{{ artist.notableWorks[0] }}</p>
+          <button
+            v-if="artist.notableWorks.length > 1"
+            type="button"
+            class="artist__toggle meta-type"
+            :aria-expanded="expandedArtist === artist.name"
+            :aria-controls="`artist-credits-${index}`"
+            @click="toggleArtist(artist.name)"
+          >
+            {{ expandedArtist === artist.name ? 'Hide credits' : `View all ${artist.notableWorks.length} credits` }}
+            <span aria-hidden="true">{{ expandedArtist === artist.name ? '−' : '+' }}</span>
+          </button>
           <div class="artist__links">
             <a v-for="link in artist.links" :key="link.url" :href="link.url" target="_blank" rel="noreferrer">{{ link.label }} ↗</a>
           </div>
+        </div>
+        <div
+          v-if="expandedArtist === artist.name"
+          :id="`artist-credits-${index}`"
+          class="artist__details"
+        >
+          <p class="artist__details-label meta-type">Selected work</p>
+          <ol>
+            <li v-for="(work, workIndex) in artist.notableWorks" :key="`${artist.name}-${workIndex}`">
+              <span class="meta-type">{{ String(workIndex + 1).padStart(2, '0') }}</span>
+              <p>{{ work }}</p>
+            </li>
+          </ol>
         </div>
       </article>
     </div>
@@ -32,9 +61,16 @@
 </template>
 
 <script setup>
+import { ref } from 'vue';
 import RegistrationStrip from '../ui/RegistrationStrip.vue';
 
 defineProps({ artists: { type: Array, default: () => [] } });
+
+const expandedArtist = ref(null);
+
+function toggleArtist(name) {
+  expandedArtist.value = expandedArtist.value === name ? null : name;
+}
 </script>
 
 <style scoped>
@@ -152,6 +188,79 @@ defineProps({ artists: { type: Array, default: () => [] } });
   font-size: 0.875rem;
 }
 
+.artist__toggle {
+  display: flex;
+  width: 100%;
+  min-height: 2.75rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  border: 0;
+  border-bottom: 1px solid var(--rule);
+  background: transparent;
+  padding: 0;
+  color: var(--black);
+  text-align: left;
+  cursor: pointer;
+}
+
+.artist__toggle:hover,
+.artist__toggle:focus-visible {
+  color: var(--blue);
+}
+
+.artist__toggle span {
+  font-size: 1rem;
+}
+
+.artist__details {
+  grid-column: 3 / -1;
+  display: grid;
+  grid-template-columns: 7rem minmax(0, 1fr);
+  gap: 1rem;
+  border-top: 1px solid var(--black);
+  padding: 1.25rem 0 1.75rem;
+}
+
+.artist__details-label {
+  color: var(--blue);
+}
+
+.artist__details ol {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.artist__details li {
+  display: grid;
+  grid-template-columns: 2rem minmax(0, 1fr);
+  gap: 0.75rem;
+  border-top: 1px solid var(--rule);
+  padding: 0.8rem 1rem 0.8rem 0;
+}
+
+.artist__details li:nth-child(-n + 2) {
+  border-top: 0;
+}
+
+.artist__details li:nth-child(even) {
+  padding-right: 0;
+  padding-left: 1rem;
+}
+
+.artist__details li > span {
+  color: var(--ink-soft);
+}
+
+.artist__details li p {
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
 .artist__links a:hover,
 .artist__links a:focus-visible {
   color: var(--blue);
@@ -181,6 +290,10 @@ defineProps({ artists: { type: Array, default: () => [] } });
   .artist__credits {
     grid-column: 3 / -1;
   }
+
+  .artist__details {
+    grid-column: 3 / -1;
+  }
 }
 
 @media (max-width: 620px) {
@@ -201,6 +314,25 @@ defineProps({ artists: { type: Array, default: () => [] } });
   .artist__period,
   .artist__credits {
     grid-column: 3;
+  }
+
+  .artist__details {
+    grid-column: 2 / -1;
+    grid-template-columns: 1fr;
+    margin-top: 0.5rem;
+  }
+
+  .artist__details ol {
+    grid-template-columns: 1fr;
+  }
+
+  .artist__details li:nth-child(2) {
+    border-top: 1px solid var(--rule);
+  }
+
+  .artist__details li:nth-child(even) {
+    padding-right: 0;
+    padding-left: 0;
   }
 }
 </style>
