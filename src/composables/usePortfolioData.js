@@ -1,4 +1,4 @@
-import { computed, ref } from 'vue';
+import { computed } from 'vue';
 import artistsData from '../../data/artists.json';
 import artworksData from '../../data/artworks.json';
 import configData from '../../data/config.json';
@@ -7,19 +7,12 @@ import postsData from '../../data/posts.json';
 import positionsData from '../../data/positions.json';
 import projectsData from '../../data/projects.json';
 import {
-  PRIMARY_FILTER_TAGS,
-  filterProjects,
   getFeaturedProjects,
-  hasProjectType,
-  hasMusicRole,
   normalizeArtist,
-  normalizeProject,
-  sortProjects
+  normalizeProject
 } from '../utils/portfolio';
 
 export function usePortfolioData() {
-  const activeTags = ref([]);
-  const sortBy = ref('newest');
   const allPortfolioItems = [...postsData, ...projectsData, ...positionsData, ...artworksData];
 
   const config = computed(() => configData);
@@ -28,45 +21,11 @@ export function usePortfolioData() {
   const artists = computed(() => artistsData.map(normalizeArtist));
 
   const featuredProjects = computed(() => getFeaturedProjects(projects.value, config.value.homeShowcase));
-  const topProjects = computed(() =>
-    sortProjects(
-      projects.value.filter((project) => hasProjectType(project, 'project')),
-      'newest'
-    ).slice(0, 3)
-  );
-  const musicProjects = computed(() => projects.value.filter(hasMusicRole).slice(0, 6));
-
-  const filteredSortedProjects = computed(() => {
-    const filtered = filterProjects(projects.value, activeTags.value);
-    return sortProjects(filtered, sortBy.value);
-  });
-
-  function toggleTag(tag) {
-    if (tag === 'all') {
-      activeTags.value = [];
-      return;
-    }
-
-    if (activeTags.value.includes(tag)) {
-      activeTags.value = activeTags.value.filter((activeTag) => activeTag !== tag);
-      return;
-    }
-
-    activeTags.value = [...activeTags.value, tag];
-  }
-
   return {
-    activeTags,
     artists,
     config,
     featuredProjects,
-    filteredSortedProjects,
-    musicProjects,
     mods,
-    projects,
-    sortBy,
-    topProjects,
-    toggleTag,
-    visibleFilterTags: PRIMARY_FILTER_TAGS
+    projects
   };
 }

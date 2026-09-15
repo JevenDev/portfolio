@@ -15,15 +15,6 @@ const MONTHS = {
   december: 11
 };
 
-const TYPE_LABELS = {
-  project: 'Project',
-  position: 'Position',
-  post: 'Post',
-  artwork: 'Artwork'
-};
-
-export const PRIMARY_FILTER_TAGS = ['Projects', 'Positions', 'Design', 'Music Production', 'Motion / Editing'];
-
 export const ARCHIVE_CATEGORIES = ['ALL', 'IDENTITY', 'ARTWORK', 'DIGITAL', 'RELEASES', 'GAMES', 'AUDIO', 'EXPERIMENTS'];
 
 function joinWithBase(path = '') {
@@ -132,26 +123,6 @@ export function hasProjectType(project, targetType) {
   return project.type === targetType;
 }
 
-export function getProjectTypeLabels(project) {
-  if (!project) return [];
-
-  const rawTypes = Array.isArray(project.type) ? project.type : [project.type];
-  const labels = [];
-  const seen = new Set();
-
-  rawTypes.forEach((rawType) => {
-    if (typeof rawType !== 'string') return;
-
-    const label = TYPE_LABELS[rawType.toLowerCase()];
-    if (!label || seen.has(label)) return;
-
-    seen.add(label);
-    labels.push(label);
-  });
-
-  return labels;
-}
-
 export function getProjectCategory(project) {
   if (!project) return 'EXPERIMENT';
 
@@ -181,32 +152,6 @@ export function projectMatchesArchiveCategory(project, category) {
   if (category === 'AUDIO') return hasProjectType(project, 'post') || tags.includes('Music Production');
   if (category === 'EXPERIMENTS') return hasProjectType(project, 'artwork') && !tags.includes('Cover Art');
   return true;
-}
-
-export function filterProjects(projects, activeTags = []) {
-  if (!Array.isArray(activeTags) || activeTags.length === 0) return projects;
-
-  const categoryTags = activeTags.filter((tag) => tag === 'Projects' || tag === 'Positions');
-  const contentTags = activeTags.filter((tag) => !categoryTags.includes(tag));
-
-  return projects.filter((project) => {
-    const isProject = hasProjectType(project, 'project');
-    const isPosition =
-      hasProjectType(project, 'position') ||
-      project.cardTypeLabel === 'Position' ||
-      project.modalTypeLabel === 'Position';
-    const matchesCategory =
-      categoryTags.length === 0 ||
-      categoryTags.some((tag) => {
-        if (tag === 'Positions') return isPosition;
-        if (tag === 'Projects') return isProject;
-        return false;
-      });
-
-    const matchesTags = contentTags.every((tag) => project.tags?.includes(tag));
-
-    return matchesCategory && matchesTags;
-  });
 }
 
 function displayAssetPath(path = '') {
@@ -257,8 +202,4 @@ export function getFeaturedProjects(projects, featuredIds = []) {
 
   const remainder = projects.filter((project) => !selected.includes(project));
   return [...selected, ...remainder].slice(0, 3);
-}
-
-export function hasMusicRole(project) {
-  return project.tags?.includes('Music Production');
 }
