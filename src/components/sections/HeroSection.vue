@@ -72,7 +72,7 @@
     </div>
 
     <p class="hero__edition meta-type" data-hero-detail>Issue 01<br />Ontario, Canada<br />Available worldwide</p>
-    <span class="hero__seal" data-hero-seal aria-hidden="true">J/R</span>
+    <span class="hero__seal" data-hero-seal aria-hidden="true">JVN</span>
     <span class="hero__side-note hero__side-note--a meta-type" data-hero-detail aria-hidden="true">Selected work / 01–{{ String(heroProjects.length).padStart(2, '0') }}</span>
     <span class="hero__side-note hero__side-note--b meta-type" data-hero-detail aria-hidden="true">Scroll to explore / ↓</span>
   </section>
