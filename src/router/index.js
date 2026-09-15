@@ -69,7 +69,7 @@ const router = createRouter({
         top: 72,
         behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
       }
-      : { left: 0, top: 0 });
+      : { left: 0, top: 0, behavior: 'instant' });
 
     if (to.path === from.path) return position;
 
