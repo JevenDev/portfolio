@@ -180,5 +180,47 @@
         "url": "assets/images/virality/virality-concept1.png"
       }
     ]
+  },
+  {
+    "id": "project-017",
+    "type": "project",
+    "title": "Cirrus - Minecraft Mod & Trailer",
+    "tags": [
+      "Design",
+      "Game Development",
+      "Motion / Editing"
+    ],
+    "year": "2026",
+    "role": "Creator & Developer",
+    "featured": true,
+    "thumb": "https://cdn.modrinth.com/data/SJDzFJH7/images/fe9ad9e31cb65bc8aa8688738bd66fc9226e5877.png",
+    "description": [
+      "A client-side skybox overhaul that replaces flat vanilla skies with layered clouds, time-based colour palettes, storms, lightning, stars, auroras, and a configurable End sky. It is designed to work without Iris or a shader pack while staying close to Minecraft's visual language.",
+      "I approached Cirrus as a rendering system rather than a shader pack. The main challenge was coordinating independently moving layers, palette transitions, and weather-reactive effects without losing performance or configurability. Building each effect as an optional layer made the mod easier to tune and let players decide how far from vanilla they want to move."
+    ],
+    "links": [
+      {
+        "label": "Watch the Cirrus trailer on YouTube",
+        "url": "https://www.youtube.com/watch?v=juhrI-G-xjo"
+      },
+      {
+        "label": "View Cirrus on Modrinth",
+        "url": "https://modrinth.com/mod/cirrus"
+      },
+      {
+        "label": "View the source code",
+        "url": "https://github.com/JevenDev/Cirrus"
+      }
+    ],
+    "gallery": [
+      {
+        "label": "Cirrus | Minecraft Mod Trailer",
+        "url": "https://www.youtube-nocookie.com/embed/juhrI-G-xjo"
+      },
+      {
+        "label": "Cirrus rendering an aurora across the Minecraft night sky",
+        "url": "https://cdn.modrinth.com/data/SJDzFJH7/images/fe9ad9e31cb65bc8aa8688738bd66fc9226e5877.png"
+      }
+    ]
   }
 ]

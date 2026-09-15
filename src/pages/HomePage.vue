@@ -49,14 +49,14 @@ function findProject(id) {
 }
 
 const selectedWorks = computed(() => {
-  const preferredIds = ['project-005', 'project-014', 'project-001', 'project-002', 'artwork-029', 'artwork-001'];
+  const preferredIds = ['project-001', 'project-002', 'artwork-029', 'project-005', 'project-017'];
   const preferred = preferredIds.map(findProject).filter(Boolean);
   const fallback = props.projects.filter((project) => !preferred.includes(project));
-  return [...preferred, ...fallback].slice(0, 6);
+  return [...preferred, ...fallback].slice(0, 5);
 });
 
 const heroProjects = computed(() => {
-  const preferredIds = ['artwork-001', 'artwork-025', 'artwork-003', 'artwork-004', 'artwork-008'];
+  const preferredIds = ['artwork-001', 'artwork-025', 'artwork-003', 'artwork-004', 'artwork-007'];
   const preferred = preferredIds.map(findProject).filter(Boolean);
   const fallback = props.featuredProjects.filter((project) => !preferred.includes(project));
   return [...preferred, ...fallback].slice(0, 5);

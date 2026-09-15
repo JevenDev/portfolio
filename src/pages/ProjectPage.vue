@@ -70,8 +70,18 @@
 
         <div class="project__gallery">
           <figure v-for="(media, index) in mediaItems" :key="`${media.url}-${index}`" data-motion-section>
+            <iframe
+              v-if="media.type === 'youtube'"
+              class="project__embed"
+              :src="media.url"
+              :title="media.label || `${project.title} trailer`"
+              loading="lazy"
+              allow="encrypted-media; picture-in-picture; fullscreen"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen
+            />
             <video
-              v-if="media.type === 'video'"
+              v-else-if="media.type === 'video'"
               :src="media.url"
               :poster="project.thumb"
               :aria-label="media.label || `${project.title} video`"
@@ -168,7 +178,9 @@ const mediaItems = computed(() => {
     .filter((item) => item?.url)
     .map((item) => ({
       label: item.label?.trim() || '',
-      type: /\.(mp4|webm|mov|m4v)(?:\?|$)/i.test(item.url) ? 'video' : 'image',
+      type: /^https:\/\/www\.youtube-nocookie\.com\/embed\/[A-Za-z0-9_-]{11}$/.test(item.url)
+        ? 'youtube'
+        : /\.(mp4|webm|mov|m4v)(?:\?|$)/i.test(item.url) ? 'video' : 'image',
       url: item.url
     }));
 });
@@ -447,6 +459,18 @@ const nextProject = computed(() => projectIndex.value < 0 ? null : props.project
   max-height: 88vh;
   background: #deddd7;
   object-fit: contain;
+}
+
+.project__embed {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 0;
+  background: var(--black);
+}
+
+.project__gallery figure:has(.project__embed) {
+  grid-column: 1 / -1;
 }
 
 .project__gallery figcaption {
