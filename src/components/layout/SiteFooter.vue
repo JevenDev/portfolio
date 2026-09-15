@@ -14,14 +14,13 @@
     </div>
     <div class="site-footer__base meta-type">
       <span>Selected work and ongoing practice</span>
-      <span>© {{ currentYear }}</span>
+      <span>Copyright JVN 2026</span>
     </div>
   </footer>
 </template>
 
 <script setup>
 defineProps({ email: { type: String, default: '' }, socials: { type: Array, default: () => [] } });
-const currentYear = new Date().getFullYear();
 </script>
 
 <style scoped>
