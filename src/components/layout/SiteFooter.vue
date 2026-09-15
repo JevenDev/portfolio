@@ -48,14 +48,14 @@ const currentYear = new Date().getFullYear();
   max-width: 22rem;
   margin: 0.75rem 0 0;
   color: rgba(255, 254, 248, 0.62);
-  font-size: 0.78rem;
+  font-size: 0.875rem;
 }
 
 .site-footer__email {
   align-self: start;
   border-bottom: 1px solid currentColor;
   padding-bottom: 0.3rem;
-  font-size: clamp(1.2rem, 2.8vw, 2.8rem);
+  font-size: clamp(1.125rem, 2.25vw, 2.25rem);
   letter-spacing: -0.045em;
   overflow-wrap: anywhere;
 }
@@ -71,7 +71,7 @@ const currentYear = new Date().getFullYear();
   margin: 0;
   padding: 0;
   list-style: none;
-  font-size: 0.72rem;
+  font-size: 0.875rem;
 }
 
 .site-footer__links a:hover,
@@ -81,7 +81,7 @@ const currentYear = new Date().getFullYear();
 
 .site-footer__links a {
   display: inline-flex;
-  min-height: 1.75rem;
+  min-height: 2.75rem;
   align-items: center;
 }
 

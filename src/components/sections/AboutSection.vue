@@ -49,20 +49,20 @@ const skillGroups = computed(() => [
 <style scoped>
 .profile {
   position: relative;
-  min-height: 62rem;
+  min-height: 0;
   overflow: hidden;
   background: var(--black);
   color: var(--paper-cool);
-  padding: clamp(4rem, 9vw, 9rem) clamp(1.25rem, 3vw, 3rem);
+  padding: var(--section-space) var(--page-gutter);
   isolation: isolate;
 }
 
 .profile__word {
   position: absolute;
-  top: 5%;
+  top: clamp(7rem, 10vw, 10rem);
   left: -0.08em;
   z-index: -3;
-  color: var(--blue);
+  color: var(--blue-soft);
   font-size: clamp(11rem, 25vw, 27rem);
   font-weight: 720;
   letter-spacing: -0.095em;
@@ -77,7 +77,8 @@ const skillGroups = computed(() => [
   height: 100%;
   fill: none;
   stroke: var(--signal-red);
-  stroke-width: 1.5;
+  stroke-width: 0.8;
+  opacity: 0.32;
 }
 
 .profile__content {
@@ -89,7 +90,7 @@ const skillGroups = computed(() => [
 
 .profile__content {
   display: grid;
-  grid-template-columns: minmax(22rem, 1fr) minmax(22rem, 0.72fr);
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
   gap: clamp(3rem, 8vw, 9rem);
   align-items: end;
   margin-top: clamp(12rem, 22vw, 23rem);
@@ -100,32 +101,33 @@ const skillGroups = computed(() => [
 }
 
 .profile__statement h2 {
-  max-width: 13ch;
+  max-width: 18ch;
   margin: 0;
-  font-size: clamp(3rem, 6vw, 6.5rem);
+  font-size: clamp(2.75rem, 5vw, 5.25rem);
   font-weight: 520;
-  letter-spacing: -0.075em;
-  line-height: 0.84;
+  letter-spacing: var(--display-tracking);
+  line-height: 1.03;
 }
 
 .profile__statement > p {
   max-width: 42rem;
   margin: 2.5rem 0 0;
-  color: rgba(255, 254, 248, 0.74);
-  font-size: clamp(0.92rem, 1.35vw, 1.12rem);
+  color: rgba(255, 254, 248, 0.82);
+  font-size: clamp(1rem, 1.25vw, 1.125rem);
   line-height: 1.65;
 }
 
 .profile__capabilities {
-  background: var(--signal-red);
+  border-top: 0.5rem solid var(--signal-red);
+  background: var(--paper-cool);
   color: var(--black);
-  padding: 1rem;
-  transform: rotate(2deg);
+  padding: 1.5rem;
+  transform: rotate(-1.5deg);
 }
 
 .profile__capabilities article {
   display: grid;
-  grid-template-columns: 2rem 5rem 1fr;
+  grid-template-columns: 2rem 1fr;
   gap: 0.75rem;
   border-top: 1px solid currentColor;
   padding: 0.75rem 0 1.25rem;
@@ -133,18 +135,20 @@ const skillGroups = computed(() => [
 
 .profile__capabilities h3 {
   margin: 0;
-  font-size: 0.85rem;
+  color: var(--blue);
+  font-size: 1.25rem;
   font-weight: 620;
 }
 
 .profile__capabilities ul {
+  grid-column: 2;
   display: flex;
   flex-wrap: wrap;
   gap: 0.3rem 0.8rem;
   margin: 0;
   padding: 0;
   list-style: none;
-  font-size: 0.66rem;
+  font-size: 0.875rem;
   line-height: 1.45;
 }
 
@@ -175,7 +179,7 @@ const skillGroups = computed(() => [
   }
 
   .profile__statement h2 {
-    font-size: clamp(2.7rem, 14vw, 4.5rem);
+    font-size: clamp(2.5rem, 11vw, 4rem);
   }
 
   .profile__capabilities article {

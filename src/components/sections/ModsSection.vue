@@ -193,7 +193,7 @@ function formatNumber(value) {
   --page-gutter: clamp(1.25rem, 3vw, 3rem);
   position: relative;
   overflow: hidden;
-  background: var(--acid);
+  background: var(--paper-cool);
   padding: clamp(2rem, 4vw, 4rem) var(--page-gutter) 0;
   isolation: isolate;
 }
@@ -222,7 +222,7 @@ function formatNumber(value) {
 
 .mods__head {
   display: grid;
-  grid-template-columns: minmax(25rem, 1.15fr) minmax(15rem, 0.48fr) minmax(13rem, 0.3fr);
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.55fr) minmax(0, 0.45fr);
   gap: clamp(2rem, 5vw, 5rem);
   align-items: end;
   min-height: 38rem;
@@ -246,8 +246,8 @@ function formatNumber(value) {
   color: var(--black);
   font-size: clamp(4.8rem, 9vw, 10rem);
   font-weight: 675;
-  letter-spacing: -0.09em;
-  line-height: 0.67;
+  letter-spacing: var(--display-tracking);
+  line-height: 0.92;
 }
 
 .mods__heading h1 span {
@@ -258,6 +258,7 @@ function formatNumber(value) {
   margin-left: 0.38em;
   color: var(--blue);
   font-size: 0.83em;
+  letter-spacing: var(--display-tracking);
 }
 
 .mods__intro {
@@ -268,7 +269,7 @@ function formatNumber(value) {
 .mods__intro p {
   max-width: 27rem;
   color: var(--ink-soft);
-  font-size: 0.82rem;
+  font-size: 1rem;
   line-height: 1.65;
 }
 
@@ -279,7 +280,7 @@ function formatNumber(value) {
   margin-top: 2rem;
   border-bottom: 1px solid currentColor;
   color: var(--blue);
-  font-size: 0.72rem;
+  font-size: 0.875rem;
 }
 
 .mods__counter {
@@ -288,18 +289,18 @@ function formatNumber(value) {
   min-height: 15rem;
   align-content: space-between;
   overflow: hidden;
-  background: var(--blue);
+  background: var(--signal-red);
   clip-path: polygon(8% 0, 100% 0, 100% 91%, 0 100%, 0 9%);
-  color: var(--paper-cool);
+  color: var(--black);
   padding: 1.15rem;
   transform: rotate(2.5deg);
 }
 
 .mods__counter strong {
-  font-size: clamp(3.8rem, 7vw, 7rem);
+  font-size: clamp(3rem, 5.2vw, 5.5rem);
   font-weight: 450;
-  letter-spacing: -0.09em;
-  line-height: 0.72;
+  letter-spacing: var(--display-tracking);
+  line-height: 0.98;
 }
 
 .mods__counter span:last-child {
@@ -324,7 +325,7 @@ function formatNumber(value) {
 .mods__index-head,
 .mod-index-row {
   display: grid;
-  grid-template-columns: 2.5rem 4.5rem minmax(17rem, 1.1fr) minmax(9rem, 0.4fr) minmax(12rem, 0.48fr) 1.5rem;
+  grid-template-columns: 2.5rem 4.5rem minmax(0, 1.1fr) minmax(7rem, 0.4fr) minmax(10rem, 0.48fr) 1.5rem;
   gap: 1rem;
   align-items: center;
 }
@@ -386,7 +387,7 @@ function formatNumber(value) {
   font-size: clamp(1.6rem, 3vw, 3rem);
   font-weight: 640;
   letter-spacing: -0.065em;
-  line-height: 0.86;
+  line-height: 1.1;
 }
 
 .mod-index-row__identity > span,
@@ -396,11 +397,11 @@ function formatNumber(value) {
 }
 
 .mod-index-row__identity > span {
-  font-size: 0.68rem;
+  font-size: 0.875rem;
 }
 
 .mod-index-row__downloads strong {
-  font-size: 0.72rem;
+  font-size: 0.875rem;
   font-weight: 500;
 }
 
@@ -527,19 +528,19 @@ function formatNumber(value) {
 }
 
 .mod-story__title h2 {
-  max-width: 10ch;
+  max-width: 16ch;
   overflow-wrap: anywhere;
-  font-size: clamp(4rem, 8.5vw, 9rem);
+  font-size: clamp(3.5rem, 7vw, 7rem);
   font-weight: 660;
-  letter-spacing: -0.09em;
-  line-height: 0.72;
+  letter-spacing: var(--display-tracking);
+  line-height: 0.98;
 }
 
 .mod-story__title > p:last-child {
   max-width: 34rem;
   margin-top: 1.5rem;
   color: var(--story-muted);
-  font-size: 0.78rem;
+  font-size: 0.875rem;
 }
 
 .mod-story__metrics {
@@ -558,12 +559,12 @@ function formatNumber(value) {
 .mod-story__metrics dt {
   color: var(--story-muted);
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.62rem;
+  font-size: 0.875rem;
 }
 
 .mod-story__metrics dd {
   margin: 0;
-  font-size: 0.78rem;
+  font-size: 0.875rem;
   font-variant-numeric: tabular-nums;
 }
 
@@ -657,7 +658,7 @@ function formatNumber(value) {
 }
 
 .mod-story__features p {
-  font-size: 0.72rem;
+  font-size: 0.875rem;
   line-height: 1.45;
 }
 
@@ -673,14 +674,14 @@ function formatNumber(value) {
   justify-content: space-between;
   gap: 0.75rem;
   border-bottom: 1px solid var(--story-rule);
-  font-size: 0.7rem;
+  font-size: 0.875rem;
 }
 
 .mod-story__links a span {
   margin-left: auto;
   color: var(--story-muted);
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.65rem;
+  font-size: 0.875rem;
 }
 
 .mod-story__links a:hover,
@@ -691,13 +692,13 @@ function formatNumber(value) {
 
 @media (max-width: 1040px) {
   .mods__head {
-    grid-template-columns: minmax(22rem, 1fr) minmax(14rem, 0.55fr);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.65fr);
   }
 
   .mods__counter {
     grid-column: 2;
     width: min(100%, 18rem);
-    margin-top: -3rem;
+    margin-top: 0;
     justify-self: end;
   }
 
@@ -707,7 +708,7 @@ function formatNumber(value) {
 
   .mods__index-head,
   .mod-index-row {
-    grid-template-columns: 2.5rem 4rem minmax(14rem, 1fr) 8rem minmax(10rem, 0.5fr) 1rem;
+    grid-template-columns: 2rem 3.5rem minmax(0, 1fr) 6rem 9rem 1rem;
   }
 
   .mod-index-row__icon {
@@ -727,7 +728,7 @@ function formatNumber(value) {
   }
 
   .mod-story__metrics {
-    grid-column: 9 / -1;
+    grid-column: 3 / -1;
   }
 
   .mod-story__lower {
@@ -760,7 +761,7 @@ function formatNumber(value) {
   }
 
   .mods__heading h1 {
-    font-size: clamp(4.4rem, 20vw, 7rem);
+    font-size: clamp(3.5rem, 18vw, 7rem);
   }
 
   .mods__intro {
@@ -799,7 +800,7 @@ function formatNumber(value) {
   }
 
   .mod-index-row__identity strong {
-    font-size: clamp(1.8rem, 9vw, 3rem);
+    font-size: clamp(1.5rem, 7vw, 2.5rem);
   }
 
   .mod-index-row__loaders {
@@ -836,7 +837,7 @@ function formatNumber(value) {
   }
 
   .mod-story__title h2 {
-    font-size: clamp(3.5rem, 17vw, 6rem);
+    font-size: clamp(2.5rem, 11vw, 4.5rem);
   }
 
   .mod-story__metrics {

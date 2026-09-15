@@ -38,7 +38,7 @@ defineProps({ email: { type: String, default: '' }, socials: { type: Array, defa
   overflow: hidden;
   background: var(--blue);
   color: var(--paper-cool);
-  padding: clamp(4rem, 9vw, 9rem) clamp(1.25rem, 3vw, 3rem);
+  padding: var(--section-space) var(--page-gutter);
   isolation: isolate;
 }
 
@@ -50,8 +50,8 @@ defineProps({ email: { type: String, default: '' }, socials: { type: Array, defa
   height: 100%;
   fill: none;
   stroke: var(--paper-cool);
-  stroke-width: 1.2;
-  opacity: 0.42;
+  stroke-width: 0.8;
+  opacity: 0.2;
 }
 
 .contact__main,
@@ -64,34 +64,37 @@ defineProps({ email: { type: String, default: '' }, socials: { type: Array, defa
 
 .contact__main {
   display: grid;
-  grid-template-columns: 0.25fr 1fr 0.55fr;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr);
   gap: clamp(2rem, 5vw, 5rem);
   align-items: start;
   padding-top: clamp(3rem, 7vw, 7rem);
 }
 
 .contact__main .section-kicker {
+  grid-column: 1 / -1;
   margin: 0;
 }
 
 .contact h2 {
-  max-width: 9ch;
+  max-width: 14ch;
   margin: 0;
-  font-size: clamp(4rem, 9vw, 10rem);
+  font-size: clamp(4rem, 8vw, 9rem);
   font-weight: 610;
-  letter-spacing: -0.085em;
-  line-height: 0.72;
+  letter-spacing: var(--display-tracking);
+  line-height: 0.97;
 }
 
 .contact__copy {
   align-self: end;
-  margin-top: clamp(12rem, 24vw, 24rem);
+  margin-top: 2rem;
+  padding-bottom: 0.5rem;
 }
 
 .contact__copy p {
   max-width: 28rem;
   margin: 0 0 2.5rem;
-  font-size: 0.82rem;
+  font-size: 1rem;
+  line-height: 1.65;
 }
 
 .contact__copy a {
@@ -109,9 +112,10 @@ defineProps({ email: { type: String, default: '' }, socials: { type: Array, defa
   gap: 0.6rem 1.4rem;
   margin-top: clamp(4rem, 8vw, 8rem);
   border-top: 1px solid var(--rule-white);
+  background: var(--blue);
   padding: 0.7rem 0 0;
   list-style: none;
-  font-size: 0.68rem;
+  font-size: 0.875rem;
 }
 
 .contact__links a:hover,
@@ -125,14 +129,14 @@ defineProps({ email: { type: String, default: '' }, socials: { type: Array, defa
 
 .contact__links a {
   display: inline-flex;
-  min-height: 1.75rem;
+  min-height: 2.75rem;
   align-items: center;
 }
 
 .contact__disc {
   position: absolute;
-  right: -10vw;
-  bottom: -17vw;
+  left: -10vw;
+  bottom: -31vw;
   z-index: -1;
   width: min(44vw, 42rem);
   aspect-ratio: 1;
@@ -164,13 +168,13 @@ defineProps({ email: { type: String, default: '' }, socials: { type: Array, defa
   }
 
   .contact h2 {
-    font-size: clamp(4rem, 20vw, 6rem);
+    font-size: clamp(3.5rem, 16vw, 6rem);
   }
 
   .contact__disc {
     width: 22rem;
-    right: -9rem;
-    bottom: -8rem;
+    left: -15rem;
+    bottom: -12rem;
   }
 }
 </style>

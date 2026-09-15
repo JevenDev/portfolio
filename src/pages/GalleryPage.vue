@@ -160,7 +160,8 @@ function resetFilters() {
   height: 100%;
   fill: none;
   stroke: var(--blue);
-  stroke-width: 1.3;
+  stroke-width: 0.8;
+  opacity: 0.32;
   pointer-events: none;
 }
 
@@ -185,8 +186,8 @@ function resetFilters() {
   margin: 0;
   font-size: clamp(5rem, 12vw, 13rem);
   font-weight: 680;
-  letter-spacing: -0.09em;
-  line-height: 0.6;
+  letter-spacing: var(--display-tracking);
+  line-height: 0.86;
 }
 
 .archive__hero-copy h1 span {
@@ -197,42 +198,44 @@ function resetFilters() {
   margin-left: 0.7em;
   color: var(--blue);
   font-size: 0.72em;
+  letter-spacing: var(--display-tracking);
 }
 
 .archive__hero-copy > p:last-child {
   max-width: 36rem;
   margin: 2rem 0 0;
   color: var(--ink-soft);
-  font-size: 0.9rem;
+  font-size: 1rem;
+  line-height: 1.65;
 }
 
 .archive__counter {
   display: flex;
   min-height: 17rem;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 1.5rem;
+  align-items: center;
   width: min(100%, 20rem);
   aspect-ratio: 1;
   justify-self: end;
   border-radius: 50%;
   background: var(--signal-red);
   color: var(--black);
-  padding: 1rem;
-  transform: rotate(7deg);
+  padding: 2rem;
+  transform: rotate(-6deg);
 }
 
 .archive__counter strong {
-  font-size: clamp(5rem, 11vw, 10rem);
+  font-size: clamp(5rem, 8vw, 8rem);
   font-weight: 440;
   letter-spacing: -0.085em;
-  line-height: 0.8;
+  line-height: 1;
 }
 
 .archive__counter p {
-  align-self: flex-end;
-  margin: 0 1.5rem 1.2rem 0;
-  transform: rotate(-7deg);
-  text-align: right;
+  margin: 0;
+  text-align: center;
 }
 
 .archive__tools {
@@ -253,7 +256,7 @@ function resetFilters() {
   gap: 1rem;
   border-right: 1px solid var(--rule);
   padding-left: 1rem;
-  font-size: 0.7rem;
+  font-size: 0.875rem;
 }
 
 .archive__search input,
@@ -264,7 +267,7 @@ function resetFilters() {
   background: transparent;
   color: var(--black);
   padding-right: 1rem;
-  font-size: 0.75rem;
+  font-size: 1rem;
 }
 
 .archive__views {
@@ -283,7 +286,7 @@ function resetFilters() {
 .archive__views button {
   min-width: 4.5rem;
   border-left: 1px solid var(--rule);
-  font-size: 0.7rem;
+  font-size: 0.875rem;
 }
 
 .archive__filters {
@@ -295,10 +298,10 @@ function resetFilters() {
 
 .archive__filters button {
   flex: 1 0 auto;
-  min-height: 2.6rem;
+  min-height: 2.75rem;
   border-right: 1px solid var(--rule);
   padding-inline: 1rem;
-  font-size: 0.68rem;
+  font-size: 0.8125rem;
 }
 
 .archive__views button.active,
@@ -342,7 +345,7 @@ function resetFilters() {
 
 .archive-item__body {
   display: grid;
-  grid-template-columns: 2rem 1fr auto;
+  grid-template-columns: 2rem minmax(0, 1fr) auto;
   gap: 0.65rem;
   border-top: 1px solid var(--black);
   padding-top: 0.6rem;
@@ -357,13 +360,13 @@ function resetFilters() {
   font-size: clamp(1rem, 1.65vw, 1.4rem);
   font-weight: 540;
   letter-spacing: -0.03em;
-  line-height: 1.05;
+  line-height: 1.2;
 }
 
 .archive-item__body p {
   margin-top: 0.25rem;
   color: var(--ink-soft);
-  font-size: 0.68rem;
+  font-size: 0.8125rem;
 }
 
 .archive-item a:hover h2,
@@ -419,6 +422,7 @@ function resetFilters() {
 
   .archive__views button {
     flex: 1;
+    min-height: 2.75rem;
   }
 
   .archive-grid {

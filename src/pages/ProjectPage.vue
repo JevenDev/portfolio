@@ -194,7 +194,8 @@ const nextProject = computed(() => projectIndex.value < 0 ? null : props.project
   height: 100%;
   fill: none;
   stroke: var(--blue);
-  stroke-width: 1.3;
+  stroke-width: 0.8;
+  opacity: 0.32;
   pointer-events: none;
 }
 
@@ -229,8 +230,8 @@ const nextProject = computed(() => projectIndex.value < 0 ? null : props.project
   position: relative;
   z-index: 2;
   display: grid;
-  grid-template-columns: minmax(18rem, 0.7fr) minmax(25rem, 1.3fr);
-  gap: clamp(3rem, 8vw, 9rem);
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: clamp(2rem, 5vw, 5rem);
   align-items: center;
   width: min(100%, 90rem);
   margin: clamp(4rem, 9vw, 9rem) auto 0;
@@ -239,7 +240,7 @@ const nextProject = computed(() => projectIndex.value < 0 ? null : props.project
 .project__intro {
   position: relative;
   z-index: 3;
-  margin-right: clamp(-7rem, -7vw, -3rem);
+  min-width: 0;
 }
 
 .project__intro .section-kicker {
@@ -250,10 +251,10 @@ const nextProject = computed(() => projectIndex.value < 0 ? null : props.project
 .project__intro h1 {
   margin: 0;
   color: var(--blue);
-  font-size: clamp(4.5rem, 9vw, 10rem);
+  font-size: clamp(3rem, 6vw, 6.5rem);
   font-weight: 680;
-  letter-spacing: -0.09em;
-  line-height: 0.7;
+  letter-spacing: var(--display-tracking);
+  line-height: 0.98;
   overflow-wrap: anywhere;
 }
 
@@ -261,7 +262,7 @@ const nextProject = computed(() => projectIndex.value < 0 ? null : props.project
   max-width: 34rem;
   margin: 2rem 0 0;
   color: var(--ink-soft);
-  font-size: 0.9rem;
+  font-size: 1rem;
   line-height: 1.65;
 }
 
@@ -299,28 +300,29 @@ const nextProject = computed(() => projectIndex.value < 0 ? null : props.project
 
 .project__meta dt {
   color: var(--ink-soft);
-  font-size: 0.65rem;
+  font-size: 0.875rem;
 }
 
 .project__meta dd {
   margin: 0.35rem 0 0;
-  font-size: 0.76rem;
+  font-size: 0.875rem;
   overflow-wrap: anywhere;
 }
 
 .project__story,
 .project__outputs,
 .project__result {
-  padding: clamp(5rem, 10vw, 10rem) clamp(1.25rem, 3vw, 3rem);
+  padding: var(--section-space) var(--page-gutter);
 }
 
 .project__story {
-  background: var(--signal-red);
+  border-top: 0.4rem solid var(--signal-red);
+  background: var(--paper-cool);
 }
 
 .project__section-head {
   display: grid;
-  grid-template-columns: 0.4fr 1fr;
+  grid-template-columns: minmax(0, 0.4fr) minmax(0, 1fr);
   gap: 2rem;
   align-items: end;
   width: min(100%, 90rem);
@@ -338,11 +340,12 @@ const nextProject = computed(() => projectIndex.value < 0 ? null : props.project
 }
 
 .project__section-head h2 {
-  max-width: 13ch;
-  font-size: clamp(2.6rem, 5.4vw, 5.8rem);
+  max-width: 16ch;
+  overflow-wrap: anywhere;
+  font-size: clamp(2.5rem, 5.4vw, 5.8rem);
   font-weight: 500;
-  letter-spacing: -0.065em;
-  line-height: 0.92;
+  letter-spacing: var(--display-tracking);
+  line-height: 1.03;
 }
 
 .project__story-grid {
@@ -371,19 +374,19 @@ const nextProject = computed(() => projectIndex.value < 0 ? null : props.project
 .project__story-grid h3 {
   margin: 0;
   color: var(--black);
-  font-size: 0.72rem;
+  font-size: 0.875rem;
   font-weight: 500;
 }
 
 .project__story-grid p {
   margin: 4rem 0 0;
-  font-size: 0.84rem;
+  font-size: 1rem;
   line-height: 1.65;
 }
 
 .project__tags {
   display: grid;
-  grid-template-columns: 0.4fr 1fr;
+  grid-template-columns: minmax(0, 0.4fr) minmax(0, 1fr);
   gap: 2rem;
   width: min(100%, 90rem);
   margin: 2rem auto 0;
@@ -392,7 +395,7 @@ const nextProject = computed(() => projectIndex.value < 0 ? null : props.project
 .project__tags > p {
   margin: 0;
   color: var(--black);
-  font-size: 0.72rem;
+  font-size: 0.875rem;
 }
 
 .project__tags ul {
@@ -403,7 +406,7 @@ const nextProject = computed(() => projectIndex.value < 0 ? null : props.project
   border-top: 1px solid var(--black);
   padding: 0.7rem 0 0;
   list-style: none;
-  font-size: 0.7rem;
+  font-size: 0.875rem;
 }
 
 .project__outputs {
@@ -417,7 +420,7 @@ const nextProject = computed(() => projectIndex.value < 0 ? null : props.project
 .project__section-head--outputs > p {
   max-width: 30rem;
   color: var(--ink-soft);
-  font-size: 0.82rem;
+  font-size: 1rem;
   line-height: 1.55;
 }
 
@@ -495,7 +498,7 @@ const nextProject = computed(() => projectIndex.value < 0 ? null : props.project
 
 .project__result-copy {
   display: grid;
-  grid-template-columns: 0.4fr 1fr;
+  grid-template-columns: minmax(0, 0.4fr) minmax(0, 1fr);
   gap: 2rem;
   border-top: 1px solid var(--rule-white);
   padding-top: 0.8rem;
@@ -511,7 +514,7 @@ const nextProject = computed(() => projectIndex.value < 0 ? null : props.project
   font-size: clamp(2rem, 4.5vw, 4.8rem);
   font-weight: 460;
   letter-spacing: -0.055em;
-  line-height: 0.96;
+  line-height: 1.06;
 }
 
 .project__credits {
@@ -521,7 +524,7 @@ const nextProject = computed(() => projectIndex.value < 0 ? null : props.project
   margin-top: clamp(4rem, 8vw, 8rem);
   border-top: 1px solid var(--rule-white);
   padding-top: 0.75rem;
-  font-size: 0.68rem;
+  font-size: 0.875rem;
 }
 
 .project__credits div {
@@ -590,11 +593,11 @@ const nextProject = computed(() => projectIndex.value < 0 ? null : props.project
   .project__section-head,
   .project__section-head--outputs,
   .project__result-copy {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .project__story-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .project__story-grid article,
@@ -609,7 +612,7 @@ const nextProject = computed(() => projectIndex.value < 0 ? null : props.project
   }
 
   .project__tags {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .project__intro {
@@ -623,8 +626,8 @@ const nextProject = computed(() => projectIndex.value < 0 ? null : props.project
   }
 
   .project__intro h1 {
-    font-size: clamp(3.3rem, 18vw, 5rem);
-    line-height: 0.78;
+    font-size: clamp(3rem, 14vw, 5rem);
+    line-height: 0.98;
   }
 
   .project__meta {
@@ -640,7 +643,7 @@ const nextProject = computed(() => projectIndex.value < 0 ? null : props.project
   }
 
   .project__gallery {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .project__gallery figure:nth-child(n) {
@@ -650,7 +653,7 @@ const nextProject = computed(() => projectIndex.value < 0 ? null : props.project
   .project__audio,
   .project__credits,
   .project__next {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .project__next a {

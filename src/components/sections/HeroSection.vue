@@ -70,7 +70,7 @@ defineProps({
 <style scoped>
 .hero {
   position: relative;
-  min-height: max(64rem, calc(100svh - var(--header-height)));
+  min-height: clamp(58rem, 76vw, 76rem);
   overflow: hidden;
   background: var(--paper-cool);
   color: var(--black);
@@ -85,7 +85,8 @@ defineProps({
   height: 100%;
   fill: none;
   stroke: var(--blue);
-  stroke-width: 1.4;
+  stroke-width: 0.8;
+  opacity: 0.32;
   vector-effect: non-scaling-stroke;
 }
 
@@ -103,10 +104,10 @@ defineProps({
 
 .hero h1 {
   margin: clamp(1rem, 3vw, 3rem) 0 0;
-  font-size: clamp(8rem, 16.5vw, 18rem);
+  font-size: clamp(9rem, 19vw, 20rem);
   font-weight: 680;
-  letter-spacing: -0.095em;
-  line-height: 0.6;
+  letter-spacing: var(--display-tracking);
+  line-height: 0.83;
 }
 
 .hero__title-line {
@@ -119,9 +120,11 @@ defineProps({
 }
 
 .hero__title-line:last-child {
-  margin-left: 13vw;
+  margin-left: 7vw;
   color: var(--blue);
-  font-size: 0.62em;
+  font-size: 0.69em;
+  letter-spacing: var(--display-tracking);
+  line-height: 0.95;
 }
 
 .hero__gallery {
@@ -133,33 +136,33 @@ defineProps({
 .hero-print {
   position: absolute;
   display: block;
-  border: 0.55rem solid var(--paper-cool);
+  border: 0.5rem solid var(--paper-cool);
   background: var(--paper-cool);
   box-shadow: 0 0 0 1px var(--black);
 }
 
 .hero-print--1 {
-  top: 46%;
-  left: 38%;
+  top: 43%;
+  left: 37%;
   z-index: 3;
   width: min(32vw, 32rem);
-  transform: rotate(-2.2deg);
+  transform: rotate(-3deg);
 }
 
 .hero-print--2 {
-  bottom: 4%;
-  left: 10%;
+  bottom: 10%;
+  left: 6%;
   z-index: 4;
-  width: min(25vw, 24rem);
-  transform: rotate(4deg);
+  width: min(29vw, 28rem);
+  transform: rotate(2deg);
 }
 
 .hero-print--3 {
-  right: 3%;
-  bottom: 7%;
+  right: 4%;
+  bottom: 11%;
   z-index: 2;
-  width: min(24vw, 23rem);
-  transform: rotate(-4deg);
+  width: min(23vw, 23rem);
+  transform: rotate(3deg);
 }
 
 .hero-print__media {
@@ -180,10 +183,10 @@ defineProps({
 }
 
 .hero-print__caption strong {
-  font-size: clamp(0.72rem, 1.2vw, 0.95rem);
+  font-size: clamp(0.875rem, 1.2vw, 1rem);
   font-weight: 560;
   letter-spacing: -0.025em;
-  line-height: 1.05;
+  line-height: 1.3;
 }
 
 .hero-print:hover strong,
@@ -193,31 +196,31 @@ defineProps({
 
 .hero__role {
   position: absolute;
-  top: 6%;
+  top: 8%;
   right: clamp(1.25rem, 3vw, 3rem);
   z-index: 6;
-  width: min(24rem, 27vw);
-  background: var(--signal-red);
+  width: min(23rem, 27vw);
+  border-top: 0.4rem solid var(--signal-red);
+  background: var(--paper-cool);
   color: var(--black);
-  padding: 1rem;
-  transform: rotate(2deg);
+  padding: 1rem 0 0;
 }
 
 .hero__role p {
   margin: 0;
-  font-size: clamp(0.85rem, 1.4vw, 1.08rem);
+  font-size: clamp(1rem, 1.5vw, 1.3rem);
   font-weight: 520;
-  line-height: 1.35;
+  line-height: 1.45;
 }
 
 .hero__role nav {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem 1rem;
-  margin-top: 2.5rem;
+  margin-top: 1.5rem;
   border-top: 1px solid currentColor;
   padding-top: 0.55rem;
-  font-size: 0.68rem;
+  font-size: 0.8125rem;
 }
 
 .hero__role a:hover,
@@ -228,7 +231,7 @@ defineProps({
 
 .hero__role a {
   display: inline-flex;
-  min-height: 1.75rem;
+  min-height: 2.75rem;
   align-items: center;
 }
 
@@ -243,16 +246,16 @@ defineProps({
 
 .hero__seal {
   position: absolute;
-  bottom: 5%;
-  left: 43%;
+  top: 43%;
+  left: 72%;
   z-index: 5;
   display: grid;
-  width: clamp(4rem, 7vw, 7rem);
+  width: clamp(4rem, 6vw, 6rem);
   aspect-ratio: 1;
   place-items: center;
   border-radius: 50%;
-  background: var(--blue);
-  color: var(--paper-cool);
+  background: var(--signal-red);
+  color: var(--black);
   font-family: 'IBM Plex Mono', monospace;
   font-size: clamp(0.8rem, 1.5vw, 1.3rem);
   transform: rotate(10deg);
@@ -282,96 +285,141 @@ defineProps({
   }
 
   .hero h1 {
-    font-size: clamp(6rem, 24vw, 12rem);
+    font-size: clamp(8rem, 25vw, 13rem);
   }
 
   .hero__title-line:last-child {
-    margin-left: 4vw;
+    margin-left: 5vw;
+    font-size: 0.63em;
   }
 
   .hero__role {
-    top: 28%;
-    right: 1.25rem;
-    width: min(22rem, 44vw);
+    top: 30%;
+    right: 6%;
+    width: 42%;
   }
 
   .hero-print--1 {
-    top: 48%;
-    left: 26%;
-    width: 50vw;
+    top: 54%;
+    left: 28%;
+    width: 43%;
   }
 
   .hero-print--2 {
-    bottom: 3%;
-    left: 3%;
-    width: 34vw;
+    bottom: 8%;
+    left: 5%;
+    width: 35%;
   }
 
   .hero-print--3 {
-    right: 2%;
+    right: 5%;
     bottom: 7%;
-    width: 31vw;
+    width: 29%;
+  }
+
+  .hero__seal {
+    top: 40%;
+    left: 17%;
   }
 }
 
 @media (max-width: 560px) {
   .hero {
-    min-height: 64rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    min-height: 0;
+    padding: 2.5rem var(--page-gutter) 1.5rem;
   }
 
   .hero__identity {
-    top: 2rem;
+    position: relative;
+    inset: auto;
   }
 
   .hero h1 {
     margin-top: 1.5rem;
-    font-size: clamp(5.2rem, 29vw, 8rem);
-    line-height: 0.65;
+    font-size: 29vw;
   }
 
   .hero__title-line:last-child {
-    margin-left: 0;
-    font-size: 0.52em;
+    margin-left: 4vw;
+    font-size: 0.58em;
   }
 
   .hero__role {
-    top: 22%;
-    right: -0.35rem;
-    width: 72vw;
+    position: relative;
+    inset: auto;
+    grid-row: 2;
+    width: 82%;
+    margin: 2rem 0 0 auto;
+  }
+
+  .hero__role p {
+    font-size: 1rem;
   }
 
   .hero__role nav {
-    margin-top: 1.5rem;
+    gap: 0.25rem 0.75rem;
+    margin-top: 1rem;
+  }
+
+  .hero__gallery {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem 1rem;
+    padding-block: 2.5rem;
   }
 
   .hero-print {
-    border-width: 0.35rem;
+    position: relative;
+    inset: auto;
+    width: 100%;
+    border-width: 0.3rem;
   }
 
   .hero-print--1 {
-    top: 42%;
-    left: 13%;
-    width: 72vw;
+    grid-column: 1 / -1;
+    width: 78%;
+    margin-inline: auto;
   }
 
   .hero-print--2 {
-    bottom: 2%;
-    left: -7%;
-    width: 48vw;
+    align-self: center;
+    transform: rotate(-3deg);
   }
 
   .hero-print--3 {
-    right: -7%;
-    bottom: 8%;
-    width: 43vw;
+    transform: rotate(4deg);
   }
 
-  .hero__seal {
-    bottom: 11%;
-    left: 47%;
+  .hero-print__caption {
+    grid-template-columns: 1fr auto;
+    gap: 0.35rem;
+  }
+
+  .hero-print__caption .meta-type {
+    grid-column: 1 / -1;
+  }
+
+  .hero-print__caption strong {
+    font-size: 0.8125rem;
   }
 
   .hero__edition {
+    position: relative;
+    inset: auto;
+    border-top: 1px solid var(--rule);
+    padding-top: 1rem;
+  }
+
+  .hero__seal {
+    top: 37%;
+    left: 3%;
+    width: 3rem;
+  }
+
+  .hero__side-note {
     display: none;
   }
 }

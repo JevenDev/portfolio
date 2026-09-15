@@ -38,14 +38,14 @@ function activate() { emit('activate', props.project); }
   align-items: center;
   min-height: 5rem;
   padding: 0.65rem 0;
-  font-size: 0.7rem;
+  font-size: 0.875rem;
 }
 
 .index-row strong {
   font-size: clamp(1rem, 1.9vw, 1.65rem);
   font-weight: 540;
   letter-spacing: -0.035em;
-  line-height: 1.05;
+  line-height: 1.2;
 }
 
 .index-row__number,

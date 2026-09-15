@@ -29,7 +29,7 @@ defineProps({
   border-top: 1px solid currentColor;
   padding-top: 0.55rem;
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.66rem;
+  font-size: 0.75rem;
   font-weight: 400;
   line-height: 1.3;
 }

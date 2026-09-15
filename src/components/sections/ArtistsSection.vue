@@ -42,7 +42,7 @@ defineProps({ artists: { type: Array, default: () => [] } });
   position: relative;
   overflow: hidden;
   background: var(--paper-cool);
-  padding: clamp(5rem, 10vw, 10rem) clamp(1.25rem, 3vw, 3rem);
+  padding: var(--section-space) var(--page-gutter);
   isolation: isolate;
 }
 
@@ -82,18 +82,19 @@ defineProps({ artists: { type: Array, default: () => [] } });
 
 .artists__head h2 {
   margin: 0;
-  max-width: 8ch;
+  max-width: 11ch;
   font-size: clamp(4rem, 8vw, 9rem);
   font-weight: 650;
-  letter-spacing: -0.085em;
-  line-height: 0.76;
+  letter-spacing: var(--display-tracking);
+  line-height: 0.94;
 }
 
 .artists__head > p {
   max-width: 30rem;
   margin: 0;
   color: var(--ink-soft);
-  font-size: 0.82rem;
+  font-size: 1rem;
+  line-height: 1.6;
 }
 
 .artists__list {
@@ -105,7 +106,7 @@ defineProps({ artists: { type: Array, default: () => [] } });
 
 .artist {
   display: grid;
-  grid-template-columns: 2.5rem 8rem minmax(12rem, 0.85fr) 8rem minmax(15rem, 1fr);
+  grid-template-columns: 2.5rem 7rem minmax(0, 1fr) 7rem minmax(0, 0.8fr);
   gap: 1rem;
   align-items: center;
   min-height: 12rem;
@@ -114,9 +115,9 @@ defineProps({ artists: { type: Array, default: () => [] } });
 }
 
 .artist img {
-  width: 7.5rem;
+  width: 6rem;
   aspect-ratio: 1;
-  border-radius: 50%;
+  border: 0.3rem solid var(--paper);
   object-fit: cover;
   filter: grayscale(1) contrast(1.2);
   transition: filter 160ms ease;
@@ -128,17 +129,18 @@ defineProps({ artists: { type: Array, default: () => [] } });
 }
 
 .artist h3 {
-  font-size: clamp(2.3rem, 4.8vw, 5.4rem);
+  font-size: clamp(2rem, 3.8vw, 4rem);
   font-weight: 640;
-  letter-spacing: -0.075em;
-  line-height: 0.78;
+  letter-spacing: var(--display-tracking);
+  line-height: 1;
+  overflow-wrap: anywhere;
 }
 
 .artist__identity p,
 .artist__credits > p {
   margin-top: 0.3rem;
   color: var(--ink-soft);
-  font-size: 0.72rem;
+  font-size: 0.875rem;
   line-height: 1.4;
 }
 
@@ -147,7 +149,7 @@ defineProps({ artists: { type: Array, default: () => [] } });
   flex-wrap: wrap;
   gap: 0.3rem 0.8rem;
   margin-top: 0.45rem;
-  font-size: 0.68rem;
+  font-size: 0.875rem;
 }
 
 .artist__links a:hover,
@@ -157,7 +159,7 @@ defineProps({ artists: { type: Array, default: () => [] } });
 
 .artist__links a {
   display: inline-flex;
-  min-height: 1.75rem;
+  min-height: 2.75rem;
   align-items: center;
 }
 
@@ -188,7 +190,7 @@ defineProps({ artists: { type: Array, default: () => [] } });
   }
 
   .artist {
-    grid-template-columns: 1.5rem 3.5rem 1fr;
+    grid-template-columns: 1.5rem 3.5rem minmax(0, 1fr);
     min-height: 9rem;
   }
 

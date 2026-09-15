@@ -3,9 +3,11 @@
     <RegistrationStrip class="work__registration" index="01" label="Selected work" detail="Six project chapters" tone="light" />
 
     <header class="work__head" data-motion-section>
-      <p class="meta-type">Selected projects / 01–06</p>
-      <h2 id="work-title" data-poster-heading>A working index of images, identities, interfaces, and sound.</h2>
-      <RouterLink to="/archive/" data-poster-copy>Everything in the archive ↗</RouterLink>
+      <h2 id="work-title" data-poster-heading>Selected <span>work.</span></h2>
+      <div class="work__intro" data-poster-copy>
+        <p>A working index of images, identities, interfaces, and sound.</p>
+        <RouterLink to="/archive/">Everything in the archive ↗</RouterLink>
+      </div>
     </header>
 
     <div class="work__chapters">
@@ -58,11 +60,11 @@ defineProps({ projects: { type: Array, default: () => [] } });
 
 .work__head {
   display: grid;
-  grid-template-columns: 0.35fr 1fr auto;
+  grid-template-columns: 1.5fr 0.5fr;
   gap: clamp(1.5rem, 4vw, 4rem);
-  align-items: start;
+  align-items: end;
   min-height: 26rem;
-  padding: clamp(4rem, 9vw, 9rem) clamp(1.25rem, 3vw, 3rem);
+  padding: clamp(3rem, 6vw, 6rem) var(--page-gutter);
 }
 
 .work__head p,
@@ -71,27 +73,42 @@ defineProps({ projects: { type: Array, default: () => [] } });
 }
 
 .work__head h2 {
-  max-width: 14ch;
+  max-width: 10ch;
   color: var(--blue-soft);
-  font-size: clamp(3rem, 7vw, 7.5rem);
+  font-size: clamp(5rem, 13vw, 13rem);
   font-weight: 480;
-  letter-spacing: -0.075em;
-  line-height: 0.88;
+  letter-spacing: var(--display-tracking);
+  line-height: 0.87;
 }
 
-.work__head > a {
+.work__intro a {
   display: inline-flex;
-  min-height: 1.75rem;
+  min-height: 2.75rem;
   align-items: center;
   border-bottom: 1px solid currentColor;
-  font-size: 0.72rem;
+  font-size: 0.875rem;
+}
+
+.work__head h2 span {
+  display: block;
+  margin-left: 0.8em;
+  color: var(--paper-cool);
+}
+
+.work__intro p {
+  max-width: 26ch;
+  margin-bottom: 1.5rem;
+  font-size: clamp(1rem, 1.5vw, 1.25rem);
+  line-height: 1.6;
 }
 
 .work-project {
   position: relative;
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
-  min-height: min(56rem, 86svh);
+  gap: 2rem;
+  align-items: center;
+  min-height: clamp(36rem, 62vw, 60rem);
   overflow: hidden;
   padding: clamp(2rem, 5vw, 5rem) clamp(1.25rem, 3vw, 3rem);
   isolation: isolate;
@@ -108,8 +125,8 @@ defineProps({ projects: { type: Array, default: () => [] } });
 }
 
 .work-project:nth-child(4n + 3) {
-  background: var(--signal-red);
-  color: var(--black);
+  background: var(--paper-cool);
+  color: var(--blue);
 }
 
 .work-project:nth-child(4n) {
@@ -119,41 +136,45 @@ defineProps({ projects: { type: Array, default: () => [] } });
 
 .work-project__number {
   position: absolute;
-  top: -0.11em;
-  left: -0.035em;
+  top: 0.08em;
+  left: 0.06em;
   z-index: -1;
   color: currentColor;
   font-size: clamp(10rem, 26vw, 28rem);
   font-weight: 700;
   letter-spacing: -0.1em;
   line-height: 0.75;
-  opacity: 0.12;
+  opacity: 0.09;
 }
 
 .work-project__media {
-  grid-column: 1 / span 8;
+  grid-column: 1 / span 7;
   align-self: center;
-  height: min(66vh, 43rem);
+  height: auto;
+  aspect-ratio: 4 / 3;
+  border: 0.5rem solid var(--paper-cool);
+  transform: rotate(-1.5deg);
   background: var(--paper-cool);
 }
 
 .work-project__copy {
   position: relative;
   grid-column: 8 / -1;
-  align-self: end;
+  align-self: center;
   z-index: 2;
-  margin-left: -2rem;
-  padding-bottom: clamp(1rem, 5vw, 5rem);
+  margin-left: 0;
+  padding-block: 2rem;
 }
 
 .work-project:nth-child(even) .work-project__media {
-  grid-column: 5 / -1;
+  grid-column: 6 / -1;
+  transform: rotate(1.5deg);
 }
 
 .work-project:nth-child(even) .work-project__copy {
-  grid-column: 1 / span 6;
+  grid-column: 1 / span 5;
   grid-row: 1;
-  margin-right: -2rem;
+  margin-right: 0;
   margin-left: 0;
 }
 
@@ -172,12 +193,13 @@ defineProps({ projects: { type: Array, default: () => [] } });
 }
 
 .work-project__copy h3 {
-  max-width: 10ch;
+  max-width: 12ch;
   margin: 0;
-  font-size: clamp(3rem, 7.2vw, 8rem);
+  overflow-wrap: anywhere;
+  font-size: clamp(2.5rem, 5.5vw, 6rem);
   font-weight: 630;
-  letter-spacing: -0.08em;
-  line-height: 0.78;
+  letter-spacing: var(--display-tracking);
+  line-height: 0.98;
 }
 
 .work-project__copy > span {
@@ -185,7 +207,7 @@ defineProps({ projects: { type: Array, default: () => [] } });
   margin-top: 1.5rem;
   border-bottom: 1px solid currentColor;
   padding-bottom: 0.2rem;
-  font-size: 0.72rem;
+  font-size: 0.875rem;
 }
 
 @media (max-width: 760px) {
@@ -195,10 +217,10 @@ defineProps({ projects: { type: Array, default: () => [] } });
   }
 
   .work__head h2 {
-    font-size: clamp(2.8rem, 13vw, 5rem);
+    font-size: clamp(4rem, 19vw, 8rem);
   }
 
-  .work__head > a {
+  .work__intro a {
     justify-self: start;
   }
 
@@ -210,7 +232,7 @@ defineProps({ projects: { type: Array, default: () => [] } });
 
   .work-project__media,
   .work-project:nth-child(even) .work-project__media {
-    width: 88%;
+    width: 94%;
     height: auto;
     aspect-ratio: 4 / 3;
     margin-left: auto;
@@ -223,12 +245,13 @@ defineProps({ projects: { type: Array, default: () => [] } });
 
   .work-project__copy,
   .work-project:nth-child(even) .work-project__copy {
-    margin: -1rem 0 0;
+    margin: 2rem 0 0;
     padding: 0;
   }
 
   .work-project__copy h3 {
-    font-size: clamp(3rem, 16vw, 5.5rem);
+    max-width: 17ch;
+    font-size: clamp(2.5rem, 11vw, 5rem);
   }
 
   .work-project__number {
